@@ -1,12 +1,12 @@
 <div class="login-container">
   <div class="card">
     <div class="card-header">
-      <h2>تسجيل الدخول</h2>
+      <h2>Connexion</h2>
     </div>
     <div class="card-body">
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <div class="form-group">
-          <label for="email">البريد الإلكتروني</label>
+          <label for="email">Adresse e-mail</label>
           <input
             type="email"
             id="email"
@@ -15,11 +15,11 @@
             required
             email
             class="form-control"
-            placeholder="أدخل بريدك الإلكتروني">
+            placeholder="Entrez votre adresse e-mail">
         </div>
 
         <div class="form-group">
-          <label for="password">كلمة المرور</label>
+          <label for="password">Mot de passe</label>
           <input
             type="password"
             id="password"
@@ -27,7 +27,7 @@
             [(ngModel)]="loginData.psw"
             required
             class="form-control"
-            placeholder="أدخل كلمة المرور">
+            placeholder="Entrez votre mot de passe">
         </div>
 
         <div *ngIf="errorMessage" class="alert alert-danger">
@@ -38,13 +38,13 @@
           type="submit"
           class="btn btn-primary btn-block"
           [disabled]="!loginForm.form.valid || isLoading">
-          {{ isLoading ? 'جاري التسجيل...' : 'تسجيل الدخول' }}
+          {{ isLoading ? 'Connexion en cours...' : 'Se connecter' }}
         </button>
       </form>
 
       <div class="links">
-        <a (click)="goToForgotPassword()" class="link">نسيت كلمة المرور؟</a>
-        <a (click)="goToSignup()" class="link">إنشاء حساب جديد</a>
+        <a (click)="goToForgotPassword()" class="link">Mot de passe oublié ?</a>
+        <a (click)="goToSignup()" class="link">Créer un nouveau compte</a>
       </div>
     </div>
   </div>
