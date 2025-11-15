@@ -1,201 +1,75 @@
-/* أنماط عامة */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* -------------------- */
+/* NAVBAR رئيسي          */
+/* -------------------- */
+.main-navbar {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-}
-
-/* الحاويات */
-.login-container,
-.signup-container,
-.forgot-password-container {
-  min-height: 100vh;
+  padding: 15px 30px;
+  color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* البطاقات */
-.card {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-  border: none;
-}
-
-.card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.main-navbar a {
   color: white;
-  text-align: center;
-  padding: 30px;
-  border-radius: 15px 15px 0 0 !important;
-  border: none;
-}
-
-.card-header h2 {
-  margin: 0;
-  font-weight: 300;
-}
-
-.card-body {
-  padding: 40px;
-}
-
-/* النماذج */
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: #555;
-}
-
-.form-control {
-  width: 100%;
-  padding: 12px 15px;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.form-control:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  outline: none;
-}
-
-/* الأزرار */
-.btn {
-  padding: 12px 30px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.btn-block {
-  width: 100%;
-}
-
-.btn-outline-light {
-  border: 1px solid #fff;
-}
-
-/* الروابط */
-.links {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.link {
-  color: #667eea;
+  margin-left: 20px;
   text-decoration: none;
-  cursor: pointer;
-  display: block;
-  margin: 10px 0;
+  font-weight: 500;
   transition: color 0.3s ease;
 }
 
-.link:hover {
-  color: #764ba2;
-  text-decoration: underline;
+.main-navbar a:hover {
+  color: #ffd700;
 }
 
-/* التنبيهات */
-.alert {
-  padding: 12px 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border: none;
-}
-
-.alert-danger {
-  background-color: #fee;
-  color: #c33;
-}
-
-.alert-warning {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-.alert-success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-/* الصفحة الرئيسية */
-.home-container {
+/* -------------------- */
+/* Sidebar (اختياري)    */
+/* -------------------- */
+.sidebar {
+  width: 220px;
   min-height: 100vh;
-  background: #f8f9fa;
+  background: #764ba2;
+  color: white;
+  padding: 20px;
+  position: fixed;
 }
 
-.welcome-card {
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.user-info {
-  margin-top: 30px;
-  text-align: right;
-}
-
-.info-grid {
-  display: grid;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.info-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  background: #f8f9fa;
+.sidebar a {
+  display: block;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 8px;
   border-radius: 8px;
-  border-right: 4px solid #667eea;
+  transition: background 0.3s ease;
 }
 
-/* التجاوب */
-@media (max-width: 768px) {
-  .card-body {
-    padding: 30px 20px;
-  }
-  
-  .info-item {
-    flex-direction: column;
-    text-align: center;
-  }
+.sidebar a:hover {
+  background: #667eea;
+}
+
+/* -------------------- */
+/* Main Content          */
+/* -------------------- */
+.main-content {
+  margin-left: 240px; /* حسب حجم Sidebar */
+  padding: 30px;
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+/* Cards داخل التطبيق */
+.app-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.app-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
