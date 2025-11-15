@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'virtual_medical_coaching_front';
+authService: any;
 }
