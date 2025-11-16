@@ -1,0 +1,82 @@
+$medical-blue: #007bff;
+$medical-green: #28a745;
+$medical-light: #f0f8ff;
+
+.login-container {
+  background: linear-gradient(-45deg, #00c6ff, #0072ff, #00ffa1, #28a745);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login-card {
+    width: 450px;
+    border-radius: 15px;
+    background: #fff;
+    padding: 2rem;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.25);
+    }
+
+    .text-medical-blue {
+      color: $medical-blue !important;
+    }
+
+    .btn-medical-blue {
+      background-color: $medical-blue;
+      color: #fff;
+      &:hover {
+        background-color: darken($medical-blue, 7%);
+      }
+    }
+
+    .alert-danger {
+      background-color: #f8d7da;
+      border-color: #f5c2c7;
+      color: #842029;
+    }
+
+    .alert-warning {
+      background-color: #fff3cd;
+      border-color: #ffeaa7;
+      color: #856404;
+    }
+
+    .alert-info {
+      background-color: #d1ecf1;
+      border-color: #bee5eb;
+      color: #0c5460;
+    }
+
+    label i {
+      color: $medical-blue;
+    }
+
+    .form-text {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .login-container {
+    .login-card {
+      width: 90%;
+      margin: 1rem;
+    }
+  }
+}

@@ -1,36 +1,49 @@
-<div class="home-container">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<div class="login-container d-flex flex-column min-vh-100">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">Biblio App</a>
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="fas fa-book-medical me-2"></i>virtual medical coaching App
+      </a>
       <div class="navbar-nav ms-auto">
-        <span class="navbar-text me-3">مرحباً، {{ fullName }}</span>
-        <button class="btn btn-outline-light" (click)="logout()">تسجيل الخروج</button>
+        <span class="navbar-text me-3">
+          <i class="fas fa-user me-1"></i>Bonjour, {{ fullName }}
+        </span>
+        <button class="btn btn-outline-light btn-sm" (click)="logout()">
+          <i class="fas fa-sign-out-alt me-1"></i>Déconnexion
+        </button>
       </div>
     </div>
   </nav>
 
-  <div class="container mt-4">
-    <div class="welcome-card">
-      <h1>مرحباً بك في Biblio App</h1>
-      <p class="lead">أنت مسجل الدخول بنجاح إلى النظام</p>
-      
+  <!-- Main Content -->
+  <div class="container-fluid d-flex justify-content-center align-items-center flex-grow-1 py-4">
+    <div class="card shadow-lg login-card">
+      <div class="card-body p-4">
+        <div class="text-center mb-4">
+          <h3 class="fw-bold text-medical-blue">
+            <i class="fas fa-home me-2"></i>Bienvenue dans virtual medical coaching App
+          </h3>
+          <p class="text-muted">Vous êtes connecté avec succès au système</p>
+        </div>
 
-
-
-      <div class="user-info">
-        <h3>معلومات المستخدم:</h3>
-        <div class="info-grid">
-          <div class="info-item">
-            <strong>الاسم الكامل:</strong>
-            <span>{{ currentUser?.prenom }} {{ currentUser?.nom }}</span>
-          </div>
-          <div class="info-item">
-            <strong>البريد الإلكتروني:</strong>
-            <span>{{ currentUser?.email }}</span>
-          </div>
-          <div class="info-item">
-            <strong>رقم الهاتف:</strong>
-            <span>{{ currentUser?.tel }}</span>
+        <div class="user-info">
+          <h5 class="text-medical-blue mb-3">
+            <i class="fas fa-info-circle me-2"></i>Informations de l'utilisateur:
+          </h5>
+          <div class="info-grid">
+            <div class="info-item">
+              <strong><i class="fas fa-user me-1"></i>Nom complet:</strong>
+              <span>{{ currentUser?.prenom }} {{ currentUser?.nom }}</span>
+            </div>
+            <div class="info-item">
+              <strong><i class="fas fa-envelope me-1"></i>Email:</strong>
+              <span>{{ currentUser?.email }}</span>
+            </div>
+            <div class="info-item">
+              <strong><i class="fas fa-phone me-1"></i>Téléphone:</strong>
+              <span>{{ currentUser?.tel }}</span>
+            </div>
           </div>
         </div>
       </div>

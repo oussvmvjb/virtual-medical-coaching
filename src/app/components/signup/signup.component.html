@@ -1,155 +1,135 @@
-<div class="signup-container">
-  <div class="card">
-    <div class="card-header">
-      <h2>إنشاء حساب جديد</h2>
+<div class="login-container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-3 login-card">
+    
+    <div class="text-center mb-2">
+      <h4 class="fw-bold text-medical-blue"><i class="fas fa-user-plus me-1"></i>Créer un compte</h4>
+      <p class="text-muted small">Rejoignez notre plateforme</p>
     </div>
-    <div class="card-body">
-      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
-        
-        <!-- رسائل التوجيه -->
-        <div class="alert alert-info">
-          <small>
-            <i class="fas fa-info-circle"></i>
-            تأكد من استخدام بريد إلكتروني ورقم هاتف غير مسجلين مسبقاً
-          </small>
-        </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="nom">الاسم</label>
-              <input
-                type="text"
-                id="nom"
-                name="nom"
-                [(ngModel)]="signupData.nom"
-                required
-                class="form-control"
-                placeholder="أدخل الاسم">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="prenom">اللقب</label>
-              <input
-                type="text"
-                id="prenom"
-                name="prenom"
-                [(ngModel)]="signupData.prenom"
-                required
-                class="form-control"
-                placeholder="أدخل اللقب">
-            </div>
+    <!-- Message d'information -->
+    <div class="alert alert-info py-1 mb-2 small">
+      <i class="fas fa-info-circle me-1"></i>
+      Email et téléphone non enregistrés
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+      <div class="row mb-2">
+        <div class="col-6">
+          <div class="mb-2">
+            <label for="nom" class="form-label small"><i class="fas fa-user me-1"></i>Nom</label>
+            <input
+              type="text"
+              id="nom"
+              name="nom"
+              [(ngModel)]="signupData.nom"
+              required
+              class="form-control form-control-sm"
+              placeholder="Votre nom">
           </div>
         </div>
-
-        <div class="form-group">
-          <label for="email">البريد الإلكتروني</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            [(ngModel)]="signupData.email"
-            required
-            email
-            class="form-control"
-            placeholder="أدخل البريد الإلكتروني">
-          <small class="form-text text-muted">
-            استخدم بريد إلكتروني غير مسجل مسبقاً
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label for="tel">رقم الهاتف</label>
-          <input
-            type="tel"
-            id="tel"
-            name="tel"
-            [(ngModel)]="signupData.tel"
-            required
-            class="form-control"
-            placeholder="أدخل رقم الهاتف (أرقام فقط)">
-          <small class="form-text text-muted">
-            أدخل 10-15 رقماً فقط
-          </small>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="psw">كلمة المرور</label>
-              <input
-                type="password"
-                id="psw"
-                name="psw"
-                [(ngModel)]="signupData.psw"
-                required
-                minlength="6"
-                class="form-control"
-                placeholder="كلمة المرور"
-                (input)="checkPasswordMatch()">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="confirmPassword">تأكيد كلمة المرور</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                [(ngModel)]="signupData.confirmPassword"
-                required
-                class="form-control"
-                placeholder="تأكيد كلمة المرور"
-                (input)="checkPasswordMatch()">
-            </div>
+        <div class="col-6">
+          <div class="mb-2">
+            <label for="prenom" class="form-label small"><i class="fas fa-user me-1"></i>Prénom</label>
+            <input
+              type="text"
+              id="prenom"
+              name="prenom"
+              [(ngModel)]="signupData.prenom"
+              required
+              class="form-control form-control-sm"
+              placeholder="Votre prénom">
           </div>
         </div>
-
-        <!-- رسائل الخطأ -->
-        <div *ngIf="passwordMismatch" class="alert alert-warning">
-          <i class="fas fa-exclamation-triangle"></i>
-          كلمات المرور غير متطابقة
-        </div>
-
-        <div *ngIf="errorMessage" class="alert alert-danger">
-          <i class="fas fa-times-circle"></i>
-          {{ errorMessage }}
-        </div>
-
-        <!-- أزرار -->
-        <div class="d-grid gap-2">
-          <button
-            type="submit"
-            class="btn btn-primary btn-lg"
-            [disabled]="!signupForm.form.valid || isLoading || passwordMismatch">
-            <span *ngIf="!isLoading">
-              <i class="fas fa-user-plus"></i>
-              إنشاء الحساب
-            </span>
-            <span *ngIf="isLoading">
-              <i class="fas fa-spinner fa-spin"></i>
-              جاري إنشاء الحساب...
-            </span>
-          </button>
-
-          <button
-            type="button"
-            class="btn btn-outline-secondary"
-            (click)="clearForm()"
-            [disabled]="isLoading">
-            <i class="fas fa-eraser"></i>
-            تفريغ الحقول
-          </button>
-        </div>
-      </form>
-
-      <div class="links text-center mt-3">
-        <a (click)="goToLogin()" class="link">
-          <i class="fas fa-sign-in-alt"></i>
-          لديك حساب؟ تسجيل الدخول
-        </a>
       </div>
+
+      <div class="mb-2">
+        <label for="email" class="form-label small"><i class="fas fa-envelope me-1"></i>Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="signupData.email"
+          required
+          email
+          class="form-control form-control-sm"
+          placeholder="Votre email">
+      </div>
+
+      <div class="mb-2">
+        <label for="tel" class="form-label small"><i class="fas fa-phone me-1"></i>Téléphone</label>
+        <input
+          type="tel"
+          id="tel"
+          name="tel"
+          [(ngModel)]="signupData.tel"
+          required
+          pattern="[0-9]{10,15}"
+          class="form-control form-control-sm"
+          placeholder="Numéro (10-15 chiffres)">
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-6">
+          <div class="mb-2">
+            <label for="psw" class="form-label small"><i class="fas fa-lock me-1"></i>Mot de passe</label>
+            <input
+              type="password"
+              id="psw"
+              name="psw"
+              [(ngModel)]="signupData.psw"
+              required
+              minlength="6"
+              class="form-control form-control-sm"
+              placeholder="Mot de passe"
+              (input)="checkPasswordMatch()">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-2">
+            <label for="confirmPassword" class="form-label small"><i class="fas fa-lock me-1"></i>Confirmation</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              [(ngModel)]="signupData.confirmPassword"
+              required
+              class="form-control form-control-sm"
+              placeholder="Confirmer"
+              (input)="checkPasswordMatch()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages d'erreur -->
+      <div *ngIf="passwordMismatch" class="alert alert-warning py-1 small mb-2">
+        <i class="fas fa-exclamation-triangle me-1"></i>
+        Mots de passe différents
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger py-1 small mb-2">
+        <i class="fas fa-times-circle me-1"></i>
+        {{ errorMessage }}
+      </div>
+
+      <!-- Button -->
+      <button type="submit" class="btn btn-medical-blue w-100 py-1 btn-sm" 
+              [disabled]="!signupForm.form.valid || isLoading || passwordMismatch">
+        <span *ngIf="!isLoading"><i class="fas fa-user-plus me-1"></i>Créer compte</span>
+        <span *ngIf="isLoading"><i class="fas fa-spinner fa-spin me-1"></i>Création...</span>
+      </button>
+
+      <button type="button" class="btn btn-outline-secondary w-100 py-1 btn-sm mt-1" 
+              (click)="clearForm()" [disabled]="isLoading">
+        <i class="fas fa-eraser me-1"></i>Réinitialiser
+      </button>
+    </form>
+
+    <!-- Links -->
+    <div class="text-center mt-2">
+      <a (click)="goToLogin()" class="text-decoration-none small">
+        <i class="fas fa-sign-in-alt me-1"></i>Déjà un compte ? Connexion
+      </a>
     </div>
+
   </div>
 </div>

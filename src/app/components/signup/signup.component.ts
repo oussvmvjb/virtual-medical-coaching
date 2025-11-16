@@ -28,35 +28,35 @@ export class SignupComponent {
   }
 
   validateForm(): boolean {
-    // إعادة تعيين رسالة الخطأ
+    // Réinitialiser le message d'erreur
     this.errorMessage = '';
 
     if (!this.signupData.nom || !this.signupData.prenom || !this.signupData.email || 
         !this.signupData.tel || !this.signupData.psw || !this.signupData.confirmPassword) {
-      this.errorMessage = 'جميع الحقول مطلوبة';
+      this.errorMessage = 'Tous les champs sont obligatoires';
       return false;
     }
 
     if (this.signupData.psw.length < 6) {
-      this.errorMessage = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+      this.errorMessage = 'Le mot de passe doit contenir au moins 6 caractères';
       return false;
     }
 
     if (this.passwordMismatch) {
-      this.errorMessage = 'كلمات المرور غير متطابقة';
+      this.errorMessage = 'Les mots de passe ne correspondent pas';
       return false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.signupData.email)) {
-      this.errorMessage = 'البريد الإلكتروني غير صالح';
+      this.errorMessage = 'L\'email n\'est pas valide';
       return false;
     }
 
-    // تحقق من رقم الهاتف
+    // Vérification du numéro de téléphone
     const telRegex = /^[0-9]{10,15}$/;
     if (!telRegex.test(this.signupData.tel)) {
-      this.errorMessage = 'رقم الهاتف يجب أن يحتوي على 10-15 رقم فقط';
+      this.errorMessage = 'Le numéro de téléphone doit contenir 10-15 chiffres uniquement';
       return false;
     }
 
@@ -80,14 +80,14 @@ export class SignupComponent {
       },
       error: (error) => {
         this.isLoading = false;
-        console.error('Signup error:', error);
+        console.error('Erreur d\'inscription:', error);
         
-        // عرض رسالة الخطأ للمستخدم
+        // Afficher le message d'erreur à l'utilisateur
         this.errorMessage = error.message;
         
-        // إذا كان الخطأ بسبب البريد المكرر، اقترح حلولاً
+        // Si l'erreur est due à un email dupliqué, suggérer des solutions
         if (error.message.includes('email')) {
-          this.errorMessage += ' - حاول استخدام بريد إلكتروني مختلف أو استعادة كلمة المرور';
+          this.errorMessage += ' - Essayez d\'utiliser un email différent ou récupérez votre mot de passe';
         }
       }
     });
@@ -97,7 +97,7 @@ export class SignupComponent {
     this.router.navigate(['/login']);
   }
 
-  // دالة لتفريغ الحقول
+  // Fonction pour vider les champs
   clearForm(): void {
     this.signupData = {
       nom: '',

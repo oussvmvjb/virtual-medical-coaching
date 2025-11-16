@@ -29,13 +29,13 @@ export class LoginComponent {
         if (user) {
           this.router.navigate(['/home']);
         } else {
-          this.errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+          this.errorMessage = 'Email ou mot de passe incorrect';
         }
       },
       error: (error) => {
         this.isLoading = false;
-        this.errorMessage = 'حدث خطأ أثناء تسجيل الدخول';
-        console.error('Login error:', error);
+        this.errorMessage = 'Une erreur est survenue lors de la connexion';
+        console.error('Erreur de connexion:', error);
       }
     });
   }

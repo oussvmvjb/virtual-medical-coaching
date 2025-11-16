@@ -1,0 +1,74 @@
+$medical-blue: #007bff;
+$medical-green: #28a745;
+$medical-light: #f0f8ff;
+
+.app-background {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(-45deg, #00c6ff, #0072ff, #00ffa1, #28a745);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+.card-medical {
+  width: 450px;
+  border-radius: 15px;
+  background: #fff;
+  padding: 2rem;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 40px rgba(0,0,0,0.25);
+  }
+
+  .card-header {
+    background-color: $medical-blue;
+    color: #fff;
+    border-radius: 1rem 1rem 0 0;
+    text-align: center;
+    padding: 1rem;
+    h2 {
+      font-weight: 600;
+      i { margin-right: 0.5rem; }
+    }
+  }
+
+  .btn-medical-blue {
+    background-color: $medical-blue;
+    color: #fff;
+    &:hover { background-color: darken($medical-blue, 7%); }
+  }
+
+  label i {
+    color: $medical-blue;
+  }
+
+  .alert-info {
+    background-color: lighten($medical-blue, 35%);
+    border-color: $medical-blue;
+    color: $medical-blue;
+  }
+
+  .alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+  }
+
+  .alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    color: #842029;
+  }
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -22,140 +22,138 @@ export class ForgotPasswordComponent {
   private emailjsConfig = environment.emailjs;
 
   constructor(private authService: AuthService, private router: Router) {
-    // تهيئة EmailJS
+    // Initialisation d'EmailJS
     emailjs.init(this.emailjsConfig.publicKey);
-    console.log('📧 EmailJS initialized with config:', this.emailjsConfig);
+    console.log('📧 EmailJS initialisé avec la configuration:', this.emailjsConfig);
   }
 
   validateEmail(): boolean {
     this.errorMessage = '';
     
     if (!this.requestData.email) {
-      this.errorMessage = 'البريد الإلكتروني مطلوب';
+      this.errorMessage = 'L\'email est requis';
       return false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.requestData.email)) {
-      this.errorMessage = 'البريد الإلكتروني غير صالح';
+      this.errorMessage = 'L\'email n\'est pas valide';
       return false;
     }
 
     return true;
   }
 
-async onSubmit(): Promise<void> {
-  if (!this.validateEmail()) {
-    return;
-  }
-
-  this.isLoading = true;
-  this.message = '';
-  this.errorMessage = '';
-  this.isSuccess = false;
-
-  try {
-    console.log('🚀 Starting password reset for:', this.requestData.email);
-
-    // 1. التحقق من وجود البريد
-    const userExists = await this.checkUserExists(this.requestData.email);
-    
-    if (!userExists) {
-      this.errorMessage = 'البريد الإلكتروني غير مسجل في النظام';
-      this.isLoading = false;
+  async onSubmit(): Promise<void> {
+    if (!this.validateEmail()) {
       return;
     }
 
-    console.log('✅ User exists, generating new password...');
+    this.isLoading = true;
+    this.message = '';
+    this.errorMessage = '';
+    this.isSuccess = false;
 
-    // 2. إنشاء كلمة مرور جديدة
-    const newPassword = this.generateRandomPassword();
-    console.log('🔑 Generated password:', newPassword);
-    
-    // 3. تحديث كلمة المرور في قاعدة البيانات أولاً
-    await this.updateUserPassword(this.requestData.email, newPassword);
-    
-    console.log('✅ Password updated in database, attempting to send email...');
-
-    // 4. محاولة إرسال البريد الإلكتروني (مع معالجة الخطأ)
     try {
-      await this.sendPasswordByEmail(this.requestData.email, newPassword);
-      console.log('✅ Email sent successfully!');
-      
-      this.isSuccess = true;
-      this.message = `✅ تم إرسال كلمة المرور الجديدة إلى ${this.requestData.email}`;
-      
-    } catch (emailError) {
-      console.warn('⚠️ Email failed but password was updated');
-      
-      // عرض كلمة المرور للمستخدم مباشرةً
-      this.isSuccess = true;
-      this.message = `✅ تم تحديث كلمة المرور بنجاح! 
-      كلمة المرور الجديدة: ${newPassword}
-      يرجى استخدامها لتسجيل الدخول ثم تغييرها لاحقاً.`;
-    }
-    
-    setTimeout(() => {
-      this.router.navigate(['/login']);
-    }, 8000); // وقت أطول لقراءة كلمة المرور
+      console.log('🚀 Début de la réinitialisation du mot de passe pour:', this.requestData.email);
 
-  } catch (error: any) {
-    console.error('❌ Password reset error:', error);
-    this.errorMessage = 'حدث خطأ في العملية: ' + error.message;
-  } finally {
-    this.isLoading = false;
+      // 1. Vérifier si l'email existe
+      const userExists = await this.checkUserExists(this.requestData.email);
+      
+      if (!userExists) {
+        this.errorMessage = 'L\'email n\'est pas enregistré dans le système';
+        this.isLoading = false;
+        return;
+      }
+
+      console.log('✅ Utilisateur existe, génération du nouveau mot de passe...');
+
+      // 2. Générer un nouveau mot de passe
+      const newPassword = this.generateRandomPassword();
+      console.log('🔑 Mot de passe généré:', newPassword);
+      
+      // 3. Mettre à jour le mot de passe dans la base de données d'abord
+      await this.updateUserPassword(this.requestData.email, newPassword);
+      
+      console.log('✅ Mot de passe mis à jour dans la base de données, tentative d\'envoi d\'email...');
+
+      // 4. Tenter d'envoyer l'email (avec gestion d'erreur)
+      try {
+        await this.sendPasswordByEmail(this.requestData.email, newPassword);
+        console.log('✅ Email envoyé avec succès!');
+        
+        this.isSuccess = true;
+        this.message = `✅ Le nouveau mot de passe a été envoyé à ${this.requestData.email}`;
+        
+      } catch (emailError) {
+        console.warn('⚠️ L\'email a échoué mais le mot de passe a été mis à jour');
+        
+        // Afficher le mot de passe directement à l'utilisateur
+        this.isSuccess = true;
+        this.message = `✅ Mot de passe mis à jour avec succès! 
+        Nouveau mot de passe: ${newPassword}
+        Veuillez l'utiliser pour vous connecter puis le changer ultérieurement.`;
+      }
+      
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 8000); // Plus de temps pour lire le mot de passe
+
+    } catch (error: any) {
+      console.error('❌ Erreur de réinitialisation du mot de passe:', error);
+      this.errorMessage = 'Une erreur est survenue: ' + error.message;
+    } finally {
+      this.isLoading = false;
+    }
   }
-}
 
   private async checkUserExists(email: string): Promise<boolean> {
     return new Promise((resolve) => {
       this.authService.checkEmailExists(email).subscribe({
         next: (exists) => {
-          console.log('👤 User exists result:', exists);
+          console.log('👤 Résultat de l\'existence de l\'utilisateur:', exists);
           resolve(exists);
         },
         error: (error) => {
-          console.error('❌ Error checking user exists:', error);
+          console.error('❌ Erreur lors de la vérification de l\'utilisateur:', error);
           resolve(false);
         }
       });
     });
   }
 
- 
-
-
-private async updateUserPassword(email: string, newPassword: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    console.log('💾 Calling updatePassword API for:', email);
-    
-    this.authService.updatePassword(email, newPassword).subscribe({
-      next: (response) => {
-        console.log('✅ Password update response:', response);
-        
-        // معالجة الـ response النصي
-        if (typeof response === 'string' && response.includes('Password updated successfully')) {
-          console.log('✅ Password updated successfully in database');
-          resolve();
-        } else {
-          console.warn('⚠️ Unexpected response:', response);
-          resolve(); // مع ذلك نعتبره نجاحاً
+  private async updateUserPassword(email: string, newPassword: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      console.log('💾 Appel de l\'API updatePassword pour:', email);
+      
+      this.authService.updatePassword(email, newPassword).subscribe({
+        next: (response) => {
+          console.log('✅ Réponse de la mise à jour du mot de passe:', response);
+          
+          // Traitement de la réponse textuelle
+          if (typeof response === 'string' && response.includes('Password updated successfully')) {
+            console.log('✅ Mot de passe mis à jour avec succès dans la base de données');
+            resolve();
+          } else {
+            console.warn('⚠️ Réponse inattendue:', response);
+            resolve(); // On considère quand même comme un succès
+          }
+        },
+        error: (error) => {
+          console.error('❌ Erreur lors de la mise à jour du mot de passe dans la base de données:', error);
+          
+          // Si le statut est 200 mais ok: false, on considère comme un succès
+          if (error.status === 200) {
+            console.log('✅ On considère le statut 200 comme un succès malgré ok:false');
+            resolve();
+          } else {
+            reject(new Error('Échec de la mise à jour du mot de passe dans le système'));
+          }
         }
-      },
-      error: (error) => {
-        console.error('❌ Error updating password in database:', error);
-        
-        // إذا كان status 200 ولكن ok: false، نعتبره نجاحاً
-        if (error.status === 200) {
-          console.log('✅ Considering 200 status as success despite ok:false');
-          resolve();
-        } else {
-          reject(new Error('فشل في تحديث كلمة المرور في النظام'));
-        }
-      }
+      });
     });
-  });
-}
+  }
+
   private generateRandomPassword(): string {
     const length = 10;
     const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%';
@@ -169,66 +167,64 @@ private async updateUserPassword(email: string, newPassword: string): Promise<vo
   }
 
   private handleEmailError(error: any): void {
-    console.error('❌ Full error details:', error);
+    console.error('❌ Détails complets de l\'erreur:', error);
     
-    if (error?.message?.includes('فشل في إرسال البريد الإلكتروني')) {
-      this.errorMessage = 'تم تحديث كلمة المرور ولكن فشل إرسال البريد. يرجى استخدام كلمة المرور الجديدة لتسجيل الدخول.';
+    if (error?.message?.includes('Échec de l\'envoi de l\'email')) {
+      this.errorMessage = 'Le mot de passe a été mis à jour mais l\'envoi de l\'email a échoué. Veuillez utiliser le nouveau mot de passe pour vous connecter.';
     } else if (error?.message) {
       this.errorMessage = error.message;
     } else {
-      this.errorMessage = 'حدث خطأ غير متوقع، يرجى المحاولة لاحقاً';
+      this.errorMessage = 'Une erreur inattendue est survenue, veuillez réessayer plus tard';
     }
   }
 
+  private async sendPasswordByEmail(userEmail: string, newPassword: string): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        console.log('📧 Début du processus d\'envoi d\'email...');
+        
+        const templateParams = {
+          to_email: userEmail,
+          user_email: userEmail,
+          new_password: newPassword,
+          app_name: 'virtual medical coaching App',
+          support_email: 'support@biblioapp.com',
+          current_year: new Date().getFullYear(),
+          login_url: 'http://localhost:4200/login'
+        };
 
-  // دالة لعرض بيانات EmailJS للتdebug
+        console.log('🔧 Paramètres EmailJS:', {
+          serviceId: this.emailjsConfig.serviceId,
+          templateId: this.emailjsConfig.templateId,
+          publicKey: this.emailjsConfig.publicKey.substring(0, 10) + '...' // Cacher une partie de la clé
+        });
 
-private async sendPasswordByEmail(userEmail: string, newPassword: string): Promise<void> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      console.log('📧 Starting email sending process...');
-      
-      const templateParams = {
-        to_email: userEmail,
-        user_email: userEmail,
-        new_password: newPassword,
-        app_name: 'Biblio App',
-        support_email: 'support@biblioapp.com',
-        current_year: new Date().getFullYear(),
-        login_url: 'http://localhost:4200/login'
-      };
+        console.log('📨 Paramètres du template:', templateParams);
 
-      console.log('🔧 EmailJS Parameters:', {
-        serviceId: this.emailjsConfig.serviceId,
-        templateId: this.emailjsConfig.templateId,
-        publicKey: this.emailjsConfig.publicKey.substring(0, 10) + '...' // إخفاء part من المفتاح
-      });
+        // Tentative d'envoi de l'email
+        const response = await emailjs.send(
+          this.emailjsConfig.serviceId,
+          this.emailjsConfig.templateId,
+          templateParams,
+          this.emailjsConfig.publicKey
+        );
 
-      console.log('📨 Template Params:', templateParams);
+        console.log('✅ Réponse EmailJS:', response);
+        resolve();
 
-      // محاولة إرسال البريد
-      const response = await emailjs.send(
-        this.emailjsConfig.serviceId,
-        this.emailjsConfig.templateId,
-        templateParams,
-        this.emailjsConfig.publicKey
-      );
+      } catch (error: any) {
+        console.error('❌ Détails de l\'erreur EmailJS:', {
+          status: error?.status,
+          text: error?.text,
+          message: error?.message,
+          fullError: error
+        });
+        
+        reject(new Error('Échec de l\'envoi de l\'email: ' + (error?.text || error?.message || 'Erreur inconnue')));
+      }
+    });
+  }
 
-      console.log('✅ EmailJS Response:', response);
-      resolve();
-
-    } catch (error: any) {
-      console.error('❌ EmailJS Error Details:', {
-        status: error?.status,
-        text: error?.text,
-        message: error?.message,
-        fullError: error
-      });
-      
-      reject(new Error('فشل إرسال البريد: ' + (error?.text || error?.message || 'Unknown error')));
-    }
-  });
-}
   goToLogin(): void {
     this.router.navigate(['/login']);
   }
@@ -243,33 +239,34 @@ private async sendPasswordByEmail(userEmail: string, newPassword: string): Promi
     this.errorMessage = '';
     this.isSuccess = false;
   }
-  // دالة لاختبار إرسال البريد منفرداً
-async testEmailJS(): Promise<void> {
-  const testEmail = this.requestData.email || 'test@example.com';
-  const testPassword = 'TestPassword123';
-  
-  this.isLoading = true;
-  this.message = '';
-  this.errorMessage = '';
 
-  try {
-    console.log('🧪 Testing EmailJS only...');
-    await this.sendPasswordByEmail(testEmail, testPassword);
-    this.message = '✅ اختبار إرسال البريد نجح!';
-  } catch (error: any) {
-    console.error('❌ EmailJS Test Failed:', error);
-    this.errorMessage = '❌ فشل اختبار البريد: ' + error.message;
-  } finally {
-    this.isLoading = false;
+  // Fonction pour tester l'envoi d'email seul
+  async testEmailJS(): Promise<void> {
+    const testEmail = this.requestData.email || 'test@example.com';
+    const testPassword = 'TestPassword123';
+    
+    this.isLoading = true;
+    this.message = '';
+    this.errorMessage = '';
+
+    try {
+      console.log('🧪 Test d\'EmailJS uniquement...');
+      await this.sendPasswordByEmail(testEmail, testPassword);
+      this.message = '✅ Test d\'envoi d\'email réussi!';
+    } catch (error: any) {
+      console.error('❌ Test EmailJS échoué:', error);
+      this.errorMessage = '❌ Échec du test d\'email: ' + error.message;
+    } finally {
+      this.isLoading = false;
+    }
   }
-}
 
-// دالة لعرض إعدادات EmailJS
-showEmailJSConfig(): void {
-  console.log('🔧 Full EmailJS Config:', this.emailjsConfig);
-  this.message = `إعدادات EmailJS:
-  Service: ${this.emailjsConfig.serviceId}
-  Template: ${this.emailjsConfig.templateId}
-  Public Key: ${this.emailjsConfig.publicKey.substring(0, 10)}...`;
-}
+  // Fonction pour afficher les paramètres EmailJS
+  showEmailJSConfig(): void {
+    console.log('🔧 Configuration complète d\'EmailJS:', this.emailjsConfig);
+    this.message = `Paramètres EmailJS:
+    Service: ${this.emailjsConfig.serviceId}
+    Template: ${this.emailjsConfig.templateId}
+    Clé Publique: ${this.emailjsConfig.publicKey.substring(0, 10)}...`;
+  }
 }
