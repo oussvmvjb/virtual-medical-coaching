@@ -19,12 +19,6 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
-
   get fullName(): string {
     return this.currentUser ? `${this.currentUser.prenom} ${this.currentUser.nom}` : '';
   }

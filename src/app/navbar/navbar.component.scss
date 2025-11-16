@@ -1,0 +1,340 @@
+:host ::ng-deep body {
+  padding-top: 70px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 1050;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 70px; /* يترك فراغ تحتها */
+}
+
+.stars-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.navbar-brand {
+  font-family: 'Cairo', Arial, sans-serif;
+  font-weight: bold;
+  color: white !important;
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem !important;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #ffa500 !important;
+}
+
+.nav-link i {
+  margin-left: 5px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+ background: rgba(0, 0, 0, 0.4); /* خلفية شفافة */
+  backdrop-filter: blur(1px); /* تأثير زجاجي */
+  -webkit-backdrop-filter: blur(1px); /* دعم سفاري */
+  padding: 1rem;
+  z-index: 1050;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar a {
+  color: white;
+  display: block;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.sidebar a:hover, .sidebar a.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffa500;
+}
+
+.close-btn {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  display: block;
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+@media (max-width: 992px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+}
+.parent-container {
+  display: flex;
+  justify-content: space-between; /* يوزع العناصر على طول المحور الرئيسي */
+  align-items: center; /* يركز العناصر عموديًا */
+}
+
+.custom-inac {
+  margin-block-end: auto;
+  position: relative;
+  top: -7px;
+  left:  25px;
+  margin-left: auto; /* يدفع العنصر إلى أقصى اليمين */
+}
+
+.custom-lo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute; /* لجعله في المنتصف تمامًا */
+  right:  200px; /* يضعه في اليمين */
+  top: 5px; /* يضعه في الأعلى */
+  transform: translateX(-50%);
+    /* مسافة من اليسار */
+}
+.mobile-sub-navbar {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4); /* خلفية شفافة */
+  backdrop-filter: blur(20px); /* تأثير زجاجي أقوى */
+  -webkit-backdrop-filter: blur(6px); /* دعم سفاري */
+  position: sticky;
+  top: 50px; /* ارتفاع الـNavbar الكبيرة */
+  z-index: 1020;
+  padding: 8px 0;
+  transition: background 0.3s ease;
+  width: 100%;              /* أصغر من عرض الشاشة */
+          /* توسيط */
+     /* زوايا دائرية */
+}
+
+
+.mobile-sub-navbar a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.mobile-sub-navbar a i {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 3px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+
+/* تأثير عند اللمس أو التمرير */
+.mobile-sub-navbar a:hover i,
+.mobile-sub-navbar a:active i {
+  transform: scale(1.2);
+  color: #ffcc00 !important;
+}
+
+.mobile-sub-navbar a:hover,
+.mobile-sub-navbar a:active {
+  color: #ffcc00 !important;
+}
+
+.mobile-sub-navbar .nav-link {
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.navbar-toggler {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  top: -7px; /* يرفع الزر قليلاً */
+  right: 25px; /* يضعه في اليسار */
+}
+
+.navbar-toggler::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+ 
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-toggler:hover::before {
+  opacity: 0.3;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  transition: transform 0.3s ease;
+}
+
+.navbar-toggler:hover .navbar-toggler-icon {
+  transform: rotate(180deg);
+}
+/* تنسيقات القائمة المنسدلة المعدلة */
+
+
+.nav-link-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-link.dropdown {
+  cursor: pointer;
+  padding: 5px 10px !important;
+}
+
+.nav-link.dropdown i {
+  transition: transform 0.3s ease;
+  font-size: 12px;
+}
+
+.nav-link.dropdown i.rotated {
+  transform: rotate(180deg);
+}
+
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+
+
+
+/* تعديلات للشاشات الصغيرة */
+
+/* تنسيقات القائمة المنسدلة */
+.dropdown-menu {
+  background: rgba(25, 25, 25, 0.98);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  padding: 5px 0;
+  margin-top: 8px;
+  min-width: 100px;
+  overflow: hidden;
+  
+  z-index: 1000;
+}
+
+
+
+.dropdown-item {
+  color: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item i {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  color: rgba(255, 165, 0, 0.7);
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 165, 0, 0.15);
+  color: #ffa500;
+  padding-right: 25px;
+}
+
+.dropdown-item:hover i {
+  color: #ffa500;
+}
+
+.dropdown-item:active {
+  background: rgba(255, 165, 0, 0.25);
+}
+
+
+
+/* تأثيرات خاصة للعنصر النشط */
+.dropdown-item.active {
+  background: rgba(255, 165, 0, 0.2);
+  color: #ffa500;
+  font-weight: 500;
+}
+
+/* تنسيقات للشاشات الصغيرة */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    min-width: 180px;
+  }
+  
+  .dropdown-item {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}

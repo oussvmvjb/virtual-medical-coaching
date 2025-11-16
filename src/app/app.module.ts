@@ -10,6 +10,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { EmailJSResponseStatus } from 'emailjs-com';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { EmailJSResponseStatus } from 'emailjs-com';
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    NavbarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
