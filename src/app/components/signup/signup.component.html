@@ -63,9 +63,9 @@
           name="tel"
           [(ngModel)]="signupData.tel"
           required
-          pattern="[0-9]{10,15}"
+          pattern="[0-9]{8,8}"
           class="form-control form-control-sm"
-          placeholder="Numéro (10-15 chiffres)">
+          placeholder="Numéro (8 chiffres)">
       </div>
 
       <div class="row mb-2">
@@ -100,7 +100,6 @@
         </div>
       </div>
 
-      <!-- Messages d'erreur -->
       <div *ngIf="passwordMismatch" class="alert alert-warning py-1 small mb-2">
         <i class="fas fa-exclamation-triangle me-1"></i>
         Mots de passe différents
@@ -111,7 +110,6 @@
         {{ errorMessage }}
       </div>
 
-      <!-- Button -->
       <button type="submit" class="btn btn-medical-blue w-100 py-1 btn-sm" 
               [disabled]="!signupForm.form.valid || isLoading || passwordMismatch">
         <span *ngIf="!isLoading"><i class="fas fa-user-plus me-1"></i>Créer compte</span>

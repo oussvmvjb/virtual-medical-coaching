@@ -22,7 +22,6 @@ export class ForgotPasswordComponent {
   private emailjsConfig = environment.emailjs;
 
   constructor(private authService: AuthService, private router: Router) {
-    // Initialisation d'EmailJS
     emailjs.init(this.emailjsConfig.publicKey);
     console.log('📧 EmailJS initialisé avec la configuration:', this.emailjsConfig);
   }
@@ -57,7 +56,6 @@ export class ForgotPasswordComponent {
     try {
       console.log('🚀 Début de la réinitialisation du mot de passe pour:', this.requestData.email);
 
-      // 1. Vérifier si l'email existe
       const userExists = await this.checkUserExists(this.requestData.email);
       
       if (!userExists) {
@@ -68,16 +66,13 @@ export class ForgotPasswordComponent {
 
       console.log('✅ Utilisateur existe, génération du nouveau mot de passe...');
 
-      // 2. Générer un nouveau mot de passe
       const newPassword = this.generateRandomPassword();
       console.log('🔑 Mot de passe généré:', newPassword);
       
-      // 3. Mettre à jour le mot de passe dans la base de données d'abord
       await this.updateUserPassword(this.requestData.email, newPassword);
       
       console.log('✅ Mot de passe mis à jour dans la base de données, tentative d\'envoi d\'email...');
 
-      // 4. Tenter d'envoyer l'email (avec gestion d'erreur)
       try {
         await this.sendPasswordByEmail(this.requestData.email, newPassword);
         console.log('✅ Email envoyé avec succès!');
@@ -88,7 +83,6 @@ export class ForgotPasswordComponent {
       } catch (emailError) {
         console.warn('⚠️ L\'email a échoué mais le mot de passe a été mis à jour');
         
-        // Afficher le mot de passe directement à l'utilisateur
         this.isSuccess = true;
         this.message = `✅ Mot de passe mis à jour avec succès! 
         Nouveau mot de passe: ${newPassword}
@@ -97,7 +91,7 @@ export class ForgotPasswordComponent {
       
       setTimeout(() => {
         this.router.navigate(['/login']);
-      }, 8000); // Plus de temps pour lire le mot de passe
+      }, 8000); 
 
     } catch (error: any) {
       console.error('❌ Erreur de réinitialisation du mot de passe:', error);
@@ -130,19 +124,17 @@ export class ForgotPasswordComponent {
         next: (response) => {
           console.log('✅ Réponse de la mise à jour du mot de passe:', response);
           
-          // Traitement de la réponse textuelle
           if (typeof response === 'string' && response.includes('Password updated successfully')) {
             console.log('✅ Mot de passe mis à jour avec succès dans la base de données');
             resolve();
           } else {
             console.warn('⚠️ Réponse inattendue:', response);
-            resolve(); // On considère quand même comme un succès
+            resolve(); 
           }
         },
         error: (error) => {
           console.error('❌ Erreur lors de la mise à jour du mot de passe dans la base de données:', error);
           
-          // Si le statut est 200 mais ok: false, on considère comme un succès
           if (error.status === 200) {
             console.log('✅ On considère le statut 200 comme un succès malgré ok:false');
             resolve();
@@ -201,7 +193,6 @@ export class ForgotPasswordComponent {
 
         console.log('📨 Paramètres du template:', templateParams);
 
-        // Tentative d'envoi de l'email
         const response = await emailjs.send(
           this.emailjsConfig.serviceId,
           this.emailjsConfig.templateId,
@@ -240,7 +231,6 @@ export class ForgotPasswordComponent {
     this.isSuccess = false;
   }
 
-  // Fonction pour tester l'envoi d'email seul
   async testEmailJS(): Promise<void> {
     const testEmail = this.requestData.email || 'test@example.com';
     const testPassword = 'TestPassword123';
@@ -261,7 +251,6 @@ export class ForgotPasswordComponent {
     }
   }
 
-  // Fonction pour afficher les paramètres EmailJS
   showEmailJSConfig(): void {
     console.log('🔧 Configuration complète d\'EmailJS:', this.emailjsConfig);
     this.message = `Paramètres EmailJS:

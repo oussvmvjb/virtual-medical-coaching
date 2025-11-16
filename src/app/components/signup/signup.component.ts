@@ -28,7 +28,6 @@ export class SignupComponent {
   }
 
   validateForm(): boolean {
-    // Réinitialiser le message d'erreur
     this.errorMessage = '';
 
     if (!this.signupData.nom || !this.signupData.prenom || !this.signupData.email || 
@@ -53,10 +52,9 @@ export class SignupComponent {
       return false;
     }
 
-    // Vérification du numéro de téléphone
-    const telRegex = /^[0-9]{10,15}$/;
+    const telRegex = /^[0-9]{8,8}$/;
     if (!telRegex.test(this.signupData.tel)) {
-      this.errorMessage = 'Le numéro de téléphone doit contenir 10-15 chiffres uniquement';
+      this.errorMessage = 'Le numéro de téléphone doit contenir 8 chiffres uniquement';
       return false;
     }
 
@@ -82,10 +80,8 @@ export class SignupComponent {
         this.isLoading = false;
         console.error('Erreur d\'inscription:', error);
         
-        // Afficher le message d'erreur à l'utilisateur
         this.errorMessage = error.message;
         
-        // Si l'erreur est due à un email dupliqué, suggérer des solutions
         if (error.message.includes('email')) {
           this.errorMessage += ' - Essayez d\'utiliser un email différent ou récupérez votre mot de passe';
         }
@@ -97,7 +93,6 @@ export class SignupComponent {
     this.router.navigate(['/login']);
   }
 
-  // Fonction pour vider les champs
   clearForm(): void {
     this.signupData = {
       nom: '',

@@ -9,10 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-// أضف هذه الدالة إلى الـ AuthService
 forgotPassword(request: ForgotPasswordRequest): Observable<any> {
-  // في التطبيق الحقيقي، هذا سيتصل بـ API منفصل لاستعادة كلمة المرور
-  // حالياً سنعيد قائمة المستخدمين للتحقق من وجود البريد
   return this.http.get<User[]>(this.apiUrl).pipe(
     map(users => {
       const userExists = users.some(user => user.email === request.email);
@@ -54,7 +51,6 @@ private apiUrl = environment.apiUrl;  private currentUserSubject = new BehaviorS
     let errorMessage = 'حدث خطأ غير متوقع';
     
     if (error.status === 400) {
-      // تحليل رسالة الخطأ من السيرفر
       if (typeof error.error === 'string') {
         if (error.error.includes('email')) {
           errorMessage = 'Erreur: L\'email existe déjà';
@@ -75,7 +71,6 @@ private apiUrl = environment.apiUrl;  private currentUserSubject = new BehaviorS
     return throwError(() => new Error(errorMessage));
   }
 
-  // باقي الدوال...
   login(credentials: LoginRequest): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}`).pipe(
       tap(users => {
@@ -90,7 +85,6 @@ private apiUrl = environment.apiUrl;  private currentUserSubject = new BehaviorS
     );
   }
 
-  // التحقق من وجود البريد الإلكتروني
   checkEmailExists(email: string): Observable<boolean> {
     return this.http.get<any[]>(this.apiUrl).pipe(
       map(users => {
@@ -101,7 +95,6 @@ private apiUrl = environment.apiUrl;  private currentUserSubject = new BehaviorS
     );
   }
 
-  // تحديث كلمة المرور في قاعدة البيانات - استخدم PUT
 updatePassword(email: string, newPassword: string): Observable<any> {
   const updateData = {
     email: email,
@@ -112,11 +105,10 @@ updatePassword(email: string, newPassword: string): Observable<any> {
   console.log('🌐 API URL:', `${this.apiUrl}/update-password`);
   
   return this.http.put(`${this.apiUrl}/update-password`, updateData, {
-    responseType: 'text' // إضافة هذا - الـ backend يرجع string وليس JSON
+    responseType: 'text'
   });
 }
 
-  // الحصول على جميع المستخدمين (للتdebug)
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
@@ -138,6 +130,5 @@ updatePassword(email: string, newPassword: string): Observable<any> {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
-  // أضف هذه الدالة إلى الـ AuthService
 
 }
