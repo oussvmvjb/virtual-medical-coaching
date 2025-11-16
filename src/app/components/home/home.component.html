@@ -1,35 +1,130 @@
-<div class="login-container d-flex flex-column min-vh-100">
+<div class="home-container">
+  <div class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <i class="fas fa-heartbeat me-3"></i>
+          Virtual Medical Coaching
+        </h1>
+        <p class="hero-subtitle">Votre partenaire de santé numérique</p>
+        <p class="hero-description">
+          Accédez à des conseils médicaux personnalisés, suivez votre santé 
+          et améliorez votre bien-être avec notre plateforme innovante.
+        </p>
+      </div>
+      <div class="hero-image">
+        <i class="fas fa-stethoscope hero-icon"></i>
+      </div>
+    </div>
+  </div>
 
-
-  <div class="container-fluid d-flex justify-content-center align-items-center flex-grow-1 py-4">
-    <div class="card shadow-lg login-card">
-      <div class="card-body p-4">
-        <div class="text-center mb-4">
-          <h3 class="fw-bold text-medical-blue">
-            <i class="fas fa-home me-2"></i>Bienvenue dans virtual medical coaching App
+  <div class="welcome-section">
+    <div class="container">
+      <div class="welcome-card">
+        <div class="welcome-header">
+          <h3>
+            <i class="fas fa-user-circle me-2"></i>
+            Bienvenue, {{ currentUser?.prenom }} {{ currentUser?.nom }}
           </h3>
-          <p class="text-muted">Vous êtes connecté avec succès au système</p>
+          <p class="welcome-message">Vous êtes connecté avec succès</p>
         </div>
 
-        <div class="user-info">
-          <h5 class="text-medical-blue mb-3">
-            <i class="fas fa-info-circle me-2"></i>Informations de l'utilisateur:
-          </h5>
-          <div class="info-grid">
-            <div class="info-item">
-              <strong><i class="fas fa-user me-1"></i>Nom complet:</strong>
-              <span>{{ currentUser?.prenom }} {{ currentUser?.nom }}</span>
+        <div class="user-info-section">
+          <div class="info-cards">
+            <div class="info-card">
+              <div class="info-icon">
+                <i class="fas fa-user-md"></i>
+              </div>
+              <div class="info-content">
+                <h4>Profil Médical</h4>
+                <p>{{ currentUser?.prenom }} {{ currentUser?.nom }}</p>
+              </div>
             </div>
-            <div class="info-item">
-              <strong><i class="fas fa-envelope me-1"></i>Email:</strong>
-              <span>{{ currentUser?.email }}</span>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="info-content">
+                <h4>Contact</h4>
+                <p>{{ currentUser?.email }}</p>
+              </div>
             </div>
-            <div class="info-item">
-              <strong><i class="fas fa-phone me-1"></i>Téléphone:</strong>
-              <span>{{ currentUser?.tel }}</span>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="info-content">
+                <h4>Téléphone</h4>
+                <p>{{ currentUser?.tel }}</p>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <div class="container">
+      <h2 class="section-title">Nos Services</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <h3>Consultations Virtuelles</h3>
+          <p>Consultez des professionnels de santé depuis chez vous</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Suivi Médical</h3>
+          <p>Suivez vos indicateurs de santé en temps réel</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-file-medical"></i>
+          </div>
+          <h3>Dossier Médical</h3>
+          <p>Accédez à votre historique médical sécurisé</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Rappels Intelligents</h3>
+          <p>Ne manquez jamais vos rendez-vous et médicaments</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions-section">
+    <div class="container">
+      <h2 class="section-title">Actions Rapides</h2>
+      <div class="actions-grid">
+        <a class="action-card" routerLink="/profile">
+          <i class="fas fa-user-edit"></i>
+          <span>Modifier le Profil</span>
+        </a>
+        <a class="action-card" routerLink="/appointments">
+          <i class="fas fa-calendar-check"></i>
+          <span>Prendre Rendez-vous</span>
+        </a>
+        <a class="action-card" routerLink="/medical-records">
+          <i class="fas fa-file-medical-alt"></i>
+          <span>Dossier Médical</span>
+        </a>
+        <a class="action-card" routerLink="/support">
+          <i class="fas fa-headset"></i>
+          <span>Support</span>
+        </a>
       </div>
     </div>
   </div>

@@ -18,27 +18,26 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit(): void {
-    this.isLoading = true;
-    this.errorMessage = '';
+onSubmit(): void {
+  this.isLoading = true;
+  this.errorMessage = '';
 
-    this.authService.login(this.loginData).subscribe({
-      next: (users) => {
-        this.isLoading = false;
-        const user = users.find(u => u.psw === this.loginData.psw);
-        if (user) {
-          this.router.navigate(['/home']);
-        } else {
-          this.errorMessage = 'Email ou mot de passe incorrect';
-        }
-      },
-      error: (error) => {
-        this.isLoading = false;
+  this.authService.login(this.loginData).subscribe({
+    next: (user) => {
+      this.isLoading = false;
+      if (user) {
+        this.router.navigate(['/home']);
+      } else {
         this.errorMessage = 'Email ou mot de passe incorrect';
-        console.error('Erreur de connexion:', error);
       }
-    });
-  }
+    },
+    error: (error) => {
+      this.isLoading = false;
+      this.errorMessage = error.message || 'Email ou mot de passe incorrect';
+      console.error('Erreur de connexion:', error);
+    }
+  });
+}
 
   goToSignup(): void {
     this.router.navigate(['/signup']);

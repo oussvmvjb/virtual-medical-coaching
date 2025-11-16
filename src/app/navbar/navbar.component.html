@@ -1,28 +1,41 @@
-<nav class="navbar navbar-expand-lg fixed-top">
-  <div class="stars-background">
+<nav class="navbar navbar-expand-lg fixed-top medical-navbar" *ngIf="!isLoginPage()">
+  <div class="container-fluid">
+    
+    <div class="navbar-nav left-section">
+      
+      
+      <a class="nav-link accueil-link" routerLink="/home" routerLinkActive="active">
+        <i class="fas fa-home me-2"></i>Accueil
+      </a>
+
+      <a class="nav-link profile-link" routerLink="/profile" routerLinkActive="active">
+        <i class="fas fa-user me-2"></i>Profil
+      </a>
+       <a class="nav-link logout-link" (click)="logout()" style="cursor: pointer;">
+        <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+      </a>
+    </div>
+
+
+    <button class="navbar-toggler mobile-toggle" type="button" (click)="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+<span class="navbar-brand app-name">
+        <i class="fas fa-heartbeat me-2"></i>Virtual Medical Coaching
+      </span>
   </div>
 
-  <div class="container-fluid">
-    <div class="navbar-nav mx-auto">
-      <span class="navbar-text welcome-message">
-        <i class="bi bi-emoji-smile"></i>  virtual medical coaching
-      </span>
-    </div>
- <div class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/profile" routerLinkActive="active">
-          <i class="bi bi-box-arrow-right"></i> Profile
-        </a>
-      </li>
-    </div>
-    <div class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()" style="cursor: pointer;">
-          <i class="bi bi-box-arrow-right"></i> Déconnexion
-        </a>
-      </li>
+  <div class="mobile-navbar" [class.active]="mobileMenuOpen">
+    <div class="mobile-nav-content">
+      <a class="mobile-nav-link" routerLink="/home" (click)="closeMobileMenu()" routerLinkActive="active">
+        <i class="fas fa-home me-2"></i>Accueil
+      </a>
+      <a class="mobile-nav-link" routerLink="/profile" (click)="closeMobileMenu()" routerLinkActive="active">
+        <i class="fas fa-user me-2"></i>Profil
+      </a>
+      <a class="mobile-nav-link logout" (click)="logout(); closeMobileMenu()">
+        <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+      </a>
     </div>
   </div>
 </nav>
-
-
