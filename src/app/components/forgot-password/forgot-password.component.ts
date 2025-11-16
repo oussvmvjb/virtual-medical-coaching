@@ -23,7 +23,7 @@ export class ForgotPasswordComponent {
 
   constructor(private authService: AuthService, private router: Router) {
     emailjs.init(this.emailjsConfig.publicKey);
-    console.log('📧 EmailJS initialisé avec la configuration:', this.emailjsConfig);
+    console.log(' EmailJS initialisé avec la configuration:', this.emailjsConfig);
   }
 
   validateEmail(): boolean {
@@ -54,7 +54,7 @@ export class ForgotPasswordComponent {
     this.isSuccess = false;
 
     try {
-      console.log('🚀 Début de la réinitialisation du mot de passe pour:', this.requestData.email);
+      console.log(' Début de la réinitialisation du mot de passe pour:', this.requestData.email);
 
       const userExists = await this.checkUserExists(this.requestData.email);
       
@@ -64,27 +64,27 @@ export class ForgotPasswordComponent {
         return;
       }
 
-      console.log('✅ Utilisateur existe, génération du nouveau mot de passe...');
+      console.log(' Utilisateur existe, génération du nouveau mot de passe...');
 
       const newPassword = this.generateRandomPassword();
-      console.log('🔑 Mot de passe généré:', newPassword);
+      console.log(' Mot de passe généré:', newPassword);
       
       await this.updateUserPassword(this.requestData.email, newPassword);
       
-      console.log('✅ Mot de passe mis à jour dans la base de données, tentative d\'envoi d\'email...');
+      console.log('Mot de passe mis à jour dans la base de données, tentative d\'envoi d\'email...');
 
       try {
         await this.sendPasswordByEmail(this.requestData.email, newPassword);
-        console.log('✅ Email envoyé avec succès!');
+        console.log(' Email envoyé avec succès!');
         
         this.isSuccess = true;
-        this.message = `✅ Le nouveau mot de passe a été envoyé à ${this.requestData.email}`;
+        this.message = ` Le nouveau mot de passe a été envoyé à ${this.requestData.email}`;
         
       } catch (emailError) {
-        console.warn('⚠️ L\'email a échoué mais le mot de passe a été mis à jour');
+        console.warn(' L\'email a échoué mais le mot de passe a été mis à jour');
         
         this.isSuccess = true;
-        this.message = `✅ Mot de passe mis à jour avec succès! 
+        this.message = ` Mot de passe mis à jour avec succès! 
         Nouveau mot de passe: ${newPassword}
         Veuillez l'utiliser pour vous connecter puis le changer ultérieurement.`;
       }
@@ -94,7 +94,7 @@ export class ForgotPasswordComponent {
       }, 8000); 
 
     } catch (error: any) {
-      console.error('❌ Erreur de réinitialisation du mot de passe:', error);
+      console.error(' Erreur de réinitialisation du mot de passe:', error);
       this.errorMessage = 'Une erreur est survenue: ' + error.message;
     } finally {
       this.isLoading = false;
@@ -105,11 +105,11 @@ export class ForgotPasswordComponent {
     return new Promise((resolve) => {
       this.authService.checkEmailExists(email).subscribe({
         next: (exists) => {
-          console.log('👤 Résultat de l\'existence de l\'utilisateur:', exists);
+          console.log(' Résultat de l\'existence de l\'utilisateur:', exists);
           resolve(exists);
         },
         error: (error) => {
-          console.error('❌ Erreur lors de la vérification de l\'utilisateur:', error);
+          console.error(' Erreur lors de la vérification de l\'utilisateur:', error);
           resolve(false);
         }
       });
@@ -118,25 +118,25 @@ export class ForgotPasswordComponent {
 
   private async updateUserPassword(email: string, newPassword: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      console.log('💾 Appel de l\'API updatePassword pour:', email);
+      console.log(' Appel de l\'API updatePassword pour:', email);
       
       this.authService.updatePassword(email, newPassword).subscribe({
         next: (response) => {
-          console.log('✅ Réponse de la mise à jour du mot de passe:', response);
+          console.log(' Réponse de la mise à jour du mot de passe:', response);
           
           if (typeof response === 'string' && response.includes('Password updated successfully')) {
-            console.log('✅ Mot de passe mis à jour avec succès dans la base de données');
+            console.log(' Mot de passe mis à jour avec succès dans la base de données');
             resolve();
           } else {
-            console.warn('⚠️ Réponse inattendue:', response);
+            console.warn(' Réponse inattendue:', response);
             resolve(); 
           }
         },
         error: (error) => {
-          console.error('❌ Erreur lors de la mise à jour du mot de passe dans la base de données:', error);
+          console.error(' Erreur lors de la mise à jour du mot de passe dans la base de données:', error);
           
           if (error.status === 200) {
-            console.log('✅ On considère le statut 200 comme un succès malgré ok:false');
+            console.log(' On considère le statut 200 comme un succès malgré ok:false');
             resolve();
           } else {
             reject(new Error('Échec de la mise à jour du mot de passe dans le système'));
@@ -159,7 +159,7 @@ export class ForgotPasswordComponent {
   }
 
   private handleEmailError(error: any): void {
-    console.error('❌ Détails complets de l\'erreur:', error);
+    console.error(' Détails complets de l\'erreur:', error);
     
     if (error?.message?.includes('Échec de l\'envoi de l\'email')) {
       this.errorMessage = 'Le mot de passe a été mis à jour mais l\'envoi de l\'email a échoué. Veuillez utiliser le nouveau mot de passe pour vous connecter.';
@@ -173,7 +173,7 @@ export class ForgotPasswordComponent {
   private async sendPasswordByEmail(userEmail: string, newPassword: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log('📧 Début du processus d\'envoi d\'email...');
+        console.log(' Début du processus d\'envoi d\'email...');
         
         const templateParams = {
           to_email: userEmail,
@@ -185,13 +185,13 @@ export class ForgotPasswordComponent {
           login_url: 'http://localhost:4200/login'
         };
 
-        console.log('🔧 Paramètres EmailJS:', {
+        console.log(' Paramètres EmailJS:', {
           serviceId: this.emailjsConfig.serviceId,
           templateId: this.emailjsConfig.templateId,
           publicKey: this.emailjsConfig.publicKey.substring(0, 10) + '...' // Cacher une partie de la clé
         });
 
-        console.log('📨 Paramètres du template:', templateParams);
+        console.log(' Paramètres du template:', templateParams);
 
         const response = await emailjs.send(
           this.emailjsConfig.serviceId,
@@ -200,11 +200,11 @@ export class ForgotPasswordComponent {
           this.emailjsConfig.publicKey
         );
 
-        console.log('✅ Réponse EmailJS:', response);
+        console.log('Réponse EmailJS:', response);
         resolve();
 
       } catch (error: any) {
-        console.error('❌ Détails de l\'erreur EmailJS:', {
+        console.error(' Détails de l\'erreur EmailJS:', {
           status: error?.status,
           text: error?.text,
           message: error?.message,
@@ -240,19 +240,19 @@ export class ForgotPasswordComponent {
     this.errorMessage = '';
 
     try {
-      console.log('🧪 Test d\'EmailJS uniquement...');
+      console.log(' Test d\'EmailJS uniquement...');
       await this.sendPasswordByEmail(testEmail, testPassword);
-      this.message = '✅ Test d\'envoi d\'email réussi!';
+      this.message = ' Test d\'envoi d\'email réussi!';
     } catch (error: any) {
-      console.error('❌ Test EmailJS échoué:', error);
-      this.errorMessage = '❌ Échec du test d\'email: ' + error.message;
+      console.error(' Test EmailJS échoué:', error);
+      this.errorMessage = ' Échec du test d\'email: ' + error.message;
     } finally {
       this.isLoading = false;
     }
   }
 
   showEmailJSConfig(): void {
-    console.log('🔧 Configuration complète d\'EmailJS:', this.emailjsConfig);
+    console.log(' Configuration complète d\'EmailJS:', this.emailjsConfig);
     this.message = `Paramètres EmailJS:
     Service: ${this.emailjsConfig.serviceId}
     Template: ${this.emailjsConfig.templateId}

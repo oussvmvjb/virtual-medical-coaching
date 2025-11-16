@@ -7,7 +7,7 @@
     </div>
 
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <!-- Email -->
+
       <div class="mb-3">
         <label for="email" class="form-label"><i class="fas fa-envelope me-1"></i>Adresse e-mail</label>
         <input
@@ -21,7 +21,7 @@
           placeholder="Entrez votre adresse e-mail">
       </div>
 
-      <!-- Password -->
+ 
       <div class="mb-3">
         <label for="password" class="form-label"><i class="fas fa-lock me-1"></i>Mot de passe</label>
         <input
@@ -34,12 +34,10 @@
           placeholder="Entrez votre mot de passe">
       </div>
 
-      <!-- Error Message -->
       <div *ngIf="errorMessage" class="alert alert-danger py-2">
         <i class="fas fa-exclamation-triangle me-1"></i> {{ errorMessage }}
       </div>
 
-      <!-- Button -->
       <button type="submit" class="btn btn-medical-blue w-100 py-2" 
               [disabled]="!loginForm.form.valid || isLoading">
         <span *ngIf="!isLoading"><i class="fas fa-sign-in-alt me-1"></i> Se connecter</span>
@@ -47,7 +45,6 @@
       </button>
     </form>
 
-    <!-- Links -->
     <div class="text-center mt-3">
       <a (click)="goToForgotPassword()" class="text-decoration-none d-block mt-2">Mot de passe oublié ?</a>
       <a (click)="goToSignup()" class="text-decoration-none mt-2 d-block">Créer un nouveau compte</a>
