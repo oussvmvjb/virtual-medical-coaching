@@ -105,9 +105,9 @@ export class ProfileComponent implements OnInit {
       return false;
     }
 
-    const telRegex = /^[0-9]{10,15}$/;
+    const telRegex = /^[0-9]{8,8}$/;
     if (!telRegex.test(this.editData.tel)) {
-      this.errorMessage = 'Le numéro doit contenir 10-15 chiffres';
+      this.errorMessage = 'Le numéro doit contenir 8 chiffres';
       return false;
     }
 
