@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
       nom: this.currentUser.nom || '',
       prenom: this.currentUser.prenom || '',
       email: this.currentUser.email || '',
-      tel: this.currentUser.tel || ''
+      tel: this.currentUser.telephone || ''
     };
   }
 
