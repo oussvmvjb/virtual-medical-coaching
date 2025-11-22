@@ -12,6 +12,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { EmailJSResponseStatus } from 'emailjs-com';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { EvaluationComponent } from './evaluation/evaluation.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     HomeComponent,
     ForgotPasswordComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    EvaluationComponent
   ],
   imports: [
     BrowserModule,
