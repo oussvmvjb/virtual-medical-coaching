@@ -1,4 +1,4 @@
-export interface MoodEvaluation {
+export interface Evaluation {
   id_evaluation?: number; // Optional as it's usually auto-incremented by DB
   id_patient: number;
   humeur: number; // 1-10
