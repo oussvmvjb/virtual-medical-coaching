@@ -1,131 +1,248 @@
-<div class="home-container">
-  <div class="hero-section">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="hero-title">
-          <i class="fas fa-heartbeat me-3"></i>
-          Virtual Medical Coaching
-        </h1>
-        <p class="hero-subtitle">Votre partenaire de santé numérique</p>
-        <p class="hero-description">
-          Accédez à des conseils médicaux personnalisés, suivez votre santé 
-          et améliorez votre bien-être avec notre plateforme innovante.
-        </p>
-      </div>
-      <div class="hero-image">
-        <i class="fas fa-stethoscope hero-icon"></i>
-      </div>
+<!-- ================== NAVBAR ================== -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <i class="fas fa-heartbeat"></i>
+      Virtual Medical Coaching
+    </div>
+
+    <ul class="nav-links">
+      <li><a routerLink="/home" class="active-link">Accueil</a></li>
+      <li><a routerLink="/about">À propos</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+      <li class="dropdown">
+        <span class="dropdown-btn">Connexion</span>
+        <ul class="dropdown-menu">
+          <li><a routerLink="/login-utilisateur">Utilisateur</a></li>
+          <li><a routerLink="/login-coach">Coach</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="nav-toggle" (click)="toggleMenu()">
+      <i class="fas" [ngClass]="menuOpen ? 'fa-times' : 'fa-bars'"></i>
     </div>
   </div>
 
-  <div class="welcome-section">
-    <div class="container">
-      <div class="welcome-card">
-        <div class="welcome-header">
-          <h3>
-            <i class="fas fa-user-circle me-2"></i>
-            Bienvenue, {{ currentUser?.prenom }} {{ currentUser?.nom }}
-          </h3>
-          <p class="welcome-message">Vous êtes connecté avec succès</p>
-        </div>
+  <ul class="mobile-menu" *ngIf="menuOpen">
+    <li><a routerLink="/home">Accueil</a></li>
+    <li><a routerLink="/about">À propos</a></li>
+    <li><a routerLink="/contact">Contact</a></li>
+    <li class="mobile-dropdown">
+      <span>Connexion</span>
+      <ul>
+        <li><a routerLink="/login-utilisateur">Utilisateur</a></li>
+        <li><a routerLink="/login-coach">Coach</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
-        <div class="user-info-section">
-          <div class="info-cards">
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-user-md"></i>
-              </div>
-              <div class="info-content">
-                <h4>Profil Médical</h4>
-                <p>{{ currentUser?.prenom }} {{ currentUser?.nom }}</p>
-              </div>
+<!-- ================== HERO SECTION ================== -->
+<section class="hero-section">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">
+        <i class="fas fa-heartbeat me-3"></i>
+        Virtual Medical Coaching — Prenez votre santé en main
+      </h1>
+      <p class="hero-subtitle">
+        Une plateforme intelligente pour suivre votre santé et être guidé pas à pas
+      </p>
+      <p class="hero-description">
+        Connectez-vous avec votre coach santé, suivez vos indicateurs de santé et recevez des conseils personnalisés facilement.
+      </p>
+      <div class="hero-buttons">
+        <a class="btn-primary" routerLink="/about">Découvrir</a>
+        <a class="btn-secondary" routerLink="/register">Commencer maintenant</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <i class="fas fa-stethoscope hero-icon"></i>
+    </div>
+  </div>
+</section>
+
+<!-- ================== WELCOME / USER INFO ================== -->
+<section class="welcome-section" *ngIf="currentUser">
+  <div class="container">
+    <div class="welcome-card">
+      <div class="welcome-header">
+        <h3>
+          <i class="fas fa-user-circle me-2"></i>
+          Bienvenue, {{ currentUser.prenom }} {{ currentUser.nom }}
+        </h3>
+        <p class="welcome-message">Vous êtes connecté avec succès</p>
+      </div>
+      <div class="user-info-section">
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-user-md"></i>
             </div>
-
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div class="info-content">
-                <h4>Contact</h4>
-                <p>{{ currentUser?.email }}</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="info-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div class="info-content">
-                <h4>Téléphone</h4>
-                <p>{{ currentUser?.tel }}</p>
-              </div>
+            <div class="info-content">
+              <h4>Profil Médical</h4>
+              <p>{{ currentUser.prenom }} {{ currentUser.nom }}</p>
             </div>
           </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="info-content">
+              <h4>Contact</h4>
+              <p>{{ currentUser.email }}</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="info-content">
+              <h4>Téléphone</h4>
+              <p>{{ currentUser.tel }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="features-section">
-    <div class="container">
-      <h2 class="section-title">Nos Services</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-video"></i>
-          </div>
-          <h3>Consultations Virtuelles</h3>
-          <p>Consultez des professionnels de santé depuis chez vous</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3>Suivi Médical</h3>
-          <p>Suivez vos indicateurs de santé en temps réel</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-file-medical"></i>
-          </div>
-          <h3>Dossier Médical</h3>
-          <p>Accédez à votre historique médical sécurisé</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-clock"></i>
-          </div>
-          <h3>Rappels Intelligents</h3>
-          <p>Ne manquez jamais vos rendez-vous et médicaments</p>
-        </div>
+<!-- ================== FEATURES ================== -->
+<section class="features-section">
+  <div class="container">
+    <h2 class="section-title">Nos Services</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-video"></i></div>
+        <h3>Consultations Virtuelles</h3>
+        <p>Consultez des professionnels de santé depuis chez vous</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Suivi Médical</h3>
+        <p>Suivez vos indicateurs de santé en temps réel</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-file-medical"></i></div>
+        <h3>Dossier Médical</h3>
+        <p>Accédez à votre historique médical sécurisé</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-clock"></i></div>
+        <h3>Rappels Intelligents</h3>
+        <p>Ne manquez jamais vos rendez-vous et vos médicaments</p>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="actions-section">
-    <div class="container">
-      <h2 class="section-title">Actions Rapides</h2>
-      <div class="actions-grid">
-        <a class="action-card" routerLink="/profile">
-          <i class="fas fa-user-edit"></i>
-          <span>Modifier le Profil</span>
-        </a>
-        <a class="action-card" routerLink="/appointments">
-          <i class="fas fa-calendar-check"></i>
-          <span>Prendre Rendez-vous</span>
-        </a>
-        <a class="action-card" routerLink="/medical-records">
-          <i class="fas fa-file-medical-alt"></i>
-          <span>Dossier Médical</span>
-        </a>
-        <a class="action-card" routerLink="/support">
-          <i class="fas fa-headset"></i>
-          <span>Support</span>
-        </a>
+<!-- ================== ROLES ================== -->
+<section class="roles-section">
+  <div class="container">
+    <h2 class="section-title">Coach vs Utilisateur</h2>
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <h3>Coach</h3>
+        <p>Peut suivre l'état de santé du client, donner des recommandations, faire un suivi et visualiser les objectifs.</p>
+      </div>
+      <div class="role-card">
+        <div class="role-icon"><i class="fas fa-user"></i></div>
+        <h3>Utilisateur</h3>
+        <p>Peut ajouter ses données de santé, suivre ses progrès, communiquer avec le coach et recevoir des conseils quotidiens.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- ================== STATISTICS ================== -->
+<section class="statistics-section">
+  <div class="container">
+    <h2 class="section-title">Statistiques</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>+200</h3>
+        <p>Utilisateurs</p>
+      </div>
+      <div class="stat-card">
+        <h3>+20</h3>
+        <p>Coachs</p>
+      </div>
+      <div class="stat-card">
+        <h3>+1500</h3>
+        <p>Sessions Coaching</p>
+      </div>
+      <div class="stat-card">
+        <h3>90%</h3>
+        <p>Satisfaction Clients</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== TESTIMONIALS ================== -->
+<section class="testimonials-section">
+  <div class="container">
+    <h2 class="section-title">Témoignages</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p>"L'application m'a aidé à organiser ma santé de manière efficace !"</p>
+        <h4>Utilisateur</h4>
+      </div>
+      <div class="testimonial-card">
+        <p>"Le système est simple et très utile pour les coachs"</p>
+        <h4>Coach</h4>
+      </div>
+      <div class="testimonial-card">
+        <p>"J'ai atteint mon objectif santé en seulement 3 mois !"</p>
+        <h4>Utilisateur</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== ACTIONS ================== -->
+<section class="actions-section">
+  <div class="container">
+    <h2 class="section-title">Actions Rapides</h2>
+    <div class="actions-grid">
+      <a class="action-card" routerLink="/profile">
+        <i class="fas fa-user-edit"></i>
+        <span>Modifier le Profil</span>
+      </a>
+      <a class="action-card" routerLink="/appointments">
+        <i class="fas fa-calendar-check"></i>
+        <span>Prendre Rendez-vous</span>
+      </a>
+      <a class="action-card" routerLink="/medical-records">
+        <i class="fas fa-file-medical-alt"></i>
+        <span>Dossier Médical</span>
+      </a>
+      <a class="action-card" routerLink="/support">
+        <i class="fas fa-headset"></i>
+        <span>Support</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================== FOOTER ================== -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-logo">
+      <i class="fas fa-heartbeat"></i> Virtual Medical Coaching
+    </div>
+    <div class="footer-links">
+      <a routerLink="/about">À propos</a>
+      <a routerLink="/privacy">Politique de confidentialité</a>
+      <a routerLink="/contact">Contact</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2025 Virtual Medical Coaching. Tous droits réservés.
+    </div>
+  </div>
+</footer>
