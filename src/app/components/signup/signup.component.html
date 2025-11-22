@@ -54,13 +54,27 @@
           placeholder="Votre email">
       </div>
 
+      <!-- Nouveau champ Rôle -->
       <div class="mb-2">
-        <label for="tel" class="form-label small"><i class="fas fa-phone me-1"></i>Téléphone</label>
+        <label for="role" class="form-label small"><i class="fas fa-user-tag me-1"></i>Rôle</label>
+        <select
+          id="role"
+          name="role"
+          [(ngModel)]="signupData.role"
+          required
+          class="form-control form-control-sm">
+          <option value="USER">Utilisateur</option>
+          <option value="COACH">Coach</option>
+        </select>
+      </div>
+
+      <div class="mb-2">
+        <label for="telephone" class="form-label small"><i class="fas fa-phone me-1"></i>Téléphone</label>
         <input
           type="tel"
-          id="tel"
-          name="tel"
-          [(ngModel)]="signupData.tel"
+          id="telephone"
+          name="telephone"
+          [(ngModel)]="signupData.telephone"
           required
           pattern="[0-9]{8,8}"
           class="form-control form-control-sm"
@@ -110,7 +124,7 @@
       </div>
 
       <button type="submit" class="btn btn-medical-blue w-100 py-1 btn-sm" 
-              [disabled]=" isLoading || passwordMismatch">
+              [disabled]="isLoading || passwordMismatch">
         <span *ngIf="!isLoading"><i class="fas fa-user-plus me-1"></i>Créer compte</span>
         <span *ngIf="isLoading"><i class="fas fa-spinner fa-spin me-1"></i>Création...</span>
       </button>
