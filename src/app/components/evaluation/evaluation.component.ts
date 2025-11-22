@@ -12,7 +12,6 @@ import { Evaluation } from '../../models/mood-evaluation';
 export class EvaluationComponent implements OnInit {
   evaluationForm!: FormGroup;
   
-  // CORRECTION: Utiliser les majuscules comme dans le backend
   appetitOptions = ['NORMAL', 'DIMINUE', 'AUGMENTE'];
   activiteOptions = ['AUCUNE', 'FAIBLE', 'MODEREE', 'BONNE'];
   socialOptions = ['AUCUNE', 'FAIBLE', 'NORMALE', 'ACTIVE'];
@@ -36,7 +35,6 @@ export class EvaluationComponent implements OnInit {
       sommeil: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
       
       symptomes: [''],
-      // CORRECTION: Valeurs par défaut en majuscules
       appetit: ['NORMAL', Validators.required],
       activite_physique: ['FAIBLE', Validators.required],
       interactions_sociales: ['NORMALE', Validators.required],
@@ -47,38 +45,48 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    if (this.evaluationForm.valid) {
-      console.log('Form Data:', this.evaluationForm.value); // DEBUG
-      
-      const formData: Evaluation = {
-        ...this.evaluationForm.value,
-        id_patient: 1,
-        date_evaluation: new Date()
-      };
+ // evaluation.component.ts
+// evaluation.component.ts
+onSubmit(): void {
+  if (this.evaluationForm.valid) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const patientId = currentUser.id;
 
-      console.log('Data to send:', JSON.stringify(formData, null, 2)); // DEBUG
+    const rawData = this.evaluationForm.value;
+    const formData = {
+      idPatient: patientId,
+      humeur: rawData.humeur,
+      stress: rawData.stress,
+      energie: rawData.energie,
+      motivation: rawData.motivation,
+      sommeil: rawData.sommeil,
+      symptomes: rawData.symptomes,
+      appetit: rawData.appetit,
+      activitePhysique: rawData.activite_physique,
+      interactionsSociales: rawData.interactions_sociales,
+      penseesRisque: rawData.pensees_risque,
+      detailsRisque: rawData.details_risque,
+      commentaire: rawData.commentaire
+      // ⚠️ NE PAS envoyer dateEvaluation - le backend la gère automatiquement
+    };
 
-      this.evaluationService.createEvaluation(formData).subscribe({
-        next: (response) => {
-          console.log('Success:', response);
-          alert('Évaluation enregistrée avec succès !');
-          this.resetForm();
-        },
-        error: (error) => {
-          console.error('Full error:', error);
-          if (error.error?.message) {
-            alert('Erreur: ' + error.error.message);
-          } else {
-            alert('Erreur lors de la sauvegarde');
-          }
-        }
-      });
-    } else {
-      this.evaluationForm.markAllAsTouched();
-    }
+    console.log('📤 Data to send (sans date):', JSON.stringify(formData, null, 2));
+
+    this.evaluationService.createEvaluation(formData).subscribe({
+      next: (response) => {
+        console.log('✅ Success:', response);
+        alert('Évaluation enregistrée avec succès !');
+        this.resetForm();
+      },
+      error: (error) => {
+        console.error('❌ Error:', error);
+        alert('Erreur: ' + (error.error?.message || 'Erreur inconnue'));
+      }
+    });
+  } else {
+    this.evaluationForm.markAllAsTouched();
   }
-
+}
   private resetForm(): void {
     this.evaluationForm.reset({ 
       humeur: 5, stress: 5, energie: 5, motivation: 5, sommeil: 5,
@@ -90,6 +98,5 @@ export class EvaluationComponent implements OnInit {
   }
 
   handleRiskLogic(): void {
-    // Ton code existant...
   }
 }

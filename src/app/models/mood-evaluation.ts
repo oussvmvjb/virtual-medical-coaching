@@ -1,17 +1,18 @@
+// models/mood-evaluation.ts
 export interface Evaluation {
-  id_evaluation?: number; // Optional as it's usually auto-incremented by DB
-  id_patient: number;
-  humeur: number; // 1-10
-  stress: number; // 1-10
-  energie: number; // 1-10
-  motivation: number; // 1-10
-  sommeil: number; // 1-10
-  symptomes: string; // Handling JSON text as string for the form
-  pensees_risque: boolean;
-  details_risque?: string;
-  appetit: 'normal' | 'diminue' | 'augmente';
-  activite_physique: 'aucune' | 'faible' | 'moderee' | 'bonne';
-  interactions_sociales: 'aucune' | 'faible' | 'normale' | 'active';
+  id?: number;
+  idPatient: number;                    // camelCase
+  humeur: number;
+  stress: number;
+  energie: number;
+  motivation: number;
+  sommeil: number;
+  symptomes?: string;
+  appetit: 'NORMAL' | 'DIMINUE' | 'AUGMENTE';
+  activitePhysique: 'AUCUNE' | 'FAIBLE' | 'MODEREE' | 'BONNE';  // camelCase
+  interactionsSociales: 'AUCUNE' | 'FAIBLE' | 'NORMALE' | 'ACTIVE';  // camelCase
+  penseesRisque: boolean;               // camelCase
+  detailsRisque?: string;               // camelCase
   commentaire?: string;
-  date_evaluation: Date;
+  dateEvaluation?: Date;                // camelCase
 }
