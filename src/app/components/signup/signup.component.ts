@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SignupRequest } from '../../models/user';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',

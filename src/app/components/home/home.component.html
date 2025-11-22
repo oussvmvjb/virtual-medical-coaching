@@ -1,44 +1,5 @@
-<!-- ================== NAVBAR ================== -->
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="nav-logo">
-      <i class="fas fa-heartbeat"></i>
-      Virtual Medical Coaching
-    </div>
 
-    <ul class="nav-links">
-      <li><a routerLink="/home" class="active-link">Accueil</a></li>
-      <li><a routerLink="/about">À propos</a></li>
-      <li><a routerLink="/contact">Contact</a></li>
-      <li class="dropdown">
-        <span class="dropdown-btn">Connexion</span>
-        <ul class="dropdown-menu">
-          <li><a routerLink="/login-utilisateur">Utilisateur</a></li>
-          <li><a routerLink="/login-coach">Coach</a></li>
-        </ul>
-      </li>
-    </ul>
 
-    <div class="nav-toggle" (click)="toggleMenu()">
-      <i class="fas" [ngClass]="menuOpen ? 'fa-times' : 'fa-bars'"></i>
-    </div>
-  </div>
-
-  <ul class="mobile-menu" *ngIf="menuOpen">
-    <li><a routerLink="/home">Accueil</a></li>
-    <li><a routerLink="/about">À propos</a></li>
-    <li><a routerLink="/contact">Contact</a></li>
-    <li class="mobile-dropdown">
-      <span>Connexion</span>
-      <ul>
-        <li><a routerLink="/login-utilisateur">Utilisateur</a></li>
-        <li><a routerLink="/login-coach">Coach</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-
-<!-- ================== HERO SECTION ================== -->
 <section class="hero-section">
   <div class="hero-content">
     <div class="hero-text">
