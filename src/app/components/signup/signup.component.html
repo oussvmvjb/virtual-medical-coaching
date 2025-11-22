@@ -11,7 +11,7 @@
       Email et téléphone non enregistrés
     </div>
 
-    <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+    <form (ngSubmit)="onSubmit()">
       <div class="row mb-2">
         <div class="col-6">
           <div class="mb-2">
@@ -110,7 +110,7 @@
       </div>
 
       <button type="submit" class="btn btn-medical-blue w-100 py-1 btn-sm" 
-              [disabled]="!signupForm.form.valid || isLoading || passwordMismatch">
+              [disabled]=" isLoading || passwordMismatch">
         <span *ngIf="!isLoading"><i class="fas fa-user-plus me-1"></i>Créer compte</span>
         <span *ngIf="isLoading"><i class="fas fa-spinner fa-spin me-1"></i>Création...</span>
       </button>
