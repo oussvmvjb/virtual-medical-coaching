@@ -1,0 +1,158 @@
+<div class="container mt-5 mb-5 pt-4">
+  <div class="card shadow">
+    
+    <div class="card-header bg-success text-white">
+      <h3 class="mb-0">Prescription du Médecin</h3>
+    </div>
+
+    <div class="card-body">
+      <form  (ngSubmit)="onSubmit()">
+
+        <!-- A. Analyse du médecin -->
+        <h5 class="text-success border-bottom pb-2 mb-3">Analyse rapide</h5>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Observations du médecin</label>
+          <textarea class="form-control" rows="2" formControlName="observations"
+            placeholder="Remarques cliniques, comportement du patient..."></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Niveau de risque</label>
+          <select class="form-select" formControlName="niveau_risque">
+            <option value="faible">Faible</option>
+            <option value="moyen">Moyen</option>
+            <option value="eleve">Élevé</option>
+          </select>
+        </div>
+
+        <!-- B. Diagnostic -->
+        <h5 class="text-success border-bottom pb-2 mb-3 mt-4">Sélection du trouble</h5>
+
+        <div class="row g-3">
+          <div class="col-md-6" *ngFor="let trouble of troublesList">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="trouble" [value]="trouble">
+              <label class="form-check-label">{{ trouble }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <label class="form-label fw-bold">Autre trouble (si non listé)</label>
+          <input type="text" class="form-control" formControlName="trouble_autre"
+                 placeholder="Précisez un autre trouble...">
+        </div>
+
+        <!-- C. Prescription -->
+        <h5 class="text-success border-bottom pb-2 mb-3 mt-4">Prescription d’exercices</h5>
+
+        <!-- Fréquence -->
+        <label class="form-label fw-bold">Fréquence</label>
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="frequence" value="quotidien">
+              <label class="form-check-label">1 exercice par jour</label>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="frequence" value="hebdomadaire">
+              <label class="form-check-label">1 exercice par semaine</label>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="frequence" value="personnalise">
+              <label class="form-check-label">Programme personnalisé</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Exercices -->
+        <label class="form-label fw-bold">Exercices recommandés</label>
+
+        <!-- Section Anxiété -->
+        <div class="alert alert-info mt-2">
+          <strong>Pour Anxiété</strong>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6" *ngFor="let ex of anxieteList">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" >
+              <label class="form-check-label">{{ ex.label }}</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dépression -->
+        <div class="alert alert-info">
+          <strong>Pour Dépression</strong>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6" *ngFor="let ex of depressionList">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" >
+              <label class="form-check-label">{{ ex.label }}</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sommeil -->
+        <div class="alert alert-info">
+          <strong>Pour Insomnie</strong>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6" *ngFor="let ex of sommeilList">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" >
+              <label class="form-check-label">{{ ex.label }}</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stress/Burnout -->
+        <div class="alert alert-info">
+          <strong>Pour Stress / Burnout</strong>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6" *ngFor="let ex of stressList">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" >
+              <label class="form-check-label">{{ ex.label }}</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="mt-3">
+          <label class="form-label fw-bold">Message ou instructions</label>
+          <textarea class="form-control" rows="3" formControlName="message"
+                    placeholder="Instructions, recommandations, conseils..."></textarea>
+        </div>
+
+        <!-- Durée -->
+        <div class="mt-3">
+          <label class="form-label fw-bold">Durée de la prescription</label>
+          <select class="form-select" formControlName="duree">
+            <option value="1s">1 semaine</option>
+            <option value="2s">2 semaines</option>
+            <option value="1m">1 mois</option>
+            <option value="revaluation">Jusqu'à nouvelle évaluation</option>
+          </select>
+        </div>
+
+        <!-- Submit -->
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-success btn-lg">
+            Envoyer au patient
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

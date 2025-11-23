@@ -11,6 +11,9 @@ import { User } from '../../models/user';
 export class HomeComponent implements OnInit {
   currentUser: User | null = null;
 
+  // 👈 تعريف menuOpen للموبايل
+  menuOpen: boolean = false;
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
@@ -19,7 +22,13 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
+
   get fullName(): string {
     return this.currentUser ? `${this.currentUser.prenom} ${this.currentUser.nom}` : '';
+  }
+
+  // 👈 طريقة لتبديل قائمة الموبايل
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
   }
 }

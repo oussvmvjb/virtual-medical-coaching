@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; // ← أضف هذا السطر
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // ← أضف هذا السطر
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,9 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { EmailJSResponseStatus } from 'emailjs-com';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { EvaluationComponent } from './components/evaluation/evaluation.component';
+import { ExercicesComponent } from './exercices/exercices.component';
+ 
 
 @NgModule({
   declarations: [
@@ -21,13 +24,17 @@ import { ProfileComponent } from './components/profile/profile.component';
     HomeComponent,
     ForgotPasswordComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    EvaluationComponent,
+
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

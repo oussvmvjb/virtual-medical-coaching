@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SignupRequest } from '../../models/user';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -13,13 +14,20 @@ export class SignupComponent {
     nom: '',
     prenom: '',
     email: '',
-    tel: '',
+    telephone: '',
     psw: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    role: 'USER' 
   };
   errorMessage: string = '';
   isLoading: boolean = false;
   passwordMismatch: boolean = false;
+
+
+  roles = [
+    { value: 'USER', label: 'Utilisateur' },
+    { value: 'COACH', label: 'Coach' }
+  ];
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -31,7 +39,7 @@ export class SignupComponent {
     this.errorMessage = '';
 
     if (!this.signupData.nom || !this.signupData.prenom || !this.signupData.email || 
-        !this.signupData.tel || !this.signupData.psw || !this.signupData.confirmPassword) {
+        !this.signupData.telephone || !this.signupData.psw || !this.signupData.confirmPassword) {
       this.errorMessage = 'Tous les champs sont obligatoires';
       return false;
     }
@@ -53,8 +61,13 @@ export class SignupComponent {
     }
 
     const telRegex = /^[0-9]{8,8}$/;
-    if (!telRegex.test(this.signupData.tel)) {
+    if (!telRegex.test(this.signupData.telephone)) {
       this.errorMessage = 'Le numéro de téléphone doit contenir 8 chiffres uniquement';
+      return false;
+    }
+
+    if (!this.signupData.role) {
+      this.errorMessage = 'Veuillez sélectionner un rôle';
       return false;
     }
 
@@ -98,9 +111,10 @@ export class SignupComponent {
       nom: '',
       prenom: '',
       email: '',
-      tel: '',
+      telephone: '', // Changé de 'tel' à 'telephone'
       psw: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      role: 'USER' // Réinitialiser à USER
     };
     this.errorMessage = '';
     this.passwordMismatch = false;
