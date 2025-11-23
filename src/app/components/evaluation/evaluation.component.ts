@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EvaluationService } from '../../services/mood.service';
-import { Evaluation } from '../../models/mood-evaluation';
 
 @Component({
   selector: 'app-evaluation',
