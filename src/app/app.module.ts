@@ -16,6 +16,7 @@ import { EvaluationComponent } from './components/evaluation/evaluation.componen
 import { ExercicesComponent } from './exercices/exercices.component';
 import { PatientExercisesComponent } from './components/patient-exercises/patient-exercises.component';
 import { CoachExercisesComponent } from './components/coach-exercises/coach-exercises.component';
+import { ListEvaluationComponent } from './components/list-evaluation/list-evaluation.component';
  
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CoachExercisesComponent } from './components/coach-exercises/coach-exer
     EvaluationComponent,
     ExercicesComponent,
     PatientExercisesComponent,
-    CoachExercisesComponent
+    CoachExercisesComponent,
+    ListEvaluationComponent
 
     
   ],

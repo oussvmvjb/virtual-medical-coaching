@@ -1,0 +1,23 @@
+.eval-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    font-weight: 600;
+    font-size: 18px;
+    padding: 12px;
+    background-color: #0d6efd; // bleu Bootstrap
+    color: white;
+  }
+
+  .card-body {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}

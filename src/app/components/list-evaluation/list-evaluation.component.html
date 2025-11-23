@@ -1,0 +1,43 @@
+<!-- Formulaire d'évaluation -->
+<form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()" class="p-4 form-red rounded shadow mb-4">
+  <h3 class="mb-3 text-danger">Nouvelle évaluation d’humeur</h3>
+
+  <label>Humeur :</label>
+  <input type="number" formControlName="humeur" class="form-control mb-3" min="1" max="10">
+
+  <label>Stress :</label>
+  <input type="number" formControlName="stress" class="form-control mb-3" min="1" max="10">
+
+  <label>Énergie :</label>
+  <input type="number" formControlName="energie" class="form-control mb-3" min="1" max="10">
+
+  <label>Sommeil :</label>
+  <input type="number" formControlName="sommeil" class="form-control mb-3" min="1" max="10">
+
+  <button type="submit" class="btn btn-danger w-100">Enregistrer</button>
+</form>
+
+<!-- Liste des évaluations -->
+<h3 class="mb-3 text-primary">Liste des évaluations</h3>
+<div class="row">
+  <div class="col-md-4 mb-3" *ngFor="let eval of evaluations">
+    <div class="card shadow-sm eval-card bg-primary text-white">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Évaluation #{{ eval.id }}</span>
+        <span>
+          {{ eval.humeur >= 7 ? '🙂' : (eval.humeur >= 4 ? '😐' : '😟') }}
+        </span>
+      </div>
+      <div class="card-body">
+        <p><strong>Humeur :</strong> {{ eval.humeur }}/10</p>
+        <p><strong>Stress :</strong> {{ eval.stress }}/10</p>
+        <p><strong>Énergie :</strong> {{ eval.energie }}/10</p>
+        <p><strong>Sommeil :</strong> {{ eval.sommeil }}/10</p>
+        <p><strong>Appétit :</strong> {{ eval.appetit }}</p>
+        <p><strong>Activité physique :</strong> {{ eval.activitePhysique }}</p>
+        <p><strong>Interactions sociales :</strong> {{ eval.interactionsSociales }}</p>
+        <p><strong>Commentaire :</strong> {{ eval.commentaire }}</p>
+      </div>
+    </div>
+  </div>
+</div>
