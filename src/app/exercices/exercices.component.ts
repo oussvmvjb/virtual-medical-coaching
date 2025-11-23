@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-prescription',
-  templateUrl: './prescription.component.html',
-  styleUrls: ['./prescription.component.css']
+  templateUrl: './exercices.component.html',
+  styleUrls: ['./exercices.component.scss']
 })
-export class PrescriptionComponent implements OnInit {
+export class ExercicesComponent implements OnInit {
   prescriptionForm!: FormGroup;
 
   // Section A : Observations / informations patient

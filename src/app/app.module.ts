@@ -26,6 +26,7 @@ import { ExercicesComponent } from './exercices/exercices.component';
     NavbarComponent,
     ProfileComponent,
     EvaluationComponent,
+    ExercicesComponent
 
     
   ],
