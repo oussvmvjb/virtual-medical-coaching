@@ -8,6 +8,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EvaluationComponent } from './components/evaluation/evaluation.component';
 import { ExercicesComponent } from './exercices/exercices.component';
+import { PatientExercisesComponent } from './components/patient-exercises/patient-exercises.component';
+import { CoachExercisesComponent } from './components/coach-exercises/coach-exercises.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'mood', component: EvaluationComponent},
   { path: 'ex', component: ExercicesComponent},
+  { path: 'ex-pas', component:PatientExercisesComponent },
+  { path: 'ex-coa', component: CoachExercisesComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' }
 ];

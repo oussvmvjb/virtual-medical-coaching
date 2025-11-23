@@ -1,0 +1,88 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">👨‍⚕️ Suivi des exercices des patients</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-white bg-primary text-center p-3">
+        <h4>{{ getStats().total }}</h4>
+        <p>Total des exercices</p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-white bg-warning text-center p-3">
+        <h4>{{ getStats().active }}</h4>
+        <p>Actifs</p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-white bg-success text-center p-3">
+        <h4>{{ getStats().completed }}</h4>
+        <p>Terminés</p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-white bg-danger text-center p-3">
+        <h4>{{ getStats().cancelled }}</h4>
+        <p>Annulés</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Filtrer par statut :</label>
+    <select class="form-select" [(ngModel)]="filterStatut">
+      <option value="TOUS">Tous</option>
+      <option value="ACTIF">Actifs</option>
+      <option value="COMPLETE">Terminés</option>
+      <option value="ANNULE">Annulés</option>
+    </select>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Exercice</th>
+          <th>Statut</th>
+          <th>Fréquence</th>
+          <th>Date</th>
+          <th>État</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let exercice of filteredExercices">
+          <td>Patient {{ exercice.idPatient }}</td>
+
+          <td>
+            <strong>{{ exercice.titre }}</strong><br>
+            <small class="text-muted">{{ exercice.description }}</small>
+          </td>
+
+          <td>
+            <span [class]="getStatusBadgeClass(exercice.statut)">
+              {{ getStatusText(exercice.statut) }}
+            </span>
+          </td>
+
+          <td>{{ getFrequenceText(exercice.frequence) }}</td>
+
+          <td>{{ exercice.dateCreation | date:'dd/MM/yyyy' }}</td>
+
+          <td>
+            <span *ngIf="exercice.statut === 'COMPLETE'" class="text-success">
+              ✔ Terminé
+            </span>
+            <span *ngIf="exercice.statut === 'ACTIF'" class="text-warning">
+              ⏳ En cours
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
