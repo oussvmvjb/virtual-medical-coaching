@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EvaluationComponent } from './components/evaluation/evaluation.component';
+import { ExercicesComponent } from './exercices/exercices.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'mood', component: EvaluationComponent},
+  { path: 'ex', component: ExercicesComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' }
 ];
