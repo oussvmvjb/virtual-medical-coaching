@@ -1,6 +1,6 @@
-// exercices.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router'; // ✅ إضافة ActivatedRoute
 import { ExerciseService } from '../services/exercise.service';
 import { ExerciceRequest, TypeTrouble, Frequence, Duree, NiveauRisque } from '../models/exercise';
 
@@ -11,6 +11,7 @@ import { ExerciceRequest, TypeTrouble, Frequence, Duree, NiveauRisque } from '..
 })
 export class ExercicesComponent implements OnInit {
   prescriptionForm!: FormGroup;
+  patientId!: number; // ✅ إضافة patientId
   
   niveauxRisque = ['Faible', 'Moyen', 'Élevé'];
   troubles = [
@@ -54,12 +55,18 @@ export class ExercicesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private route: ActivatedRoute // ✅ إضافة ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.initForm();
-    this.handleTroubleLogic();
+    // ✅ استقبال patientId من الراوت
+    this.route.params.subscribe(params => {
+      this.patientId = +params['idPatient']; // استخدام idPatient
+      console.log('Patient ID from route:', this.patientId);
+      this.initForm();
+      this.handleTroubleLogic();
+    });
   }
 
   initForm(): void {
@@ -91,11 +98,11 @@ export class ExercicesComponent implements OnInit {
 
       const rawData = this.prescriptionForm.value;
       
-      // Trouver le premier trouble sélectionné
+      // ✅ الآن نستخدم this.patientId من الراوت
       const selectedTroubles = this.troubles.filter((_, i) => rawData.troubles[i]);
       const mainTrouble = selectedTroubles[0] || 'Autre';
 
-      // Mapper les valeurs vers les enums exacts
+      // المابينغ (نفس الكود السابق)
       const typeTroubleMap: { [key: string]: TypeTrouble } = {
         'Trouble anxieux': TypeTrouble.TROUBLE_ANXIEUX,
         'Dépression': TypeTrouble.DEPRESSION, 
@@ -125,7 +132,7 @@ export class ExercicesComponent implements OnInit {
         'Élevé': NiveauRisque.ELEVE
       };
 
-      // Construire la description
+      // بناء الوصف
       let description = rawData.observations || '';
       if (rawData.exercicesSelectionnes.length > 0) {
         description += `\n\nExercices sélectionnés: ${rawData.exercicesSelectionnes.join(', ')}`;
@@ -138,7 +145,7 @@ export class ExercicesComponent implements OnInit {
       }
 
       const formData: ExerciceRequest = {
-        idPatient: 1, // À remplacer par l'ID du patient sélectionné
+        idPatient: this.patientId, // ✅ استخدام patientId من الراوت
         idCoach: coachId,
         titre: `Prescription pour ${mainTrouble}`,
         description: description.trim(),
@@ -152,16 +159,17 @@ export class ExercicesComponent implements OnInit {
         exercicePersoDesc: rawData.exercicePersoDesc
       };
 
+      console.log('📤 Creating exercise for patient:', this.patientId);
       console.log('📤 Data to send:', JSON.stringify(formData, null, 2));
 
       this.exerciseService.createExercice(formData).subscribe({
         next: (response) => {
-          console.log('✅ Success:', response);
+          console.log('✅ Exercise created successfully:', response);
           alert('Prescription enregistrée avec succès !');
           this.resetForm();
         },
         error: (error) => {
-          console.error('❌ Error:', error);
+          console.error('❌ Error creating exercise:', error);
           alert('Erreur: ' + (error.error?.message || 'Erreur inconnue'));
         }
       });
@@ -170,6 +178,7 @@ export class ExercicesComponent implements OnInit {
     }
   }
 
+  // باقي الدوال تبقى كما هي...
   private resetForm(): void {
     const troublesControls = this.troubles.map(() => false);
     
@@ -189,7 +198,6 @@ export class ExercicesComponent implements OnInit {
     this.autresTroublesSelected = false;
   }
 
-  // Affichage du champ "Autre" pour troubles
   onTroubleChange(trouble: string, event: any): void {
     if (trouble === 'Autre') {
       this.autresTroublesSelected = event.target.checked;
@@ -199,7 +207,6 @@ export class ExercicesComponent implements OnInit {
     }
   }
 
-  // Gestion des exercices sélectionnés
   toggleExercice(ex: string, event: any): void {
     const selected = this.prescriptionForm.value.exercicesSelectionnes;
     if (event.target.checked) {
@@ -215,10 +222,7 @@ export class ExercicesComponent implements OnInit {
     // Logique supplémentaire pour la gestion des troubles si nécessaire
   }
 
-  // Getter pour le FormArray des troubles
   get troublesFormArray(): FormArray {
     return this.prescriptionForm.get('troubles') as FormArray;
   }
 }
-
-export { ExerciseService };

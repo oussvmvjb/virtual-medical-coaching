@@ -1,13 +1,15 @@
 <h3 class="mb-3 text-primary">Liste des évaluations</h3>
 
 <div class="evaluation-list">
-  <div 
+   <div 
     class="evaluation-item" 
     *ngFor="let eval of evaluations"
-    (click)="goToPatientExercices(eval.id)"
+    [routerLink]="['/ex', eval.idPatient]" 
   >
     <div class="evaluation-title">
       Évaluation #{{ eval.id }} – Humeur: {{ eval.humeur }}/10
+      <br>
+      <small class="text-muted">Patient ID: {{ eval.idPatient }}</small>
     </div>
 
     <!-- Infos affichées au hover -->

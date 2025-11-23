@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'mood', component: EvaluationComponent},
-  { path: 'ex', component: ExercicesComponent},
+{ path: 'ex/:idPatient', component: ExercicesComponent },
   { path: 'ex-pas', component:PatientExercisesComponent },
   { path: 'ex-coa', component: CoachExercisesComponent},
   { path: 'list-eva', component: ListEvaluationComponent},

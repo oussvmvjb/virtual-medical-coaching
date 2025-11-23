@@ -121,6 +121,6 @@ export class ListEvaluationComponent implements OnInit {
   //   🔥 MÉTHODE MANQUANTE : REDIRECTION AU CLICK
   // ----------------------------------------------------
   goToPatientExercices(idEval: number): void {
-    this.router.navigate(['/patient-exercices', idEval]);
+    this.router.navigate(['/ex', idEval]);
   }
 }
