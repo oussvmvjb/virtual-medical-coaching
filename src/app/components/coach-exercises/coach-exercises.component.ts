@@ -3,11 +3,11 @@ import { ExerciseService } from '../../services/exercise.service';
 import { Exercice } from '../../models/exercise';
 
 @Component({
-  selector: 'app-doctor-exercises-view',
-  templateUrl: './doctor-exercises-view.component.html',
-  styleUrls: ['./doctor-exercises-view.component.scss']
+  selector: 'coach-exercises',
+  templateUrl: './coach-exercises.component.html',
+  styleUrls: ['./coach-exercises.component.scss']
 })
-export class DoctorExercisesViewComponent implements OnInit {
+export class CoachExercisesComponent implements OnInit {
   exercices: Exercice[] = [];
   loading = false;
   filterStatut = 'TOUS';
