@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EvaluationService } from '../../services/mood.service'; // <-- chemin corrigé
+import { EvaluationService } from '../../services/mood.service';
+import { Router } from '@angular/router';   // <-- Ajouté
 
 @Component({
   selector: 'app-evaluation-humeurs',
@@ -8,6 +9,7 @@ import { EvaluationService } from '../../services/mood.service'; // <-- chemin c
   styleUrls: ['./list-evaluation.Component.scss']
 })
 export class ListEvaluationComponent implements OnInit {
+  
   evaluationForm!: FormGroup;
   evaluations: any[] = [];
 
@@ -17,7 +19,8 @@ export class ListEvaluationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private evaluationService: EvaluationService
+    private evaluationService: EvaluationService,
+    private router: Router // <-- Ajouté
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +41,7 @@ export class ListEvaluationComponent implements OnInit {
       interactions_sociales: ['NORMALE', Validators.required],
       pensees_risque: [false],
       details_risque: [''],
-      commentaire: [''] // <-- champ manquant ajouté
+      commentaire: ['']
     });
   }
 
@@ -48,6 +51,7 @@ export class ListEvaluationComponent implements OnInit {
       const patientId = currentUser.id;
 
       const rawData = this.evaluationForm.value;
+
       const formData = {
         idPatient: patientId,
         humeur: rawData.humeur,
@@ -111,5 +115,12 @@ export class ListEvaluationComponent implements OnInit {
     if (humeur >= 7) return '🙂';
     if (humeur >= 4) return '😐';
     return '😟';
+  }
+
+  // ----------------------------------------------------
+  //   🔥 MÉTHODE MANQUANTE : REDIRECTION AU CLICK
+  // ----------------------------------------------------
+  goToPatientExercices(idEval: number): void {
+    this.router.navigate(['/patient-exercices', idEval]);
   }
 }
