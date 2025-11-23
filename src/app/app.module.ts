@@ -14,6 +14,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EvaluationComponent } from './components/evaluation/evaluation.component';
 import { ExercicesComponent } from './exercices/exercices.component';
+import { PatientExercisesComponent } from './components/patient-exercises/patient-exercises.component';
+import { CoachExercisesComponent } from './components/coach-exercises/coach-exercises.component';
  
 
 @NgModule({
@@ -26,7 +28,9 @@ import { ExercicesComponent } from './exercices/exercices.component';
     NavbarComponent,
     ProfileComponent,
     EvaluationComponent,
-    ExercicesComponent
+    ExercicesComponent,
+    PatientExercisesComponent,
+    CoachExercisesComponent
 
     
   ],
