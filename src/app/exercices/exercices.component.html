@@ -6,7 +6,7 @@
     </div>
 
     <div class="card-body">
-      <form [formGroup]="medecinForm" (ngSubmit)="onSubmit()">
+      <form  (ngSubmit)="onSubmit()">
 
         <!-- A. Analyse du médecin -->
         <h5 class="text-success border-bottom pb-2 mb-3">Analyse rapide</h5>
@@ -82,7 +82,7 @@
         <div class="row g-3 mb-3">
           <div class="col-md-6" *ngFor="let ex of anxieteList">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" [formControlName]="ex.control">
+              <input type="checkbox" class="form-check-input" >
               <label class="form-check-label">{{ ex.label }}</label>
             </div>
           </div>
@@ -95,7 +95,7 @@
         <div class="row g-3 mb-3">
           <div class="col-md-6" *ngFor="let ex of depressionList">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" [formControlName]="ex.control">
+              <input type="checkbox" class="form-check-input" >
               <label class="form-check-label">{{ ex.label }}</label>
             </div>
           </div>
@@ -108,7 +108,7 @@
         <div class="row g-3 mb-3">
           <div class="col-md-6" *ngFor="let ex of sommeilList">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" [formControlName]="ex.control">
+              <input type="checkbox" class="form-check-input" >
               <label class="form-check-label">{{ ex.label }}</label>
             </div>
           </div>
@@ -121,7 +121,7 @@
         <div class="row g-3 mb-3">
           <div class="col-md-6" *ngFor="let ex of stressList">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" [formControlName]="ex.control">
+              <input type="checkbox" class="form-check-input" >
               <label class="form-check-label">{{ ex.label }}</label>
             </div>
           </div>

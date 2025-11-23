@@ -99,3 +99,5 @@ onSubmit(): void {
   handleRiskLogic(): void {
   }
 }
+
+export { EvaluationService };

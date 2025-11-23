@@ -13,7 +13,8 @@ import { EmailJSResponseStatus } from 'emailjs-com';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EvaluationComponent } from './components/evaluation/evaluation.component';
-import { ExercicesComponent } from './exercices/exercices.component';
+ 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,7 @@ import { ExercicesComponent } from './exercices/exercices.component';
     NavbarComponent,
     ProfileComponent,
     EvaluationComponent,
-    ExercicesComponent
+    
   ],
   imports: [
     BrowserModule,
