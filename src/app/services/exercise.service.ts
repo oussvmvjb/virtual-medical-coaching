@@ -7,7 +7,7 @@ import { Exercice, ExerciceRequest, TypeTrouble, StatutExercice } from '../model
   providedIn: 'root'
 })
 export class ExerciseService {
-  private apiUrl = 'http://localhost:8080/api/exercices';
+  private apiUrl = 'http://localhost:8089/api/exercices';
 
   constructor(private http: HttpClient) { }
 
