@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EvaluationService } from '../services/mood.service'; // <-- chemin corrigé
+import { EvaluationService } from '../../services/mood.service'; // <-- chemin corrigé
 
 @Component({
   selector: 'app-evaluation-humeurs',
-  templateUrl: './evaluation_humeurs.html',
-  styleUrls: ['./evaluation_humeurs.scss']
+  templateUrl: './list-evaluation.Component.html',
+  styleUrls: ['./list-evaluation.Component.scss']
 })
-export class Evaluation_humeurs implements OnInit {
+export class ListEvaluationComponent implements OnInit {
   evaluationForm!: FormGroup;
   evaluations: any[] = [];
 
