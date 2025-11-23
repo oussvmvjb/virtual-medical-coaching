@@ -14,7 +14,7 @@ export class ExercicesComponent implements OnInit {
   // Listes pour les sélections
   troublesList = [
     'Anxiété généralisée',
-    'Dépression', 
+    'Dépression',
     'Trouble panique',
     'Insomnie',
     'Stress post-traumatique',
@@ -74,14 +74,14 @@ export class ExercicesComponent implements OnInit {
       // A. Analyse du médecin
       observations: ['', Validators.required],
       niveau_risque: ['faible', Validators.required],
-      
+
       // B. Diagnostic
       trouble: ['', Validators.required],
       trouble_autre: [''],
-      
+
       // C. Prescription
       frequence: ['quotidien', Validators.required],
-      
+
       // Exercices - Groupes de checkboxes
       exercices_anxiete: this.fb.group({
         respiration: [false],
@@ -91,7 +91,7 @@ export class ExercicesComponent implements OnInit {
         journal: [false],
         exposition: [false]
       }),
-      
+
       exercices_depression: this.fb.group({
         activite_agreable: [false],
         gratitude: [false],
@@ -100,7 +100,7 @@ export class ExercicesComponent implements OnInit {
         social: [false],
         pleine_conscience: [false]
       }),
-      
+
       exercices_sommeil: this.fb.group({
         routine: [false],
         relaxation_sommeil: [false],
@@ -109,7 +109,7 @@ export class ExercicesComponent implements OnInit {
         cafeine: [false],
         detente: [false]
       }),
-      
+
       exercices_stress: this.fb.group({
         gestion_temps: [false],
         affirmation: [false],
@@ -118,7 +118,7 @@ export class ExercicesComponent implements OnInit {
         limitation_medias: [false],
         loisirs: [false]
       }),
-      
+
       message: ['', Validators.required],
       duree: ['1s', Validators.required]
     });
@@ -134,11 +134,11 @@ export class ExercicesComponent implements OnInit {
   private resetExercices(): void {
     const exerciceGroups = [
       'exercices_anxiete',
-      'exercices_depression', 
+      'exercices_depression',
       'exercices_sommeil',
       'exercices_stress'
     ];
-    
+
     exerciceGroups.forEach(group => {
       const groupControl = this.prescriptionForm.get(group) as FormGroup;
       Object.keys(groupControl.controls).forEach(key => {
@@ -161,7 +161,7 @@ export class ExercicesComponent implements OnInit {
       }
 
       const rawData = this.prescriptionForm.value;
-      
+
       // Compiler les exercices sélectionnés
       const exercicesSelectionnes = this.getSelectedExercices(rawData);
 
@@ -233,7 +233,7 @@ export class ExercicesComponent implements OnInit {
       message: '',
       duree: '1s'
     });
-    
+
     this.resetExercices();
   }
 }
