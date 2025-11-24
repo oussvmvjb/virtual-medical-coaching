@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class exerciceService {
-  private apiUrl = 'http://localhost:8080/api/prescriptions';
+  private apiUrl = 'http://localhost:8089/api/prescriptions';
 
   constructor(private http: HttpClient) { }
 

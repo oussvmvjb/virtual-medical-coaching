@@ -65,8 +65,7 @@ onSubmit(): void {
       penseesRisque: rawData.pensees_risque,
       detailsRisque: rawData.details_risque,
       commentaire: rawData.commentaire
-      // ⚠️ NE PAS envoyer dateEvaluation - le backend la gère automatiquement
-    };
+     };
 
     console.log('📤 Data to send (sans date):', JSON.stringify(formData, null, 2));
 

@@ -17,6 +17,7 @@ import { ExercicesComponent } from './exercices/exercices.component';
 import { PatientExercisesComponent } from './components/patient-exercises/patient-exercises.component';
 import { CoachExercisesComponent } from './components/coach-exercises/coach-exercises.component';
 import { ListEvaluationComponent } from './components/list-evaluation/list-evaluation.component';
+import { PatientMoodChartComponent } from './components/patient-mood-chart/patient-mood-chart.component';
  
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ListEvaluationComponent } from './components/list-evaluation/list-evalu
     ExercicesComponent,
     PatientExercisesComponent,
     CoachExercisesComponent,
-    ListEvaluationComponent
+    ListEvaluationComponent,
+    PatientMoodChartComponent
 
     
   ],

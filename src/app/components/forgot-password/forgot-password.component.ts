@@ -188,7 +188,7 @@ export class ForgotPasswordComponent {
         console.log(' Paramètres EmailJS:', {
           serviceId: this.emailjsConfig.serviceId,
           templateId: this.emailjsConfig.templateId,
-          publicKey: this.emailjsConfig.publicKey.substring(0, 10) + '...' // Cacher une partie de la clé
+          publicKey: this.emailjsConfig.publicKey.substring(0, 10) + '...'  
         });
 
         console.log(' Paramètres du template:', templateParams);
