@@ -8,7 +8,7 @@ import { Evaluation } from '../models/mood-evaluation';
   providedIn: 'root'
 })
 export class EvaluationService {
-  private apiUrl = 'http://localhost:8080/api/evaluations';
+  private apiUrl = 'http://localhost:8081/api/evaluations';
 
   constructor(private http: HttpClient) { }
 
