@@ -7,7 +7,7 @@
     <div class="card-body">
       <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
 
-        <!-- Indicateurs (1-10) -->
+        
         <h5 class="text-primary border-bottom pb-2 mb-3">Indicateurs (1-10)</h5>
         <div class="row g-3">
           <div class="col-md-6" *ngFor="let metric of ['humeur', 'stress', 'energie', 'motivation', 'sommeil']">
@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <!-- État Physique & Social -->
+        
         <h5 class="text-primary border-bottom pb-2 mb-3 mt-4">État Physique & Social</h5>
         <div class="row g-3">
           <div class="col-md-4">
@@ -62,7 +62,7 @@
           </div>
         </div>
 
-        <!-- Symptômes et Commentaire -->
+        
         <div class="mt-3">
           <label class="form-label fw-bold">Symptômes</label>
           <textarea class="form-control" rows="2" formControlName="symptomes" placeholder="Douleurs, anxiété..."></textarea>
@@ -73,13 +73,13 @@
           <textarea class="form-control" rows="2" formControlName="commentaire"></textarea>
         </div>
 
-        <!-- Boutons -->
+        
         <div class="d-flex gap-2 mt-4">
           <button type="submit" class="btn btn-primary btn-lg" [disabled]="evaluationForm.invalid">
             Enregistrer
           </button>
 
-          <!-- Nouveau bouton pour afficher le graphe -->
+          
           <button type="button" class="btn btn-success btn-lg" (click)="afficherGraphe()">
             Voir le graphe
           </button>
@@ -87,7 +87,7 @@
 
       </form>
 
-      <!-- Graphe Chart.js -->
+      
       <div *ngIf="showGraph" class="mt-5">
         <h5 class="text-primary mb-3">Graphique des évaluations</h5>
         <canvas id="evaluationGraph"></canvas>
