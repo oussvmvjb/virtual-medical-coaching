@@ -7,11 +7,10 @@ import { Exercice, ExerciceRequest, TypeTrouble, StatutExercice } from '../model
   providedIn: 'root'
 })
 export class ExerciseService {
-  private apiUrl = 'http://localhost:8080/api/exercices';
+  private apiUrl = 'http://localhost:8089/api/exercices';
 
   constructor(private http: HttpClient) { }
 
-  // CRUD Operations avec gestion d'erreurs
   createExercice(exercice: ExerciceRequest): Observable<Exercice> {
     return this.http.post<Exercice>(this.apiUrl, exercice)
       .pipe(
@@ -104,7 +103,6 @@ export class ExerciseService {
       );
   }
 
-  // Health check
   healthCheck(): Observable<string> {
     return this.http.get(`${this.apiUrl}/health`, { responseType: 'text' })
       .pipe(
@@ -112,15 +110,12 @@ export class ExerciseService {
       );
   }
 
-  // Gestion d'erreurs
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Une erreur est survenue';
     
     if (error.error instanceof ErrorEvent) {
-      // Erreur côté client
       errorMessage = `Erreur: ${error.error.message}`;
     } else {
-      // Erreur côté serveur
       if (error.error && error.error.message) {
         errorMessage = error.error.message;
       } else {

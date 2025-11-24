@@ -1,10 +1,8 @@
 <nav class="navbar navbar-expand-lg fixed-top medical-navbar" *ngIf="!isLoginPage()">
   <div class="container-fluid">
     
-    <!-- Left Section - Navigation Links -->
     <div class="navbar-nav left-section">
       
-      <!-- Common Links for Both Roles -->
       <a class="nav-link accueil-link" routerLink="/home" routerLinkActive="active">
         <i class="fas fa-home me-2"></i>Accueil
       </a>
@@ -12,7 +10,6 @@
         <i class="fas fa-user me-2"></i>Profil
       </a>
 
-      <!-- USER Specific Links -->
       <ng-container *ngIf="isUser()">
         <a class="nav-link profile-link" routerLink="/mood" routerLinkActive="active">
           <i class="fas fa-clipboard-check me-2"></i>Évaluation
@@ -20,12 +17,11 @@
         <a class="nav-link accueil-link" routerLink="/ex-pas" routerLinkActive="active">
           <i class="fas fa-dumbbell me-2"></i>Mes Exercises
         </a>
-        <a class="nav-link accueil-link" routerLink="/home" routerLinkActive="active">
+        <a class="nav-link accueil-link" routerLink="/graphique" routerLinkActive="active">
           <i class="fas fa-chart-line me-2"></i>Graphiques
         </a>
       </ng-container>
 
-      <!-- COACH Specific Links -->
       <ng-container *ngIf="isCoach()">
         <a class="nav-link accueil-link" routerLink="/ex-coa" routerLinkActive="active">
           <i class="fas fa-list-check me-2"></i>Exercices Coach
@@ -35,28 +31,23 @@
         </a>
       </ng-container>
 
-      <!-- Common Logout -->
       <a class="nav-link logout-link" (click)="logout()" style="cursor: pointer;">
         <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
       </a>
     </div>
 
-    <!-- Mobile Toggle Button -->
     <button class="navbar-toggler mobile-toggle" type="button" (click)="toggleMobileMenu()">
       <i class="fas fa-bars"></i>
     </button>
 
-    <!-- App Name -->
     <span class="navbar-brand app-name">
       <i class="fas fa-heartbeat me-2"></i>Virtual Medical Coaching
     </span>
   </div>
 
-  <!-- Mobile Menu -->
   <div class="mobile-navbar" [class.active]="mobileMenuOpen">
     <div class="mobile-nav-content">
       
-      <!-- Common Mobile Links -->
       <a class="mobile-nav-link" routerLink="/home" (click)="closeMobileMenu()" routerLinkActive="active">
         <i class="fas fa-home me-2"></i>Accueil
       </a>
@@ -64,7 +55,6 @@
         <i class="fas fa-user me-2"></i>Profil
       </a>
 
-      <!-- USER Specific Mobile Links -->
       <ng-container *ngIf="isUser()">
         <a class="mobile-nav-link" routerLink="/mood" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-clipboard-check me-2"></i>Évaluation
@@ -72,12 +62,11 @@
         <a class="mobile-nav-link" routerLink="/ex-pas" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-dumbbell me-2"></i>Mes Exercises
         </a>
-        <a class="mobile-nav-link" routerLink="/home" (click)="closeMobileMenu()" routerLinkActive="active">
+        <a class="mobile-nav-link" routerLink="/graphique" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-chart-line me-2"></i>Graphiques
         </a>
       </ng-container>
 
-      <!-- COACH Specific Mobile Links -->
       <ng-container *ngIf="isCoach()">
         <a class="mobile-nav-link" routerLink="/ex" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-prescription me-2"></i>Prescrire Exercises
@@ -90,7 +79,6 @@
         </a>
       </ng-container>
 
-      <!-- Common Mobile Logout -->
       <a class="mobile-nav-link logout" (click)="logout(); closeMobileMenu()">
         <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
       </a>

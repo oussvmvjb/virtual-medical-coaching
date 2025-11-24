@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EvaluationService } from '../../services/mood.service';
-import { Router } from '@angular/router';   // <-- Ajouté
+import { Router } from '@angular/router';   
 
 @Component({
   selector: 'app-evaluation-humeurs',
@@ -20,7 +20,7 @@ export class ListEvaluationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private evaluationService: EvaluationService,
-    private router: Router // <-- Ajouté
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
@@ -117,9 +117,7 @@ export class ListEvaluationComponent implements OnInit {
     return '😟';
   }
 
-  // ----------------------------------------------------
-  //   🔥 MÉTHODE MANQUANTE : REDIRECTION AU CLICK
-  // ----------------------------------------------------
+  
   goToPatientExercices(idEval: number): void {
     this.router.navigate(['/ex', idEval]);
   }

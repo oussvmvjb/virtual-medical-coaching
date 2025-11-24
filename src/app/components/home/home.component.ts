@@ -5,7 +5,7 @@ interface Psychologue {
   specialite: string;
   photo: string;
   disponible: boolean;
-  avis: number; // note sur 5
+  avis: number; 
 }
 
 @Component({
@@ -14,7 +14,6 @@ interface Psychologue {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  // Liste des besoins
   besoins: string[] = [
     'Anxiété',
     'Dépression',
@@ -23,7 +22,6 @@ export class HomeComponent {
     'Problèmes de sommeil'
   ];
 
-  // Liste des psychologues
   psychologues: Psychologue[] = [
     {
       nom: 'Dr. Marie Dupont',
@@ -55,25 +53,19 @@ export class HomeComponent {
     }
   ];
 
-  // Actions des boutons
   commencer() {
     alert('Redirection vers la réservation d’une session.');
-    // Ici tu peux ajouter la logique pour router vers la page de réservation
-    // this.router.navigate(['/reservation']);
   }
 
   trouverCoach() {
     alert('Redirection vers la liste complète des coachs.');
-    // Exemple : this.router.navigate(['/psychologues']);
   }
 
   voirProfil(psycho: Psychologue) {
     alert(`Voir le profil de ${psycho.nom}`);
-    // Exemple : this.router.navigate(['/psychologue', psycho.id]);
   }
 
   toggleDisponibilite(index: number) {
-    // Permet de changer la disponibilité d’un psychologue
     this.psychologues[index].disponible = !this.psychologues[index].disponible;
   }
 }

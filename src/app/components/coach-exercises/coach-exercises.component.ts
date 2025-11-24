@@ -49,7 +49,7 @@ export class CoachExercisesComponent implements OnInit {
     return { total, active, completed, cancelled };
   }
 
-  // mêmes helpers (FR)
+   
   getStatusBadgeClass(statut: string): string {
     const classes = {
       'ACTIF': 'badge bg-warning',

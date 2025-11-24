@@ -11,19 +11,24 @@ import { ExercicesComponent } from './exercices/exercices.component';
 import { PatientExercisesComponent } from './components/patient-exercises/patient-exercises.component';
 import { CoachExercisesComponent } from './components/coach-exercises/coach-exercises.component';
 import { ListEvaluationComponent } from './components/list-evaluation/list-evaluation.component';
+import { PatientMoodChartComponent } from './components/patient-mood-chart/patient-mood-chart.component';
+
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'graphique', component: PatientMoodChartComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'mood', component: EvaluationComponent},
-{ path: 'ex/:idPatient', component: ExercicesComponent },
+  { path: 'ex/:idPatient', component: ExercicesComponent },
   { path: 'ex-pas', component:PatientExercisesComponent },
   { path: 'ex-coa', component: CoachExercisesComponent},
   { path: 'list-eva', component: ListEvaluationComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '/login' }
+  { path: '**', redirectTo: '/login' },
+  
 ];
 
 @NgModule({
