@@ -1,7 +1,7 @@
-// models/mood-evaluation.ts
+
 export interface Evaluation {
   id?: number;
-  idPatient: number;                    // camelCase
+  idPatient: number;                    
   humeur: number;
   stress: number;
   energie: number;
@@ -9,10 +9,10 @@ export interface Evaluation {
   sommeil: number;
   symptomes?: string;
   appetit: 'NORMAL' | 'DIMINUE' | 'AUGMENTE';
-  activitePhysique: 'AUCUNE' | 'FAIBLE' | 'MODEREE' | 'BONNE';  // camelCase
-  interactionsSociales: 'AUCUNE' | 'FAIBLE' | 'NORMALE' | 'ACTIVE';  // camelCase
-  penseesRisque: boolean;               // camelCase
-  detailsRisque?: string;               // camelCase
+  activitePhysique: 'AUCUNE' | 'FAIBLE' | 'MODEREE' | 'BONNE';  
+  interactionsSociales: 'AUCUNE' | 'FAIBLE' | 'NORMALE' | 'ACTIVE';  
+  penseesRisque: boolean;               
+  detailsRisque?: string;               
   commentaire?: string;
-  dateEvaluation?: Date;                // camelCase
+  dateEvaluation?: Date;                
 }

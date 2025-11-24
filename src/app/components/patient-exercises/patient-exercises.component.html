@@ -1,19 +1,19 @@
 <div class="container mt-4">
   <h2 class="text-center mb-4">📝 Mes exercices</h2>
 
-  <!-- Chargement -->
+  <
   <div *ngIf="loading" class="text-center">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Chargement...</span>
     </div>
   </div>
 
-  <!-- Aucun exercice -->
+  
   <div *ngIf="!loading && exercices.length === 0" class="alert alert-info text-center">
     Aucun exercice ne vous a été attribué pour le moment.
   </div>
 
-  <!-- Liste des exercices -->
+  
   <div *ngFor="let exercice of exercices" class="card mb-3 shadow exercise-card">
     
     <div class="card-header d-flex justify-content-between align-items-center">
@@ -52,7 +52,7 @@
         <p>{{ exercice.instructions }}</p>
       </div>
 
-      <!-- Bouton compléter -->
+      
       <div *ngIf="exercice.statut === 'ACTIF'" class="text-center">
         <button class="btn btn-success" (click)="markAsCompleted(exercice.id!)">
           ✔ J’ai terminé cet exercice

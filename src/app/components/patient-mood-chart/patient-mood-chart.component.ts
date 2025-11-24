@@ -17,7 +17,6 @@ export class PatientMoodChartComponent implements AfterViewInit, OnDestroy {
   doctorChart: any;
 
   ngAfterViewInit() {
-    // Attendre un peu le rendu HTML + les Inputs venant du parent
     setTimeout(() => {
       this.createPatientChart();
       this.createDoctorChart();

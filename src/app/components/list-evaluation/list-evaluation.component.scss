@@ -16,7 +16,6 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Effet au survol */
 .evaluation-item:hover {
   background: #e2e2ff;
   transform: translateY(-3px);
@@ -28,7 +27,6 @@
   color: #333;
 }
 
-/* Détails cachés par défaut */
 .evaluation-details {
   margin-top: 10px;
   font-size: 14px;

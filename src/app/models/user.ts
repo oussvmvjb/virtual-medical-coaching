@@ -16,10 +16,10 @@ export interface SignupRequest {
   nom: string;
   prenom: string;
   email: string;
-  telephone: string; // Changé de 'tel' à 'telephone'
+  telephone: string; 
   psw: string;
   confirmPassword: string;
-  role: string; // Ajout du champ rôle
+  role: string; 
 }
 export interface ForgotPasswordRequest {
   email: string;

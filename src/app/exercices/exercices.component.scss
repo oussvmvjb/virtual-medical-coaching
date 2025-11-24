@@ -1,31 +1,30 @@
-/* ===== Style général du formulaire ===== */
 form {
   max-width: 900px;
   margin: 60px auto;
   padding: 40px;
-  background-color: rgba(255, 255, 255, 0.97); /* fond blanc semi-transparent */
+  background-color: rgba(255, 255, 255, 0.97); 
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   line-height: 1.6;
-  backdrop-filter: blur(6px); /* effet verre dépoli */
+  backdrop-filter: blur(6px); 
 }
 
-/* Titre principal du formulaire */
+
 h2 {
   text-align: center;
-  color: #ffffff; /* blanc pur */
+  color: #ffffff; 
   font-size: 32px;
   margin-bottom: 30px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  background: linear-gradient(135deg, #3498db, #1f5f8b); /* bande colorée derrière le titre */
+  background: linear-gradient(135deg, #3498db, #1f5f8b); 
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
 }
 
-/* Titres de section */
+
 h3 {
   color: #2c3e50;
   border-left: 5px solid #3498db;
@@ -36,7 +35,7 @@ h3 {
   font-weight: 600;
 }
 
-/* Labels */
+
 label {
   display: block;
   margin-bottom: 6px;
@@ -45,7 +44,7 @@ label {
   font-size: 15px;
 }
 
-/* Inputs texte et textarea */
+
 input[type="text"],
 textarea {
   width: 100%;
@@ -66,14 +65,14 @@ textarea:focus {
   background-color: #fff;
 }
 
-/* Checkbox et radio */
+
 input[type="checkbox"],
 input[type="radio"] {
   margin-right: 8px;
   accent-color: #3498db;
 }
 
-/* Bouton */
+
 button[type="submit"] {
   background: linear-gradient(135deg, #3498db, #2980b9);
   color: #fff;
@@ -94,12 +93,11 @@ button[type="submit"]:hover {
   box-shadow: 0 8px 18px rgba(52, 152, 219, 0.4);
 }
 
-/* Textarea instructions */
+
 textarea {
   min-height: 100px;
 }
 
-/* Responsiveness */
 @media (max-width: 600px) {
   form {
     padding: 25px;

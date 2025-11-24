@@ -23,7 +23,6 @@ export class EvaluationService {
   getRecentEvaluations(patientId: number, limit: number = 5): Observable<Evaluation[]> {
     return this.http.get<Evaluation[]>(`${this.apiUrl}/patient/${patientId}/recent?limit=${limit}`);
   }
-// Récupérer toutes les évaluations
   getEvaluations(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }

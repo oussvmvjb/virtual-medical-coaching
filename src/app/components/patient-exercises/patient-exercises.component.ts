@@ -51,7 +51,6 @@ export class PatientExercisesComponent implements OnInit {
     });
   }
 
-  // --- Helpers (Traduits en français) ---
   getStatusBadgeClass(statut: string): string {
     const classes = {
       'ACTIF': 'badge bg-warning',

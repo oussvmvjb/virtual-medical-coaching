@@ -11,7 +11,7 @@ import { ExerciceRequest, TypeTrouble, Frequence, Duree, NiveauRisque } from '..
 })
 export class ExercicesComponent implements OnInit {
   prescriptionForm!: FormGroup;
-  patientId!: number; // ✅ إضافة patientId
+  patientId!: number; 
   
   niveauxRisque = ['Faible', 'Moyen', 'Élevé'];
   troubles = [
@@ -56,13 +56,13 @@ export class ExercicesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private exerciseService: ExerciseService,
-    private route: ActivatedRoute // ✅ إضافة ActivatedRoute
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
-    // ✅ استقبال patientId من الراوت
+    
     this.route.params.subscribe(params => {
-      this.patientId = +params['idPatient']; // استخدام idPatient
+      this.patientId = +params['idPatient']; 
       console.log('Patient ID from route:', this.patientId);
       this.initForm();
       this.handleTroubleLogic();
@@ -73,15 +73,14 @@ export class ExercicesComponent implements OnInit {
     const troublesControls = this.troubles.map(() => false);
 
     this.prescriptionForm = this.fb.group({
-      // Section A
+      
       observations: [''],
       niveauRisque: ['Faible', Validators.required],
 
-      // Section B
       troubles: this.fb.array(troublesControls),
       autresTroubles: [''],
 
-      // Section C
+      
       frequence: ['1 exercice par semaine', Validators.required],
       exercicesSelectionnes: [[]],
       exercicePersoNom: [''],
@@ -98,11 +97,9 @@ export class ExercicesComponent implements OnInit {
 
       const rawData = this.prescriptionForm.value;
       
-      // ✅ الآن نستخدم this.patientId من الراوت
       const selectedTroubles = this.troubles.filter((_, i) => rawData.troubles[i]);
       const mainTrouble = selectedTroubles[0] || 'Autre';
 
-      // المابينغ (نفس الكود السابق)
       const typeTroubleMap: { [key: string]: TypeTrouble } = {
         'Trouble anxieux': TypeTrouble.TROUBLE_ANXIEUX,
         'Dépression': TypeTrouble.DEPRESSION, 
@@ -132,7 +129,6 @@ export class ExercicesComponent implements OnInit {
         'Élevé': NiveauRisque.ELEVE
       };
 
-      // بناء الوصف
       let description = rawData.observations || '';
       if (rawData.exercicesSelectionnes.length > 0) {
         description += `\n\nExercices sélectionnés: ${rawData.exercicesSelectionnes.join(', ')}`;
@@ -145,7 +141,7 @@ export class ExercicesComponent implements OnInit {
       }
 
       const formData: ExerciceRequest = {
-        idPatient: this.patientId, // ✅ استخدام patientId من الراوت
+        idPatient: this.patientId, 
         idCoach: coachId,
         titre: `Prescription pour ${mainTrouble}`,
         description: description.trim(),
@@ -178,7 +174,6 @@ export class ExercicesComponent implements OnInit {
     }
   }
 
-  // باقي الدوال تبقى كما هي...
   private resetForm(): void {
     const troublesControls = this.troubles.map(() => false);
     
@@ -219,7 +214,6 @@ export class ExercicesComponent implements OnInit {
   }
 
   handleTroubleLogic(): void {
-    // Logique supplémentaire pour la gestion des troubles si nécessaire
   }
 
   get troublesFormArray(): FormArray {

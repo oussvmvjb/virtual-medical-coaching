@@ -20,7 +20,7 @@ export class ListEvaluationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private evaluationService: EvaluationService,
-    private router: Router // <-- Ajouté
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
@@ -117,9 +117,7 @@ export class ListEvaluationComponent implements OnInit {
     return '😟';
   }
 
-  // ----------------------------------------------------
-  //   🔥 MÉTHODE MANQUANTE : REDIRECTION AU CLICK
-  // ----------------------------------------------------
+  
   goToPatientExercices(idEval: number): void {
     this.router.navigate(['/ex', idEval]);
   }

@@ -111,10 +111,10 @@ export class SignupComponent {
       nom: '',
       prenom: '',
       email: '',
-      telephone: '', // Changé de 'tel' à 'telephone'
+      telephone: '', 
       psw: '',
       confirmPassword: '',
-      role: 'USER' // Réinitialiser à USER
+      role: 'USER' 
     };
     this.errorMessage = '';
     this.passwordMismatch = false;

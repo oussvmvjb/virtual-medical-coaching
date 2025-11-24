@@ -1,4 +1,3 @@
-// evaluation.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EvaluationService } from '../../services/mood.service';
@@ -14,15 +13,14 @@ Chart.register(...registerables);
 export class EvaluationComponent implements OnInit {
   evaluationForm!: FormGroup;
 
-  // Options pour les selects
   appetitOptions = ['NORMAL', 'DIMINUE', 'AUGMENTE'];
   activiteOptions = ['AUCUNE', 'FAIBLE', 'MODEREE', 'BONNE'];
   socialOptions = ['AUCUNE', 'FAIBLE', 'NORMALE', 'ACTIVE'];
 
-  // Variables pour le graphe
+
   showGraph: boolean = false;
   chart: any;
-  evaluations: any[] = []; // stocke toutes les évaluations locales
+  evaluations: any[] = []; 
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +32,7 @@ export class EvaluationComponent implements OnInit {
     this.handleRiskLogic();
   }
 
-  // Initialisation du formulaire avec valeurs par défaut
+  
   initForm(): void {
     this.evaluationForm = this.fb.group({
       humeur: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
@@ -54,7 +52,7 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  // Soumission du formulaire
+  
   onSubmit(): void {
     if (!this.evaluationForm.valid) {
       this.evaluationForm.markAllAsTouched();
@@ -88,7 +86,7 @@ export class EvaluationComponent implements OnInit {
         console.log('✅ Success:', response);
         alert('Évaluation enregistrée avec succès !');
 
-        // Stocker localement pour le graphe
+       
         this.evaluations.push(formData);
         this.updateGraph();
 
@@ -101,7 +99,6 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  // Réinitialisation du formulaire
   private resetForm(): void {
     this.evaluationForm.reset({
       humeur: 5,
@@ -116,18 +113,14 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  // Gestion des champs de risque (placeholder)
   handleRiskLogic(): void {
-    // Ici tu peux ajouter des subscriptions pour activer/désactiver details_risque
   }
 
-  // Afficher le graphe
   afficherGraphe(): void {
     this.showGraph = true;
     this.updateGraph();
   }
 
-  // Mettre à jour le graphe avec toutes les évaluations
   private updateGraph(): void {
     if (!this.evaluations.length) return;
 
@@ -138,7 +131,6 @@ export class EvaluationComponent implements OnInit {
     const motivationData = this.evaluations.map(e => e.motivation);
     const sommeilData = this.evaluations.map(e => e.sommeil);
 
-    // Détruire le chart existant pour éviter les doublons
     if (this.chart) this.chart.destroy();
 
     this.chart = new Chart('evaluationGraph', {
