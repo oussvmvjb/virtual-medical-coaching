@@ -925,7 +925,7 @@
     transition: all 0.3s ease;
 
     &:hover {
-      background: #f0f8ff; // léger bleu au survol
+      background: #f0f8ff;  
       transform: translateY(-3px) scale(1.05);
     }
   }
@@ -934,10 +934,10 @@
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   line-height: 1.8;
-  color: #1E90FF;  // Nouveau bleu (DodgerBlue)
+  color: #1E90FF;  
   font-weight: 400;
   letter-spacing: 0.5px;
-  margin-top: 10px;
+  margin-top: 10px; 
   text-align: center;
 }
 .cta-container {
