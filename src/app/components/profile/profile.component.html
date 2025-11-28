@@ -1,179 +1,255 @@
-<div class="container mt-5">
-  <div class="profile-card">
-    <div class="profile-header text-center mb-4">
-      <h2 class="mb-3">Profil</h2>
-    </div>
+<div class="prescription-container">
+  <div class="container mt-5"> 
     
-    <!-- Alert Messages -->
-    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
-      <i class="fas fa-exclamation-triangle me-2"></i>{{ errorMessage }}
-      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+<div class="page-header-section profile-header mb-4">
+  <div class="header-content">
+    <div class="medical-icon profile">
+      <i class="fas fa-user-circle"></i>
     </div>
-    
-    <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
-      <i class="fas fa-check-circle me-2"></i>{{ successMessage }}
-      <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+    <div class="header-text">
+      <h1 class="main-title">Mon Profil</h1>
+      <p class="subtitle">Gestion de votre compte personnel</p>
     </div>
+  </div>
+</div>
 
-    <!-- Stats Cards -->
-    <div class="row mb-4">
-      <div class="col-md-4">
-        <div class="card text-white bg-primary text-center p-3">
-          <h4>{{ currentUser?.id || 'N/A' }}</h4>
-          <p>ID Utilisateur</p>
-        </div>
-      </div>
+    <!-- المحتوى الرئيسي -->
+    <div class="profile-content">
       
-      <div class="col-md-4">
-        <div class="card text-white bg-info text-center p-3">
-          <h4>{{ getRoleText(currentUser?.role) }}</h4>
-          <p>Rôle</p>
+      <!-- Alert Messages -->
+      <div class="alert-container">
+        <div *ngIf="errorMessage" class="alert-medical alert-danger">
+          <div class="alert-content">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span>{{ errorMessage }}</span>
+          </div>
+          <button type="button" class="alert-close" (click)="errorMessage = ''">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div *ngIf="successMessage" class="alert-medical alert-success">
+          <div class="alert-content">
+            <i class="fas fa-check-circle me-2"></i>
+            <span>{{ successMessage }}</span>
+          </div>
+          <button type="button" class="alert-close" (click)="successMessage = ''">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
       </div>
-      
-      <div class="col-md-4">
-        <div class="card text-white bg-secondary text-center p-3">
-          <h4>{{ currentUser?.dateCreation ? (currentUser.dateCreation | date:'dd/MM/yyyy') : 'N/A' }}</h4>
-          <p>Membre depuis</p>
-        </div>
-      </div>
-    </div>
 
-    <!-- User Information Section -->
-    <div class="card mb-4">
-      <div class="card-header bg-light">
-        <h5 class="card-title mb-0">
-          <i class="fas fa-user me-2"></i>Informations Personnelles
-        </h5>
+      <!-- Stats Cards -->
+      <div class="medical-stats-section mb-4">
+        <div class="stats-grid">
+          <div class="stat-item user-id">
+            <div class="stat-icon">
+              <i class="fas fa-id-card"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number">{{ currentUser?.id || 'N/A' }}</div>
+              <div class="stat-label">ID Utilisateur</div>
+            </div>
+          </div>
+
+          <div class="stat-item role">
+            <div class="stat-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number">{{ getRoleText(currentUser?.role) }}</div>
+              <div class="stat-label">Rôle</div>
+            </div>
+          </div>
+
+          <div class="stat-item member-since">
+            <div class="stat-icon">
+              <i class="fas fa-calendar-plus"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number">{{ currentUser?.dateCreation ? (currentUser.dateCreation | date:'dd/MM/yyyy') : 'N/A' }}</div>
+              <div class="stat-label">Membre depuis</div>
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <div class="card-body">
-        <div *ngIf="!isEditing; else editMode">
-          <div class="table-responsive">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td width="30%"><strong><i class="fas fa-user me-2"></i>Nom complet</strong></td>
-                  <td>{{ currentUser?.prenom }} {{ currentUser?.nom }}</td>
-                </tr>
-                <tr>
-                  <td><strong><i class="fas fa-envelope me-2"></i>Email</strong></td>
-                  <td>{{ currentUser?.email }}</td>
-                </tr>
-                <tr>
-                  <td><strong><i class="fas fa-phone me-2"></i>Téléphone</strong></td>
-                  <td>{{ currentUser?.telephone || 'Non renseigné' }}</td>
-                </tr>
-                <tr>
-                  <td><strong><i class="fas fa-shield-alt me-2"></i>Rôle</strong></td>
-                  <td>
+
+      <!-- User Information Section -->
+      <div class="card-medical mb-4">
+        <div class="card-header-medical">
+          <h5 class="card-title">
+            <i class="fas fa-user me-2"></i>Informations Personnelles
+          </h5>
+        </div>
+        
+        <div class="card-body-medical">
+          <div *ngIf="!isEditing; else editMode">
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="info-content">
+                  <div class="info-label">Nom complet</div>
+                  <div class="info-value">{{ currentUser?.prenom }} {{ currentUser?.nom }}</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="info-content">
+                  <div class="info-label">Email</div>
+                  <div class="info-value">{{ currentUser?.email }}</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="info-content">
+                  <div class="info-label">Téléphone</div>
+                  <div class="info-value">{{ currentUser?.telephone || 'Non renseigné' }}</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="info-content">
+                  <div class="info-label">Rôle</div>
+                  <div class="info-value">
                     <span [class]="getRoleBadgeClass(currentUser?.role)">
                       {{ getRoleText(currentUser?.role) }}
                     </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <ng-template #editMode>
-          <div class="edit-form">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Prénom</label>
-                <input type="text" class="form-control" [(ngModel)]="editData.prenom" placeholder="Votre prénom">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Nom</label>
-                <input type="text" class="form-control" [(ngModel)]="editData.nom" placeholder="Votre nom">
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" [(ngModel)]="editData.email" placeholder="votre@email.com">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Téléphone</label>
-                <input type="tel" class="form-control" [(ngModel)]="editData.tel" placeholder="Votre numéro de téléphone">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </ng-template>
-      </div>
-    </div>
 
-    <!-- Action Buttons -->
-    <div class="row">
-      <div class="col-12">
-        <div class="d-flex gap-2 justify-content-end">
-          <div *ngIf="!isEditing; else saveCancelButtons">
-            <button class="btn btn-warning me-2" (click)="modifierProfil()" [disabled]="isLoading">
-              <i class="fas fa-edit me-2"></i>
-              {{ isLoading ? 'Chargement...' : 'Modifier le Profil' }}
-            </button>
-            <button class="btn btn-outline-primary me-2" (click)="retourAccueil()">
-              <i class="fas fa-home me-2"></i>Retour à l'Accueil
-            </button>
-            <button class="btn btn-danger" (click)="supprimerCompte()" [disabled]="isLoading">
-              <i class="fas fa-trash-alt me-2"></i>Supprimer le Compte
-            </button>
-          </div>
+          <ng-template #editMode>
+            <div class="edit-form-medical">
+              <div class="form-grid">
+                <div class="form-group-medical">
+                  <label class="form-label-medical">
+                    <i class="fas fa-user me-2"></i>Prénom
+                  </label>
+                  <input type="text" class="form-input-medical" [(ngModel)]="editData.prenom" placeholder="Votre prénom">
+                </div>
 
-          <ng-template #saveCancelButtons>
-            <button class="btn btn-success me-2" (click)="sauvegarderModifications()" [disabled]="isLoading">
-              <i class="fas fa-save me-2"></i>
-              {{ isLoading ? 'Sauvegarde...' : 'Sauvegarder' }}
-            </button>
-            <button class="btn btn-secondary" (click)="annulerModification()" [disabled]="isLoading">
-              <i class="fas fa-times me-2"></i>Annuler
-            </button>
+                <div class="form-group-medical">
+                  <label class="form-label-medical">
+                    <i class="fas fa-user me-2"></i>Nom
+                  </label>
+                  <input type="text" class="form-input-medical" [(ngModel)]="editData.nom" placeholder="Votre nom">
+                </div>
+
+                <div class="form-group-medical">
+                  <label class="form-label-medical">
+                    <i class="fas fa-envelope me-2"></i>Email
+                  </label>
+                  <input type="email" class="form-input-medical" [(ngModel)]="editData.email" placeholder="votre@email.com">
+                </div>
+
+                <div class="form-group-medical">
+                  <label class="form-label-medical">
+                    <i class="fas fa-phone me-2"></i>Téléphone
+                  </label>
+                  <input type="tel" class="form-input-medical" [(ngModel)]="editData.tel" placeholder="Votre numéro de téléphone">
+                </div>
+              </div>
+            </div>
           </ng-template>
         </div>
       </div>
-    </div>
 
-    <!-- Additional Info Card -->
-    <div class="card mt-4">
-      <div class="card-header bg-light">
-        <h5 class="card-title mb-0">
-          <i class="fas fa-info-circle me-2"></i>Informations du Compte
-        </h5>
+      <!-- Action Buttons -->
+      <div class="action-section-medical">
+        <div *ngIf="!isEditing; else saveCancelButtons">
+          <div class="action-buttons">
+            <button class="btn-medical btn-warning" (click)="modifierProfil()" [disabled]="isLoading">
+              <i class="fas fa-edit me-2"></i>
+              {{ isLoading ? 'Chargement...' : 'Modifier le Profil' }}
+            </button>
+            <button class="btn-medical btn-outline" (click)="retourAccueil()">
+              <i class="fas fa-home me-2"></i>Retour à l'Accueil
+            </button>
+            <button class="btn-medical btn-danger" (click)="supprimerCompte()" [disabled]="isLoading">
+              <i class="fas fa-trash-alt me-2"></i>Supprimer le Compte
+            </button>
+          </div>
+        </div>
+
+        <ng-template #saveCancelButtons>
+          <div class="action-buttons">
+            <button class="btn-medical btn-success" (click)="sauvegarderModifications()" [disabled]="isLoading">
+              <i class="fas fa-save me-2"></i>
+              {{ isLoading ? 'Sauvegarde...' : 'Sauvegarder' }}
+            </button>
+            <button class="btn-medical btn-secondary" (click)="annulerModification()" [disabled]="isLoading">
+              <i class="fas fa-times me-2"></i>Annuler
+            </button>
+          </div>
+        </ng-template>
       </div>
-      <div class="card-body">
-        <div class="row text-center">
-          <div class="col-md-3">
-            <div class="border rounded p-3">
-              <i class="fas fa-calendar-check fa-2x text-primary mb-2"></i>
-              <h6>Dernière connexion</h6>
-              <p class="mb-0">{{ currentUser?.lastLogin ? (currentUser.lastLogin | date:'dd/MM/yyyy HH:mm') : 'Non disponible' }}</p>
+
+      <!-- Additional Info Card -->
+      <div class="card-medical mt-4">
+        <div class="card-header-medical">
+          <h5 class="card-title">
+            <i class="fas fa-info-circle me-2"></i>Informations du Compte
+          </h5>
+        </div>
+        <div class="card-body-medical">
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon last-login">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="feature-content">
+                <h6>Dernière connexion</h6>
+                <p>{{ currentUser?.lastLogin ? (currentUser.lastLogin | date:'dd/MM/yyyy HH:mm') : 'Non disponible' }}</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="border rounded p-3">
-              <i class="fas fa-user-check fa-2x text-success mb-2"></i>
-              <h6>Statut du compte</h6>
-              <p class="mb-0">Actif</p>
+
+            <div class="feature-item">
+              <div class="feature-icon status">
+                <i class="fas fa-user-check"></i>
+              </div>
+              <div class="feature-content">
+                <h6>Statut du compte</h6>
+                <p>Actif</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="border rounded p-3">
-              <i class="fas fa-bell fa-2x text-warning mb-2"></i>
-              <h6>Notifications</h6>
-              <p class="mb-0">Activées</p>
+
+            <div class="feature-item">
+              <div class="feature-icon notifications">
+                <i class="fas fa-bell"></i>
+              </div>
+              <div class="feature-content">
+                <h6>Notifications</h6>
+                <p>Activées</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="border rounded p-3">
-              <i class="fas fa-lock fa-2x text-info mb-2"></i>
-              <h6>Sécurité</h6>
-              <p class="mb-0">Standard</p>
+
+            <div class="feature-item">
+              <div class="feature-icon security">
+                <i class="fas fa-lock"></i>
+              </div>
+              <div class="feature-content">
+                <h6>Sécurité</h6>
+                <p>Standard</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+    </div> <!-- نهاية profile-content -->
+
   </div>
 </div>

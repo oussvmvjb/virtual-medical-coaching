@@ -123,4 +123,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
            this.currentUser?.email || 
            'Utilisateur';
   }
+
+// دالة للحصول على حالة المستخدم
+getUserStatus(): string {
+  // يمكنك إضافة منطق لحالة المستخدم هنا
+  return 'online'; // أو 'offline' أو 'busy'
+}
+
+// دالة للحصول على نص الدور
+getRoleText(role: string): string {
+  const roleMap: { [key: string]: string } = {
+    'USER': 'Patient',
+    'COACH': 'Coach Médical',
+    'ADMIN': 'Administrateur'
+  };
+  return roleMap[role] || 'Utilisateur';
+}
 }

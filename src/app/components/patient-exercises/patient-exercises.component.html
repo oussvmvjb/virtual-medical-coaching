@@ -1,68 +1,172 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">📝 Mes exercices</h2>
-
-  <
-  <div *ngIf="loading" class="text-center">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Chargement...</span>
-    </div>
-  </div>
-
-  
-  <div *ngIf="!loading && exercices.length === 0" class="alert alert-info text-center">
-    Aucun exercice ne vous a été attribué pour le moment.
-  </div>
-
-  
-  <div *ngFor="let exercice of exercices" class="card mb-3 shadow exercise-card">
+<div class="prescription-container">
+  <div class="container mt-4">
     
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <h5 class="mb-0">{{ exercice.titre }}</h5>
-      <span [class]="getStatusBadgeClass(exercice.statut)">
-        {{ getStatusText(exercice.statut) }}
-      </span>
+<div class="page-header-section exercise-header1 mb-4">
+  <div class="header-content">
+    <div class="medical-icon exercise">
+      <i class="fas fa-dumbbell"></i>
+    </div>
+    <div class="header-text">
+      <h1 class="main-title">Mes Exercices</h1>
+      <p class="subtitle">Programme d'activités physiques personnalisées</p>
+    </div>
+  </div>
+</div>
+    <!-- حالة التحميل -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner">
+        <div class="spinner-icon">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p class="loading-text">Chargement de vos exercices...</p>
+      </div>
     </div>
 
-    <div class="card-body">
-
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <strong>📖 Description :</strong>
-          <p>{{ exercice.description }}</p>
-        </div>
-        <div class="col-md-6">
-          <strong>🔄 Fréquence :</strong>
-          <p>{{ getFrequenceText(exercice.frequence) }}</p>
-        </div>
+    <!-- حالة عدم وجود تمارين -->
+    <div *ngIf="!loading && exercices.length === 0" class="empty-state-medical">
+      <div class="empty-icon">
+        <i class="fas fa-dumbbell fa-4x"></i>
       </div>
-
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <strong>⏱️ Durée :</strong>
-          <p>{{ getDureeText(exercice.duree) }}</p>
-        </div>
-        <div class="col-md-6">
-          <strong>📅 Date de prescription :</strong>
-          <p>{{ exercice.dateCreation | date:'dd/MM/yyyy' }}</p>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <strong>🎯 Instructions :</strong>
-        <p>{{ exercice.instructions }}</p>
-      </div>
-
-      
-      <div *ngIf="exercice.statut === 'ACTIF'" class="text-center">
-        <button class="btn btn-success" (click)="markAsCompleted(exercice.id!)">
-          ✔ J’ai terminé cet exercice
-        </button>
-      </div>
-
-      <div *ngIf="exercice.statut === 'COMPLETE'" class="alert alert-success text-center">
-        Exercice terminé !
-      </div>
-
+      <h3>Aucun exercice attribué</h3>
+      <p class="empty-text">Aucun exercice ne vous a été attribué pour le moment.</p>
+      <button class="btn-medical btn-outline" (click)="refreshExercices()">
+        <i class="fas fa-redo me-2"></i>
+        Actualiser
+      </button>
     </div>
+
+    <!-- قائمة التمارين -->
+    <div class="exercises-list" *ngIf="!loading && exercices.length > 0">
+      <div *ngFor="let exercice of exercices" class="exercise-card-medical" [class]="getExerciseStatusClass(exercice.statut)">
+        
+        <!-- رأس البطاقة -->
+        <div class="exercise-header">
+          <div class="exercise-title-section">
+            <div class="exercise-icon">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="exercise-title-content">
+              <h3 class="exercise-title">{{ exercice.titre }}</h3>
+              <div class="exercise-meta">
+                <span class="meta-item">
+                  <i class="fas fa-calendar me-1"></i>
+                  Prescrit le {{ exercice.dateCreation | date:'dd/MM/yyyy' }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-status">
+            <span [class]="getStatusBadgeClass(exercice.statut)">
+              {{ getStatusText(exercice.statut) }}
+            </span>
+          </div>
+        </div>
+
+        <!-- جسم البطاقة -->
+        <div class="exercise-body">
+          
+          <!-- الوصف -->
+          <div class="exercise-section">
+            <div class="section-header">
+              <i class="fas fa-file-alt me-2"></i>
+              <h4>Description</h4>
+            </div>
+            <div class="section-content">
+              <p>{{ exercice.description }}</p>
+            </div>
+          </div>
+
+          <!-- معلومات التمرين -->
+          <div class="exercise-info-grid">
+            <div class="info-item">
+              <div class="info-icon frequence">
+                <i class="fas fa-repeat"></i>
+              </div>
+              <div class="info-content">
+                <div class="info-label">Fréquence</div>
+                <div class="info-value">{{ getFrequenceText(exercice.frequence) }}</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon duree">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="info-content">
+                <div class="info-label">Durée</div>
+                <div class="info-value">{{ getDureeText(exercice.duree) }}</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon difficulte">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="info-content">
+                <div class="info-label">Difficulté</div>
+                <div class="info-value">{{ getDifficulteText(exercice.niveauRisque) }}</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon progression">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <div class="info-content">
+                <div class="info-label">Progression</div>
+                <div class="info-value">{{ getProgressionText(exercice) }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- التعليمات -->
+          <div class="exercise-section" *ngIf="exercice.instructions">
+            <div class="section-header">
+              <i class="fas fa-list-check me-2"></i>
+              <h4>Instructions</h4>
+            </div>
+            <div class="section-content">
+              <p>{{ exercice.instructions }}</p>
+            </div>
+          </div>
+
+        
+
+        </div>
+
+        <!-- تذييل البطاقة -->
+        <div class="exercise-footer">
+          <div *ngIf="exercice.statut === 'ACTIF'" class="action-section">
+            <button class="btn-medical btn-success" (click)="markAsCompleted(exercice.id!)">
+              <i class="fas fa-check-circle me-2"></i>
+              Marquer comme Terminé
+            </button>
+            <button class="btn-medical btn-outline" (click)="viewExerciseDetails(exercice)">
+              <i class="fas fa-eye me-2"></i>
+              Voir les Détails
+            </button>
+          </div>
+
+          <div *ngIf="exercice.statut === 'COMPLETE'" class="completion-section">
+            <div class="completion-badge">
+              <i class="fas fa-check-circle me-2"></i>
+              Exercice terminé avec succès
+            </div>
+            <div class="completion-date" *ngIf="exercice.dateCreation">
+              Terminé le {{ exercice.dateCreation | date:'dd/MM/yyyy' }}
+            </div>
+          </div>
+
+          <div *ngIf="exercice.statut === 'ANNULE'" class="cancelled-section">
+            <div class="cancelled-badge">
+              <i class="fas fa-times-circle me-2"></i>
+              Exercice annulé
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>

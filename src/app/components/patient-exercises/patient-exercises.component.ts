@@ -51,40 +51,86 @@ export class PatientExercisesComponent implements OnInit {
     });
   }
 
-  getStatusBadgeClass(statut: string): string {
-    const classes = {
-      'ACTIF': 'badge bg-warning',
-      'COMPLETE': 'badge bg-success',
-      'ANNULE': 'badge bg-danger'
-    };
-    return classes[statut as keyof typeof classes] || 'badge bg-secondary';
-  }
 
-  getStatusText(statut: string): string {
-    const texts = {
-      'ACTIF': 'Actif',
-      'COMPLETE': 'Terminé',
-      'ANNULE': 'Annulé'
-    };
-    return texts[statut as keyof typeof texts] || statut;
-  }
 
-  getFrequenceText(frequence: string): string {
-    const texts = {
-      'UN_PAR_JOUR': 'Une fois par jour',
-      'UN_PAR_SEMAINE': 'Une fois par semaine',
-      'PROGRAMME_PERSONNALISE': 'Programme personnalisé'
-    };
-    return texts[frequence as keyof typeof texts] || frequence;
-  }
 
-  getDureeText(duree: string): string {
-    const texts = {
-      'UNE_SEMAINE': '1 semaine',
-      'DEUX_SEMAINES': '2 semaines',
-      'UN_MOIS': '1 mois',
-      'JUSQUA_NOUVELLE_EVALUATION': 'Jusqu’à la prochaine évaluation'
-    };
-    return texts[duree as keyof typeof texts] || duree;
-  }
+
+
+
+  // دوال مساعدة للواجهة
+getExerciseStatusClass(statut: string): string {
+  const statusMap: { [key: string]: string } = {
+    'ACTIF': 'active',
+    'COMPLETE': 'completed', 
+    'ANNULE': 'cancelled'
+  };
+  return statusMap[statut] || '';
+}
+
+getStatusBadgeClass(statut: string): string {
+  const statusMap: { [key: string]: string } = {
+    'ACTIF': 'status-badge active',
+    'COMPLETE': 'status-badge completed',
+    'ANNULE': 'status-badge cancelled'
+  };
+  return statusMap[statut] || 'status-badge';
+}
+
+getStatusText(statut: string): string {
+  const statusMap: { [key: string]: string } = {
+    'ACTIF': 'En Cours',
+    'COMPLETE': 'Terminé',
+    'ANNULE': 'Annulé'
+  };
+  return statusMap[statut] || statut;
+}
+
+getFrequenceText(frequence: string): string {
+  const frequenceMap: { [key: string]: string } = {
+    'QUOTIDIEN': 'Quotidien',
+    'HEBDOMADAIRE': 'Hebdomadaire', 
+    'MENSUEL': 'Mensuel',
+    'PONCTUEL': 'Ponctuel'
+  };
+  return frequenceMap[frequence] || frequence;
+}
+
+getDureeText(duree: string): string {
+  const dureeMap: { [key: string]: string } = {
+    'COURTE': '15-30 min',
+    'MOYENNE': '30-60 min',
+    'LONGUE': '60+ min'
+  };
+  return dureeMap[duree] || duree || 'Non spécifiée';
+}
+
+getDifficulteText(difficulte: string): string {
+  const difficulteMap: { [key: string]: string } = {
+    'FACILE': 'Facile',
+    'MOYEN': 'Moyen',
+    'DIFFICILE': 'Difficile'
+  };
+  return difficulteMap[difficulte] || difficulte || 'Standard';
+}
+
+getProgressionText(exercice: any): string {
+  if (exercice.statut === 'COMPLETE') return '100% Terminé';
+  if (exercice.statut === 'ANNULE') return '0% Annulé';
+  return 'En progression';
+}
+
+// دالة لتحديث التمارين
+refreshExercices(): void {
+  this.loading = true;
+  // أضف منطق جلب التمارين هنا
+  setTimeout(() => {
+    this.loading = false;
+  }, 1000);
+}
+
+// دالة لعرض تفاصيل التمرين
+viewExerciseDetails(exercice: any): void {
+  // أضف منطق عرض التفاصيل هنا
+  console.log('Détails de l\'exercice:', exercice);
+}
 }

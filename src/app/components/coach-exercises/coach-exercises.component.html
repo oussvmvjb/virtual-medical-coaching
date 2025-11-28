@@ -1,88 +1,234 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">👨‍⚕️ Suivi des exercices des patients</h2>
+<div class="prescription-container">
+  <div class="container mt-5"> <!-- تغيير mt-5 إلى mt-4 لتقريب المحتوى -->
+    
+<!-- العنوان الرئيسي -->
+<div class="page-header-section mb-5">
+  <div class="header-content">
+    <div class="medical-icon">
+      <i class="fas fa-dumbbell"></i>
+    </div>
+    <div class="header-text">
+      <h1 class="main-title">Suivi des Exercices des Patients</h1>
+      <p class="subtitle">Surveillance en temps réel des programmes de rééducation</p>
+    </div>
+  </div>
+</div>
 
-  <div class="row mb-4">
-    <div class="col-md-3">
-      <div class="card text-white bg-primary text-center p-3">
-        <h4>{{ getStats().total }}</h4>
-        <p>Total des exercices</p>
+<!-- إحصائيات -->
+<div class="medical-stats-section mb-5">
+  <div class="stats-grid">
+    <div class="stat-item total">
+      <div class="stat-icon">
+        <i class="fas fa-dumbbell"></i>
+      </div>
+      <div class="stat-info">
+        <div class="stat-number">{{ getStats().total }}</div>
+        <div class="stat-label">Total Exercices</div>
+      </div>
+      <div class="stat-trend">
+        <i class="fas fa-chart-line"></i>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card text-white bg-warning text-center p-3">
-        <h4>{{ getStats().active }}</h4>
-        <p>Actifs</p>
+    <div class="stat-item active">
+      <div class="stat-icon">
+        <i class="fas fa-play-circle"></i>
+      </div>
+      <div class="stat-info">
+        <div class="stat-number">{{ getStats().active }}</div>
+        <div class="stat-label">En Cours</div>
+      </div>
+      <div class="stat-progress">
+        <div class="progress-circle" [style.background]="'conic-gradient(#ffc107 ' + (getStats().active/getStats().total)*360 + 'deg, #f0f0f0 0deg)'"></div>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card text-white bg-success text-center p-3">
-        <h4>{{ getStats().completed }}</h4>
-        <p>Terminés</p>
+    <div class="stat-item completed">
+      <div class="stat-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="stat-info">
+        <div class="stat-number">{{ getStats().completed }}</div>
+        <div class="stat-label">Terminés</div>
+      </div>
+      <div class="stat-percentage">
+        {{ (getStats().completed/getStats().total)*100 | number:'1.0-0' }}%
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card text-white bg-danger text-center p-3">
-        <h4>{{ getStats().cancelled }}</h4>
-        <p>Annulés</p>
+    <div class="stat-item cancelled">
+      <div class="stat-icon">
+        <i class="fas fa-times-circle"></i>
+      </div>
+      <div class="stat-info">
+        <div class="stat-number">{{ getStats().cancelled }}</div>
+        <div class="stat-label">Annulés</div>
+      </div>
+      <div class="stat-badge" [class]="getCancelledStatus()">
+        {{ getCancelledStatus() }}
       </div>
     </div>
   </div>
+</div>
 
-  <div class="mb-3">
-    <label>Filtrer par statut :</label>
-    <select class="form-select" [(ngModel)]="filterStatut">
-      <option value="TOUS">Tous</option>
-      <option value="ACTIF">Actifs</option>
-      <option value="COMPLETE">Terminés</option>
-      <option value="ANNULE">Annulés</option>
-    </select>
+<!-- فلترة -->
+<div class="medical-filter-section mb-4">
+  <div class="filter-card">
+    <div class="filter-header">
+      <div class="filter-title">
+        <i class="fas fa-sliders-h me-2"></i>
+        Options de Filtrage
+      </div>
+      <div class="filter-results">
+        <span class="results-count">{{ filteredExercices.length }}</span>
+        exercice(s) correspondant(s)
+      </div>
+    </div>
+    
+    <div class="filter-controls">
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fas fa-filter me-2"></i>
+          Statut des exercices
+        </label>
+        <div class="filter-options">
+          <div class="filter-option" 
+               *ngFor="let option of filterOptions"
+               [class.active]="filterStatut === option.value"
+               (click)="filterStatut = option.value">
+            <div class="option-icon">{{ option.icon }}</div>
+            <div class="option-text">{{ option.label }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button class="btn btn-outline-secondary btn-sm" (click)="resetFilters()">
+          <i class="fas fa-redo me-1"></i>
+          Réinitialiser
+        </button>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Patient</th>
-          <th>Exercice</th>
-          <th>Statut</th>
-          <th>Fréquence</th>
-          <th>Date</th>
-          <th>État</th>
-        </tr>
-      </thead>
+    <!-- جدول التمارين -->
+    <div class="exercises-container">
+      <div class="exercises-grid">
+        <div 
+          class="exercise-card" 
+          *ngFor="let exercice of filteredExercices"
+          [class]="getExerciseStatusClass(exercice.statut)"
+        >
+          <div class="exercise-header">
+            <div class="exercise-title">
+              <h4>
+                <i class="fas fa-dumbbell me-2"></i>
+                {{ exercice.titre }}
+              </h4>
+              <div class="patient-info">
+                <i class="fas fa-user-injured me-1"></i>
+                Patient #{{ exercice.idPatient }}
+              </div>
+            </div>
+            <div class="exercise-status">
+              <span [class]="getStatusBadgeClass(exercice.statut)">
+                {{ getStatusText(exercice.statut) }}
+              </span>
+            </div>
+          </div>
 
-      <tbody>
-        <tr *ngFor="let exercice of filteredExercices">
-          <td>Patient {{ exercice.idPatient }}</td>
+          <div class="exercise-body">
+            <div class="exercise-description">
+              <p>{{ exercice.description }}</p>
+            </div>
 
-          <td>
-            <strong>{{ exercice.titre }}</strong><br>
-            <small class="text-muted">{{ exercice.description }}</small>
-          </td>
+            <div class="exercise-details">
+              <div class="details-grid">
+                <div class="detail-item">
+                  <div class="detail-icon frequence">
+                    <i class="fas fa-calendar-alt"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Fréquence</span>
+                    <span class="detail-value">{{ getFrequenceText(exercice.frequence) }}</span>
+                  </div>
+                </div>
 
-          <td>
-            <span [class]="getStatusBadgeClass(exercice.statut)">
-              {{ getStatusText(exercice.statut) }}
-            </span>
-          </td>
+                <div class="detail-item">
+                  <div class="detail-icon date">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Date de création</span>
+                    <span class="detail-value">{{ exercice.dateCreation | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                </div>
 
-          <td>{{ getFrequenceText(exercice.frequence) }}</td>
+                <div class="detail-item">
+                  <div class="detail-icon duration">
+                    <i class="fas fa-hourglass-half"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Durée</span>
+                    <span class="detail-value">{{ exercice.duree || 'Non spécifiée' }}</span>
+                  </div>
+                </div>
 
-          <td>{{ exercice.dateCreation | date:'dd/MM/yyyy' }}</td>
+                <div class="detail-item">
+                  <div class="detail-icon difficulty">
+                    <i class="fas fa-chart-line"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Difficulté</span>
+                    <span class="detail-value">{{ exercice || 'Standard' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <td>
-            <span *ngIf="exercice.statut === 'COMPLETE'" class="text-success">
-              ✔ Terminé
-            </span>
-            <span *ngIf="exercice.statut === 'ACTIF'" class="text-warning">
-              ⏳ En cours
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <div class="exercise-progress" *ngIf="exercice.statut === 'ACTIF'">
+              <div class="progress-label">
+                <span>Progression</span>
+                <span>65%</span> <!-- يمكنك إضافة بيانات تقدم حقيقية -->
+              </div>
+              <div class="progress">
+                <div class="progress-bar" style="width: 65%"></div>
+              </div>
+            </div>
+
+            <div class="exercise-actions">
+              <button class="btn btn-sm btn-outline-primary me-2">
+                <i class="fas fa-eye me-1"></i>
+                Voir Détails
+              </button>
+              <button class="btn btn-sm btn-outline-success me-2" *ngIf="exercice.statut === 'ACTIF'">
+                <i class="fas fa-check me-1"></i>
+                Marquer Terminé
+              </button>
+              <button class="btn btn-sm btn-outline-warning" *ngIf="exercice.statut === 'ACTIF'">
+                <i class="fas fa-pause me-1"></i>
+                Suspendre
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- حالة عدم وجود تمارين -->
+      <div class="empty-state" *ngIf="filteredExercices.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-dumbbell fa-4x"></i>
+        </div>
+        <h3>Aucun exercice trouvé</h3>
+        <p class="text-muted" *ngIf="filterStatut === 'TOUS'">
+          Aucun exercice n'a été créé pour le moment.
+        </p>
+        <p class="text-muted" *ngIf="filterStatut !== 'TOUS'">
+          Aucun exercice avec le statut "{{ getStatusText(filterStatut) }}" n'a été trouvé.
+        </p>
+      </div>
+    </div>
+
   </div>
 </div>

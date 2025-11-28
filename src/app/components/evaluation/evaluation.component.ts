@@ -8,7 +8,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-evaluation',
   templateUrl: './evaluation.component.html',
-  styleUrls: ['./evaluation.component.scss']
+  styleUrls: ['./evaluation.component.scss'] // تأكد من أن المسار صحيح
 })
 export class EvaluationComponent implements OnInit {
   evaluationForm!: FormGroup;
@@ -99,19 +99,6 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  private resetForm(): void {
-    this.evaluationForm.reset({
-      humeur: 5,
-      stress: 5,
-      energie: 5,
-      motivation: 5,
-      sommeil: 5,
-      appetit: 'NORMAL',
-      activite_physique: 'FAIBLE',
-      interactions_sociales: 'NORMALE',
-      pensees_risque: false
-    });
-  }
 
   handleRiskLogic(): void {
   }
@@ -153,4 +140,54 @@ export class EvaluationComponent implements OnInit {
       }
     });
   }
+
+  // دوال مساعدة للواجهة
+getMetricIcon(metric: string): string {
+  const icons: { [key: string]: string } = {
+    'humeur': 'fas fa-smile',
+    'stress': 'fas fa-brain',
+    'energie': 'fas fa-bolt',
+    'motivation': 'fas fa-rocket',
+    'sommeil': 'fas fa-bed'
+  };
+  return icons[metric] || 'fas fa-chart-line';
+}
+
+getMetricLabel(metric: string): string {
+  const labels: { [key: string]: string } = {
+    'humeur': 'Humeur Générale',
+    'stress': 'Niveau de Stress',
+    'energie': 'Énergie',
+    'motivation': 'Motivation',
+    'sommeil': 'Qualité du Sommeil'
+  };
+  return labels[metric] || metric;
+}
+
+// دالة لإعادة تعيين النموذج
+resetForm(): void {
+  this.evaluationForm.reset({
+    humeur: 5,
+    stress: 5,
+    energie: 5,
+    motivation: 5,
+    sommeil: 5,
+    symptomes: '',
+    appetit: 'NORMAL',
+    activite_physique: 'FAIBLE',
+    interactions_sociales: 'NORMALE',
+    pensees_risque: false,
+    details_risque: '',
+    commentaire: ''
+  });
+}
+
+// مثال للوسم التوضيحي للرسم البياني
+graphLegend = [
+  { color: '#007bff', label: 'Humeur' },
+  { color: '#dc3545', label: 'Stress' },
+  { color: '#28a745', label: 'Énergie' },
+  { color: '#ffc107', label: 'Motivation' },
+  { color: '#6f42c1', label: 'Sommeil' }
+];
 }

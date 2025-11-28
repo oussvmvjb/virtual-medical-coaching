@@ -1,0 +1,525 @@
+// تنسيقات العنوان الموحدة
+.page-header-section {
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  .medical-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    
+    // ألوان مختلفة حسب الصفحة
+    &.profile { 
+      background: linear-gradient(135deg, #6f42c1, #e83e8c); 
+    }
+    &.exercise { 
+      background: linear-gradient(135deg, #fd7e14, #dc3545); 
+    }
+    &.evaluation { 
+      background: linear-gradient(135deg, #28a745, #20c997); 
+    }
+    &.doctor { 
+      background: linear-gradient(135deg, #007bff, #00c6ff); 
+    }
+  }
+  
+  .header-text {
+    .main-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #2c3e50;
+      margin: 0 0 0.5rem 0;
+      background: linear-gradient(135deg, #007bff, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: #6c757d;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+  
+  // ألوان حدود مختلفة حسب الصفحة
+  &.profile-header .header-content { border-left-color: #6f42c1; }
+  &.exercise-header1 .header-content { border-left-color: #fd7e14; }
+  &.evaluation-header .header-content { border-left-color: #28a745; }
+  &.doctor-header .header-content { border-left-color: #007bff; }
+}
+
+// بدائل للأيقونات حسب الصفحة
+.profile-header .medical-icon {
+  background: linear-gradient(135deg, #6f42c1, #e83e8c) !important;
+}
+
+.exercise-header1 .medical-icon {
+  background: linear-gradient(135deg, #fd7e14, #dc3545) !important;
+}
+
+.evaluation-header .medical-icon {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+}
+
+.doctor-header .medical-icon {
+  background: linear-gradient(135deg, #007bff, #00c6ff) !important;
+}
+
+// تحسينات للشاشات الصغيرة
+@media (max-width: 768px) {
+  .page-header-section .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .medical-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+  
+  .header-text .main-title {
+    font-size: 2rem;
+  }
+  
+  .header-text .subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+
+
+
+.prescription-container {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.container.mt-4 {
+  padding: 0 2rem;
+}
+
+// تنسيقات التحميل
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+.loading-spinner {
+  text-align: center;
+  
+  .spinner-icon {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+  }
+  
+  .loading-text {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+
+// تنسيقات الحالة الفارغة
+.empty-state-medical {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  
+  .empty-icon {
+    margin-bottom: 1.5rem;
+    color: #dee2e6;
+  }
+  
+  h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  
+  .empty-text {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+// تنسيقات قائمة التمارين
+.exercises-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.exercise-card-medical {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  // ألوان حسب الحالة
+  &.active {
+    border-left-color: #ffc107;
+  }
+  
+  &.completed {
+    border-left-color: #28a745;
+  }
+  
+  &.cancelled {
+    border-left-color: #dc3545;
+  }
+}
+
+// رأس البطاقة
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 2px solid #f8f9fa;
+  
+  .exercise-title-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex: 1;
+    
+    .exercise-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #007bff, #00c6ff);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    }
+    
+    .exercise-title-content {
+      .exercise-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #2c3e50;
+        margin: 0 0 0.5rem 0;
+        line-height: 1.2;
+      }
+      
+      .exercise-meta {
+        .meta-item {
+          color: #6c757d;
+          font-size: 0.9rem;
+          display: flex;
+          align-items: center;
+          
+          i {
+            color: #007bff;
+          }
+        }
+      }
+    }
+  }
+  
+  .exercise-status {
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      
+      &.active {
+        background: #fff3cd;
+        color: #856404;
+        border: 2px solid #ffeaa7;
+      }
+      
+      &.completed {
+        background: #d4edda;
+        color: #155724;
+        border: 2px solid #c3e6cb;
+      }
+      
+      &.cancelled {
+        background: #f8d7da;
+        color: #721c24;
+        border: 2px solid #f5c6cb;
+      }
+    }
+  }
+}
+
+// جسم البطاقة
+.exercise-body {
+  padding: 1.5rem 2rem;
+}
+
+.exercise-section {
+  margin-bottom: 2rem;
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    
+    i {
+      color: #007bff;
+      font-size: 1.2rem;
+    }
+    
+    h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 0;
+    }
+  }
+  
+  .section-content {
+    p {
+      color: #495057;
+      line-height: 1.6;
+      margin: 0;
+      font-size: 1rem;
+    }
+    
+    .doctor-notes {
+      background: #e3f2fd;
+      padding: 1rem;
+      border-radius: 10px;
+      border-left: 4px solid #2196f3;
+      font-style: italic;
+    }
+  }
+}
+
+// شبكة معلومات التمرين
+.exercise-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .info-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    
+    &.frequence { background: linear-gradient(135deg, #17a2b8, #6f42c1); }
+    &.duree { background: linear-gradient(135deg, #6c757d, #495057); }
+    &.difficulte { background: linear-gradient(135deg, #fd7e14, #dc3545); }
+    &.progression { background: linear-gradient(135deg, #28a745, #20c997); }
+  }
+  
+  .info-content {
+    .info-label {
+      font-size: 0.85rem;
+      color: #6c757d;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .info-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+  }
+}
+
+// تذييل البطاقة
+.exercise-footer {
+  padding: 1.5rem 2rem;
+  background: #f8f9fa;
+  border-top: 2px solid #e9ecef;
+  
+  .action-section {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .completion-section {
+    text-align: center;
+    
+    .completion-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #d4edda;
+      color: #155724;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      
+      i {
+        color: #28a745;
+      }
+    }
+    
+    .completion-date {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .cancelled-section {
+    text-align: center;
+    
+    .cancelled-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #f8d7da;
+      color: #721c24;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      
+      i {
+        color: #dc3545;
+      }
+    }
+  }
+}
+
+// تنسيقات الأزرار
+.btn-medical {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  &.btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+  }
+  
+  &.btn-outline {
+    background: transparent;
+    border: 2px solid #007bff;
+    color: #007bff;
+    
+    &:hover {
+      background: #007bff;
+      color: white;
+    }
+  }
+}
+
+// تحسينات للشاشات الصغيرة
+@media (max-width: 768px) {
+  .container.mt-4 {
+    padding: 0 1rem;
+  }
+  
+  .exercise-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .exercise-title-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem !important;
+  }
+  
+  .exercise-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-section {
+    flex-direction: column;
+  }
+  
+  .exercise-body,
+  .exercise-header,
+  .exercise-footer {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .exercise-card-medical {
+    border-radius: 15px;
+  }
+  
+  .exercise-title {
+    font-size: 1.3rem !important;
+  }
+}

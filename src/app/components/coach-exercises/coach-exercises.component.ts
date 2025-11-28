@@ -50,30 +50,66 @@ export class CoachExercisesComponent implements OnInit {
   }
 
    
-  getStatusBadgeClass(statut: string): string {
-    const classes = {
-      'ACTIF': 'badge bg-warning',
-      'COMPLETE': 'badge bg-success',
-      'ANNULE': 'badge bg-danger'
-    };
-    return classes[statut as keyof typeof classes] || 'badge bg-secondary';
-  }
 
-  getStatusText(statut: string): string {
-    const texts = {
-      'ACTIF': 'Actif',
-      'COMPLETE': 'Terminé',
-      'ANNULE': 'Annulé'
-    };
-    return texts[statut as keyof typeof texts] || statut;
-  }
+// تعريف خيارات الفلترة
+filterOptions = [
+  { value: 'TOUS', label: 'Tous les exercices', icon: '📋' },
+  { value: 'ACTIF', label: 'Exercices Actifs', icon: '🟡' },
+  { value: 'COMPLETE', label: 'Exercices Terminés', icon: '🟢' },
+  { value: 'ANNULE', label: 'Exercices Annulés', icon: '🔴' }
+];
 
-  getFrequenceText(frequence: string): string {
-    const texts = {
-      'UN_PAR_JOUR': 'Une fois par jour',
-      'UN_PAR_SEMAINE': 'Une fois par semaine',
-      'PROGRAMME_PERSONNALISE': 'Programme personnalisé'
-    };
-    return texts[frequence as keyof typeof texts] || frequence;
-  }
+// دالة لإعادة تعيين الفلترة
+resetFilters(): void {
+  this.filterStatut = 'TOUS';
+}
+
+// دالة لتحديد حالة الإلغاء
+getCancelledStatus(): string {
+  const cancelledPercentage = (this.getStats().cancelled / this.getStats().total) * 100;
+  if (cancelledPercentage < 5) return 'low';
+  if (cancelledPercentage < 15) return 'medium';
+  return 'high';
+}
+
+  // دالة لتحديد كلاس الحالة
+getExerciseStatusClass(statut: string): string {
+  const statusMap: { [key: string]: string } = {
+    'ACTIF': 'active',
+    'COMPLETE': 'completed', 
+    'ANNULE': 'cancelled'
+  };
+  return statusMap[statut] || '';
+}
+
+// دالة للحصول على نص الحالة
+getStatusText(statut: string): string {
+  const statusMap: { [key: string]: string } = {
+    'ACTIF': 'Actif',
+    'COMPLETE': 'Terminé',
+    'ANNULE': 'Annulé'
+  };
+  return statusMap[statut] || statut;
+}
+
+// دالة للحصول على كلاس الـ badge
+getStatusBadgeClass(statut: string): string {
+  const statusMap: { [key: string]: string } = {
+    'ACTIF': 'status-badge active',
+    'COMPLETE': 'status-badge completed',
+    'ANNULE': 'status-badge cancelled'
+  };
+  return statusMap[statut] || 'status-badge';
+}
+
+// دالة للحصول على نص التكرار
+getFrequenceText(frequence: string): string {
+  const frequenceMap: { [key: string]: string } = {
+    'QUOTIDIEN': 'Quotidien',
+    'HEBDOMADAIRE': 'Hebdomadaire', 
+    'MENSUEL': 'Mensuel',
+    'PONCTUEL': 'Ponctuel'
+  };
+  return frequenceMap[frequence] || frequence;
+}
 }

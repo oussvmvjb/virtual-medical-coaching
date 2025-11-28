@@ -1,4 +1,5 @@
 export interface Exercice {
+[x: string]: any;
   id?: number;
   idPatient: number;
   idCoach: number;

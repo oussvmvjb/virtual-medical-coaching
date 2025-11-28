@@ -337,3 +337,108 @@
     padding: 4rem;
   }
 }
+// تنسيقات العنوان الموحدة
+.page-header-section {
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  .medical-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    
+    // ألوان مختلفة حسب الصفحة
+    &.doctor { background: linear-gradient(135deg, #007bff, #00c6ff); }
+    &.evaluation { background: linear-gradient(135deg, #28a745, #20c997); }
+    &.profile { background: linear-gradient(135deg, #6f42c1, #e83e8c); }
+    &.exercise { background: linear-gradient(135deg, #fd7e14, #dc3545); }
+  }
+  
+  .header-text {
+    .main-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #2c3e50;
+      margin: 0 0 0.5rem 0;
+      background: linear-gradient(135deg, #007bff, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: #6c757d;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+  
+  // ألوان حدود مختلفة حسب الصفحة
+  &[class*="doctor"] .header-content { border-left-color: #007bff; }
+  &[class*="evaluation"] .header-content { border-left-color: #28a745; }
+  &[class*="profile"] .header-content { border-left-color: #6f42c1; }
+  &[class*="exercise"] .header-content { border-left-color: #fd7e14; }
+}
+
+// بدائل للأيقونات حسب الصفحة
+.doctor-header .medical-icon {
+  background: linear-gradient(135deg, #007bff, #00c6ff) !important;
+}
+
+.evaluation-header .medical-icon {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+}
+
+.profile-header .medical-icon {
+  background: linear-gradient(135deg, #6f42c1, #e83e8c) !important;
+}
+
+.exercise-header .medical-icon {
+  background: linear-gradient(135deg, #fd7e14, #dc3545) !important;
+}
+
+// تحسينات للشاشات الصغيرة
+@media (max-width: 768px) {
+  .page-header-section .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .medical-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+  
+  .header-text .main-title {
+    font-size: 2rem;
+  }
+  
+  .header-text .subtitle {
+    font-size: 1.1rem;
+  }
+}
