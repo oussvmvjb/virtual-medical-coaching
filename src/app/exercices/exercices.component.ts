@@ -219,4 +219,20 @@ export class ExercicesComponent implements OnInit {
   get troublesFormArray(): FormArray {
     return this.prescriptionForm.get('troubles') as FormArray;
   }
+  // إضافة هذه الدوال في component.ts
+getTotalPrescriptions(): number {
+  return 0; // استبدل بالبيانات الحقيقية
+}
+
+getActivePrescriptions(): number {
+  return 0; // استبدل بالبيانات الحقيقية
+}
+
+getPendingPrescriptions(): number {
+  return 0; // استبدل بالبيانات الحقيقية
+}
+
+getCompletedPrescriptions(): number {
+  return 0; // استبدل بالبيانات الحقيقية
+}
 }

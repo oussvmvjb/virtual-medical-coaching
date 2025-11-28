@@ -1,25 +1,100 @@
-<h3 class="mb-3 text-primary">Liste des évaluations</h3>
-
-<div class="evaluation-list">
-   <div 
-    class="evaluation-item" 
-    *ngFor="let eval of evaluations"
-    [routerLink]="['/ex', eval.idPatient]" 
-  >
-    <div class="evaluation-title">
-      Évaluation #{{ eval.id }} – Humeur: {{ eval.humeur }}/10
-      <br>
-      <small class="text-muted">Patient ID: {{ eval.idPatient }}</small>
+<div class="prescription-container">
+  <div class="container-fluid mt-5">
+    
+    <!-- العنوان الرئيسي -->
+    <div class="prescription-header text-center mb-5">
+      <h1 class="main-title">Liste des Évaluations</h1>
+      <p class="subtitle">Suivi des états de santé des patients</p>
     </div>
 
-    <div class="evaluation-details">
-      <p><strong>Stress:</strong> {{ eval.stress }}/10</p>
-      <p><strong>Énergie:</strong> {{ eval.energie }}/10</p>
-      <p><strong>Sommeil:</strong> {{ eval.sommeil }}/10</p>
-      <p><strong>Appétit:</strong> {{ eval.appetit }}</p>
-      <p><strong>Activité physique:</strong> {{ eval.activitePhysique }}</p>
-      <p><strong>Interactions sociales:</strong> {{ eval.interactionsSociales }}</p>
-      <p><strong>Commentaire:</strong> {{ eval.commentaire }}</p>
+    <!-- قائمة التقييمات -->
+    <div class="evaluations-container">
+      <div class="evaluations-grid">
+        <div 
+          class="evaluation-card" 
+          *ngFor="let evaluation of evaluations"
+          [routerLink]="['/ex', evaluation.idPatient]"
+        >
+          <!-- الجزء العلوي الظاهر دائماً -->
+          <div class="card-header">
+            <div class="evaluation-badge">
+              #{{ evaluation.id }}
+            </div>
+            <div class="mood-display">
+              <div class="mood-emoji">
+                {{ getSmiley(evaluation.humeur) }}
+              </div>
+              <div class="mood-score">
+                {{ evaluation.humeur }}/10
+              </div>
+            </div>
+          </div>
+
+          <!-- المعلومات الأساسية -->
+          <div class="card-content">
+            <div class="patient-id">
+              <i class="fas fa-user-injured"></i>
+              Patient ID: {{ evaluation.idPatient }}
+            </div>
+            
+            <div class="quick-stats">
+              <div class="stat">
+                <i class="fas fa-brain"></i>
+                <span>{{ evaluation.stress }}/10</span>
+              </div>
+              <div class="stat">
+                <i class="fas fa-bolt"></i>
+                <span>{{ evaluation.energie }}/10</span>
+              </div>
+              <div class="stat">
+                <i class="fas fa-bed"></i>
+                <span>{{ evaluation.sommeil }}/10</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- التفاصيل التي تظهر عند Hover -->
+          <div class="card-details">
+            <div class="details-grid">
+              <div class="detail-item">
+                <label>Appétit:</label>
+                <span class="value">{{ evaluation.appetit }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Activité physique:</label>
+                <span class="value">{{ evaluation.activitePhysique }}</span>
+              </div>
+              <div class="detail-item">
+                <label>Interactions sociales:</label>
+                <span class="value">{{ evaluation.interactionsSociales }}</span>
+              </div>
+            </div>
+
+            <div class="comment-box" *ngIf="evaluation.commentaire">
+              <div class="comment-label">
+                <i class="fas fa-comment"></i>
+                Commentaire:
+              </div>
+              <p class="comment-text">{{ evaluation.commentaire }}</p>
+            </div>
+
+            <div class="view-more">
+              <span>Voir les exercices</span>
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- حالة عدم وجود تقييمات -->
+      <div class="empty-state" *ngIf="evaluations.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-clipboard-list fa-4x"></i>
+        </div>
+        <h3>Aucune évaluation trouvée</h3>
+        <p class="text-muted">Aucune évaluation n'a été enregistrée pour le moment.</p>
+      </div>
     </div>
+
   </div>
 </div>

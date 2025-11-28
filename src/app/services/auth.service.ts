@@ -132,10 +132,7 @@ export class AuthService {
     return throwError(() => new Error(errorMessage));
   }
 
-  setCurrentUser(user: User): void {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    this.currentUserSubject.next(user);
-  }
+
 
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
@@ -145,8 +142,27 @@ export class AuthService {
     return !!this.getCurrentUser();
   }
 
-  logout(): void {
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+ 
+  // In your AuthService, update the setCurrentUser method:
+setCurrentUser(user: User): void {
+  localStorage.setItem('currentUser', JSON.stringify(user));
+  // Also store role separately for easy access if needed
+  if (user.role) {
+    localStorage.setItem('role', user.role);
   }
+  this.currentUserSubject.next(user);
+}
+
+// Add a method to get user role
+getUserRole(): string | null {
+  const user = this.getCurrentUser();
+  return user?.role || localStorage.getItem('role');
+}
+
+// Update logout method to also clear role
+logout(): void {
+  localStorage.removeItem('currentUser');
+  localStorage.removeItem('role');
+  this.currentUserSubject.next(null);
+}
 }

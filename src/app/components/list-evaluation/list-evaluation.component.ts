@@ -4,9 +4,9 @@ import { EvaluationService } from '../../services/mood.service';
 import { Router } from '@angular/router';   
 
 @Component({
-  selector: 'app-evaluation-humeurs',
-  templateUrl: './list-evaluation.Component.html',
-  styleUrls: ['./list-evaluation.Component.scss']
+  selector: 'app-list-evaluation',
+  templateUrl: './list-evaluation.component.html',
+  styleUrls: ['./list-evaluation.component.scss'] // تأكد من أن المسار صحيح
 })
 export class ListEvaluationComponent implements OnInit {
   
@@ -121,4 +121,5 @@ export class ListEvaluationComponent implements OnInit {
   goToPatientExercices(idEval: number): void {
     this.router.navigate(['/ex', idEval]);
   }
+  
 }

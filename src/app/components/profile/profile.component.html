@@ -1,97 +1,178 @@
-<div class="profile-container">
+<div class="container mt-5">
   <div class="profile-card">
-    <div class="profile-header">
-      <h3>
-        <i class="fas fa-user-circle me-2"></i>Mon Profil
-      </h3>
+    <div class="profile-header text-center mb-4">
+      <h2 class="mb-3">Profil</h2>
     </div>
     
-    <div class="profile-content">
-      <div *ngIf="errorMessage" class="alert-message error">
-        <i class="fas fa-exclamation-triangle me-2"></i>{{ errorMessage }}
+    <!-- Alert Messages -->
+    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="fas fa-exclamation-triangle me-2"></i>{{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+    </div>
+    
+    <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="fas fa-check-circle me-2"></i>{{ successMessage }}
+      <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="card text-white bg-primary text-center p-3">
+          <h4>{{ currentUser?.id || 'N/A' }}</h4>
+          <p>ID Utilisateur</p>
+        </div>
       </div>
       
-      <div *ngIf="successMessage" class="alert-message success">
-        <i class="fas fa-check-circle me-2"></i>{{ successMessage }}
+      <div class="col-md-4">
+        <div class="card text-white bg-info text-center p-3">
+          <h4>{{ getRoleText(currentUser?.role) }}</h4>
+          <p>Rôle</p>
+        </div>
       </div>
+      
+      <div class="col-md-4">
+        <div class="card text-white bg-secondary text-center p-3">
+          <h4>{{ currentUser?.dateCreation ? (currentUser.dateCreation | date:'dd/MM/yyyy') : 'N/A' }}</h4>
+          <p>Membre depuis</p>
+        </div>
+      </div>
+    </div>
 
-      <div class="user-info-section">
-        <h5 class="section-title">
+    <!-- User Information Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0">
           <i class="fas fa-user me-2"></i>Informations Personnelles
         </h5>
-        
+      </div>
+      
+      <div class="card-body">
         <div *ngIf="!isEditing; else editMode">
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">
-                <i class="fas fa-user me-2"></i>Nom complet
-              </div>
-              <div class="info-value">{{ currentUser?.prenom }} {{ currentUser?.nom }}</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">
-                <i class="fas fa-envelope me-2"></i>Email
-              </div>
-              <div class="info-value">{{ currentUser?.email }}</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">
-                <i class="fas fa-phone me-2"></i>Téléphone
-              </div>
-              <div class="info-value">{{ currentUser?.telephone }}</div>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td width="30%"><strong><i class="fas fa-user me-2"></i>Nom complet</strong></td>
+                  <td>{{ currentUser?.prenom }} {{ currentUser?.nom }}</td>
+                </tr>
+                <tr>
+                  <td><strong><i class="fas fa-envelope me-2"></i>Email</strong></td>
+                  <td>{{ currentUser?.email }}</td>
+                </tr>
+                <tr>
+                  <td><strong><i class="fas fa-phone me-2"></i>Téléphone</strong></td>
+                  <td>{{ currentUser?.telephone || 'Non renseigné' }}</td>
+                </tr>
+                <tr>
+                  <td><strong><i class="fas fa-shield-alt me-2"></i>Rôle</strong></td>
+                  <td>
+                    <span [class]="getRoleBadgeClass(currentUser?.role)">
+                      {{ getRoleText(currentUser?.role) }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
         <ng-template #editMode>
           <div class="edit-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Prénom</label>
-                <input type="text" class="form-input" [(ngModel)]="editData.prenom">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Prénom</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.prenom" placeholder="Votre prénom">
               </div>
-              <div class="form-group">
-                <label>Nom</label>
-                <input type="text" class="form-input" [(ngModel)]="editData.nom">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Nom</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.nom" placeholder="Votre nom">
               </div>
             </div>
             
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" class="form-input" [(ngModel)]="editData.email">
-            </div>
-            
-            <div class="form-group">
-              <label>Téléphone</label>
-              <input type="tel" class="form-input" [(ngModel)]="editData.tel">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" [(ngModel)]="editData.email" placeholder="votre@email.com">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Téléphone</label>
+                <input type="tel" class="form-control" [(ngModel)]="editData.tel" placeholder="Votre numéro de téléphone">
+              </div>
             </div>
           </div>
         </ng-template>
       </div>
+    </div>
 
-      <div class="action-links">
-        <div *ngIf="!isEditing; else saveCancelLinks">
-          <a class="action-link modifier" (click)="modifierProfil()" [class.disabled]="isLoading">
-            <i class="fas fa-edit me-2"></i>
-            {{ isLoading ? 'Chargement...' : 'Modifier le Profil' }}
-          </a>
-          <a class="action-link supprimer" (click)="supprimerCompte()" [class.disabled]="isLoading">
-            <i class="fas fa-trash-alt me-2"></i>Supprimer le Compte
-          </a>
-          <a class="action-link retour" (click)="retourAccueil()">
-            <i class="fas fa-home me-2"></i>Retour à l'Accueil
-          </a>
+    <!-- Action Buttons -->
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex gap-2 justify-content-end">
+          <div *ngIf="!isEditing; else saveCancelButtons">
+            <button class="btn btn-warning me-2" (click)="modifierProfil()" [disabled]="isLoading">
+              <i class="fas fa-edit me-2"></i>
+              {{ isLoading ? 'Chargement...' : 'Modifier le Profil' }}
+            </button>
+            <button class="btn btn-outline-primary me-2" (click)="retourAccueil()">
+              <i class="fas fa-home me-2"></i>Retour à l'Accueil
+            </button>
+            <button class="btn btn-danger" (click)="supprimerCompte()" [disabled]="isLoading">
+              <i class="fas fa-trash-alt me-2"></i>Supprimer le Compte
+            </button>
+          </div>
+
+          <ng-template #saveCancelButtons>
+            <button class="btn btn-success me-2" (click)="sauvegarderModifications()" [disabled]="isLoading">
+              <i class="fas fa-save me-2"></i>
+              {{ isLoading ? 'Sauvegarde...' : 'Sauvegarder' }}
+            </button>
+            <button class="btn btn-secondary" (click)="annulerModification()" [disabled]="isLoading">
+              <i class="fas fa-times me-2"></i>Annuler
+            </button>
+          </ng-template>
         </div>
+      </div>
+    </div>
 
-        <ng-template #saveCancelLinks>
-          <a class="action-link sauvegarder" (click)="sauvegarderModifications()" [class.disabled]="isLoading">
-            <i class="fas fa-save me-2"></i>
-            {{ isLoading ? 'Sauvegarde...' : 'Sauvegarder' }}
-          </a>
-          <a class="action-link annuler" (click)="annulerModification()" [class.disabled]="isLoading">
-            <i class="fas fa-times me-2"></i>Annuler
-          </a>
-        </ng-template>
+    <!-- Additional Info Card -->
+    <div class="card mt-4">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0">
+          <i class="fas fa-info-circle me-2"></i>Informations du Compte
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row text-center">
+          <div class="col-md-3">
+            <div class="border rounded p-3">
+              <i class="fas fa-calendar-check fa-2x text-primary mb-2"></i>
+              <h6>Dernière connexion</h6>
+              <p class="mb-0">{{ currentUser?.lastLogin ? (currentUser.lastLogin | date:'dd/MM/yyyy HH:mm') : 'Non disponible' }}</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="border rounded p-3">
+              <i class="fas fa-user-check fa-2x text-success mb-2"></i>
+              <h6>Statut du compte</h6>
+              <p class="mb-0">Actif</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="border rounded p-3">
+              <i class="fas fa-bell fa-2x text-warning mb-2"></i>
+              <h6>Notifications</h6>
+              <p class="mb-0">Activées</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="border rounded p-3">
+              <i class="fas fa-lock fa-2x text-info mb-2"></i>
+              <h6>Sécurité</h6>
+              <p class="mb-0">Standard</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

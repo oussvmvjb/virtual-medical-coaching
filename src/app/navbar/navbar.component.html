@@ -1,87 +1,100 @@
-<nav class="navbar navbar-expand-lg fixed-top medical-navbar" *ngIf="!isLoginPage()">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top medical-navbar" *ngIf="!isLoginPage()">
   <div class="container-fluid">
-    
-    <div class="navbar-nav left-section">
-      
-      <a class="nav-link accueil-link" routerLink="/home" routerLinkActive="active">
-        <i class="fas fa-home me-2"></i>Accueil
-      </a>
-      <a class="nav-link profile-link" routerLink="/profile" routerLinkActive="active">
-        <i class="fas fa-user me-2"></i>Profil
-      </a>
+    <a class="navbar-brand app-name" routerLink="/home">
+      <i class="fas fa-heartbeat me-2"></i>Virtual Medical Coaching
+    </a>
 
-      <ng-container *ngIf="isUser()">
-        <a class="nav-link profile-link" routerLink="/mood" routerLinkActive="active">
-          <i class="fas fa-clipboard-check me-2"></i>Évaluation
-        </a>
-        <a class="nav-link accueil-link" routerLink="/ex-pas" routerLinkActive="active">
-          <i class="fas fa-dumbbell me-2"></i>Mes Exercises
-        </a>
-        <a class="nav-link accueil-link" routerLink="/graphique" routerLinkActive="active">
-          <i class="fas fa-chart-line me-2"></i>Graphiques
-        </a>
-      </ng-container>
-
-      <ng-container *ngIf="isCoach()">
-        <a class="nav-link accueil-link" routerLink="/ex-coa" routerLinkActive="active">
-          <i class="fas fa-list-check me-2"></i>Exercices Coach
-        </a>
-        <a class="nav-link accueil-link" routerLink="/list-eva" routerLinkActive="active">
-          <i class="fas fa-clipboard-list me-2"></i>Liste Évaluations
-        </a>
-      </ng-container>
-
-      <a class="nav-link logout-link" (click)="logout()" style="cursor: pointer;">
-        <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
-      </a>
-    </div>
-
-    <button class="navbar-toggler mobile-toggle" type="button" (click)="toggleMobileMenu()">
-      <i class="fas fa-bars"></i>
+    <button class="navbar-toggler" type="button" (click)="toggleMobileMenu()">
+      <span class="navbar-toggler-icon"></span>
     </button>
 
-    <span class="navbar-brand app-name">
-      <i class="fas fa-heartbeat me-2"></i>Virtual Medical Coaching
-    </span>
-  </div>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">
+            <i class="fas fa-home me-2"></i>Accueil
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+            <i class="fas fa-user me-2"></i>Profil
+          </a>
+        </li>
 
-  <div class="mobile-navbar" [class.active]="mobileMenuOpen">
-    <div class="mobile-nav-content">
-      
-      <a class="mobile-nav-link" routerLink="/home" (click)="closeMobileMenu()" routerLinkActive="active">
-        <i class="fas fa-home me-2"></i>Accueil
-      </a>
-      <a class="mobile-nav-link" routerLink="/profile" (click)="closeMobileMenu()" routerLinkActive="active">
-        <i class="fas fa-user me-2"></i>Profil
-      </a>
+        <!-- USER specific links -->
+        <li class="nav-item" *ngIf="role === 'USER'">
+          <a class="nav-link" routerLink="/mood" routerLinkActive="active">
+            <i class="fas fa-clipboard-check me-2"></i>Évaluation
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'USER'">
+          <a class="nav-link" routerLink="/ex-pas" routerLinkActive="active">
+            <i class="fas fa-dumbbell me-2"></i>Mes Exercises
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'USER'">
+          <a class="nav-link" routerLink="/graphique" routerLinkActive="active">
+            <i class="fas fa-chart-line me-2"></i>Graphiques
+          </a>
+        </li>
 
-      <ng-container *ngIf="isUser()">
-        <a class="mobile-nav-link" routerLink="/mood" (click)="closeMobileMenu()" routerLinkActive="active">
+        <!-- COACH specific links -->
+        <li class="nav-item" *ngIf="role === 'COACH'">
+          <a class="nav-link" routerLink="/ex-coa" routerLinkActive="active">
+            <i class="fas fa-list-check me-2"></i>Exercices Coach
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="role === 'COACH'">
+          <a class="nav-link" routerLink="/list-eva" routerLinkActive="active">
+            <i class="fas fa-clipboard-list me-2"></i>Liste Évaluations
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link logout-link" (click)="logout()" style="cursor: pointer;">
+            <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-navbar" [class.active]="mobileMenuOpen">
+      <div class="mobile-nav-content">
+        <a class="mobile-nav-link" routerLink="/home" (click)="closeMobileMenu()" routerLinkActive="active">
+          <i class="fas fa-home me-2"></i>Accueil
+        </a>
+        <a class="mobile-nav-link" routerLink="/profile" (click)="closeMobileMenu()" routerLinkActive="active">
+          <i class="fas fa-user me-2"></i>Profil
+        </a>
+
+        <!-- USER specific links for mobile -->
+        <a class="mobile-nav-link" *ngIf="role === 'USER'" routerLink="/mood" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-clipboard-check me-2"></i>Évaluation
         </a>
-        <a class="mobile-nav-link" routerLink="/ex-pas" (click)="closeMobileMenu()" routerLinkActive="active">
+        <a class="mobile-nav-link" *ngIf="role === 'USER'" routerLink="/ex-pas" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-dumbbell me-2"></i>Mes Exercises
         </a>
-        <a class="mobile-nav-link" routerLink="/graphique" (click)="closeMobileMenu()" routerLinkActive="active">
+        <a class="mobile-nav-link" *ngIf="role === 'USER'" routerLink="/graphique" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-chart-line me-2"></i>Graphiques
         </a>
-      </ng-container>
 
-      <ng-container *ngIf="isCoach()">
-        <a class="mobile-nav-link" routerLink="/ex" (click)="closeMobileMenu()" routerLinkActive="active">
-          <i class="fas fa-prescription me-2"></i>Prescrire Exercises
-        </a>
-        <a class="mobile-nav-link" routerLink="/ex-coa" (click)="closeMobileMenu()" routerLinkActive="active">
+        <!-- COACH specific links for mobile -->
+        <a class="mobile-nav-link" *ngIf="role === 'COACH'" routerLink="/ex-coa" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-list-check me-2"></i>Exercices Coach
         </a>
-        <a class="mobile-nav-link" routerLink="/list-eva" (click)="closeMobileMenu()" routerLinkActive="active">
+        <a class="mobile-nav-link" *ngIf="role === 'COACH'" routerLink="/list-eva" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-clipboard-list me-2"></i>Liste Évaluations
         </a>
-      </ng-container>
 
-      <a class="mobile-nav-link logout" (click)="logout(); closeMobileMenu()">
-        <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
-      </a>
+        <a class="mobile-nav-link logout" (click)="logout(); closeMobileMenu()">
+          <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+        </a>
+      </div>
     </div>
   </div>
 </nav>

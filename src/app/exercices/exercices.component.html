@@ -1,80 +1,161 @@
-<h2 class="text-center mb-4 main-title">
-  Zone Médecin 🩺 <br>
-  <span class="subtitle">(Programme médical d’exercices)</span>
-</h2>
-
-<form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()" class="p-4 bg-white rounded shadow">
-
-  <h3 class="mb-3 section-title">A. Observations et informations patient</h3>
-  <hr>
-  <div class="mb-3">
-    <label class="form-label">Observations :</label>
-    <textarea class="form-control" formControlName="observations" rows="3" placeholder="Écrivez les observations ici"></textarea>
-  </div>
-
-  <div class="mb-3">
-    <label class="form-label">Niveau de risque :</label><br>
-    <div *ngFor="let n of niveauxRisque" class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" formControlName="niveauRisque" [value]="n">
-      <label class="form-check-label">{{ n }}</label>
+<div class="prescription-container">
+  <div class="container-fluid mt-5">
+    
+    <!-- العنوان الرئيسي -->
+    <div class="prescription-header text-center mb-5">
+      <h1 class="main-title">Zone Médecin</h1>
+      <p class="subtitle">Programme médical d'exercices</p>
     </div>
-  </div>
 
-  <h3 class="mb-3 section-title">B. Type de maladie / trouble ciblé</h3>
-  <hr>
-  <div formArrayName="troubles" class="mb-3">
-    <div *ngFor="let t of troubles; let i = index" class="form-check">
-      <input class="form-check-input" type="checkbox" [formControlName]="i" (change)="onTroubleChange(t, $event)">
-      <label class="form-check-label">{{ t }}</label>
-    </div>
-  </div>
+    <!-- نموذج الوصفة الطبية -->
+    <div class="prescription-form">
+      <form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()">
 
-  <div *ngIf="autresTroublesSelected" class="mb-3">
-    <input class="form-control" type="text" formControlName="autresTroubles" placeholder="Précisez autre trouble">
-  </div>
-
-  <h3 class="mb-3 section-title">C. Ordonnance d’activités physiques</h3>
-  <hr>
-
-  <div class="mb-3">
-    <label class="form-label">1. Fréquence des exercices :</label><br>
-    <div *ngFor="let f of frequences" class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" formControlName="frequence" [value]="f">
-      <label class="form-check-label">{{ f }}</label>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <label class="form-label">2. Type d’exercice à prescrire :</label><br>
-    <div *ngFor="let t of troubles">
-      <div *ngIf="exercices[t]">
-        <strong class="d-block mt-2">Pour {{ t }} :</strong>
-        <div *ngFor="let ex of exercices[t]" class="form-check">
-          <input class="form-check-input" type="checkbox" (change)="toggleExercice(ex, $event)">
-          <label class="form-check-label">{{ ex }}</label>
+        <!-- القسم A: معلومات المريض -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3 class="section-title">
+              <i class="fas fa-user-injured me-2"></i>
+              A. Observations et informations patient
+            </h3>
+          </div>
+          <div class="section-content">
+            <div class="row">
+              <div class="col-12 mb-4">
+                <label class="form-label">Observations :</label>
+                <textarea class="form-control large-input" formControlName="observations" rows="4" 
+                          placeholder="Écrivez les observations cliniques détaillées ici..."></textarea>
+              </div>
+              
+              <div class="col-12">
+                <label class="form-label">Niveau de risque :</label>
+                <div class="options-grid">
+                  <div *ngFor="let n of niveauxRisque" class="option-item">
+                    <input class="form-check-input" type="radio" formControlName="niveauRisque" [value]="n">
+                    <label class="form-check-label">{{ n }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <!-- القسم B: نوع المرض -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3 class="section-title">
+              <i class="fas fa-diagnoses me-2"></i>
+              B. Type de maladie / trouble ciblé
+            </h3>
+          </div>
+          <div class="section-content">
+            <div formArrayName="troubles" class="mb-4">
+              <div class="troubles-grid">
+                <div *ngFor="let t of troubles; let i = index" class="trouble-item">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [formControlName]="i" 
+                           (change)="onTroubleChange(t, $event)">
+                    <label class="form-check-label">{{ t }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="autresTroublesSelected" class="other-trouble">
+              <label class="form-label">Autre trouble à préciser :</label>
+              <input class="form-control large-input" type="text" formControlName="autresTroubles" 
+                     placeholder="Précisez le trouble spécifique ici...">
+            </div>
+          </div>
+        </div>
+
+        <!-- القسم C: وصفة النشاط البدني -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3 class="section-title">
+              <i class="fas fa-running me-2"></i>
+              C. Ordonnance d'activités physiques
+            </h3>
+          </div>
+          <div class="section-content">
+            
+            <!-- 1. التكرار -->
+            <div class="frequency-section mb-5">
+              <label class="form-label">1. Fréquence des exercices :</label>
+              <div class="options-grid large">
+                <div *ngFor="let f of frequences" class="option-item">
+                  <input class="form-check-input" type="radio" formControlName="frequence" [value]="f">
+                  <label class="form-check-label">{{ f }}</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. نوع التمرين -->
+            <div class="exercises-section mb-5">
+              <label class="form-label">2. Type d'exercice à prescrire :</label>
+              <div class="exercises-container">
+                <div *ngFor="let t of troubles" class="exercise-category">
+                  <div *ngIf="exercices[t]" class="category-panel">
+                    <h5 class="category-title">Pour {{ t }} :</h5>
+                    <div class="exercises-list">
+                      <div *ngFor="let ex of exercices[t]" class="exercise-item">
+                        <input class="form-check-input" type="checkbox" (change)="toggleExercice(ex, $event)">
+                        <label class="form-check-label">{{ ex }}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- تمرين مخصص -->
+            <div class="custom-exercise mb-5">
+              <label class="form-label">Exercice personnalisé :</label>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <input class="form-control large-input" type="text" formControlName="exercicePersoNom" 
+                         placeholder="Nom de l'exercice personnalisé">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <input class="form-control large-input" type="text" formControlName="exercicePersoDesc" 
+                         placeholder="Description détaillée de l'exercice">
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. التعليمات -->
+            <div class="instructions-section mb-5">
+              <label class="form-label">3. Instructions pour le patient :</label>
+              <textarea class="form-control large-input" formControlName="instructions" rows="4" 
+                        placeholder="Instructions spécifiques et détaillées pour le patient..."></textarea>
+            </div>
+
+            <!-- 4. المدة -->
+            <div class="duration-section">
+              <label class="form-label">4. Durée de la prescription :</label>
+              <div class="options-grid">
+                <div *ngFor="let d of durees" class="option-item">
+                  <input class="form-check-input" type="radio" formControlName="duree" [value]="d">
+                  <label class="form-check-label">{{ d }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- زر الإرسال -->
+        <div class="submit-section">
+          <button type="submit" class="btn btn-primary btn-lg submit-btn">
+            <i class="fas fa-save me-2"></i>
+            Enregistrer la Prescription Médicale
+          </button>
+        </div>
+
+      </form>
     </div>
-  </div>
 
-  <div class="mb-3">
-    <label class="form-label">Exercice personnalisé :</label>
-    <input class="form-control mb-2" type="text" formControlName="exercicePersoNom" placeholder="Nom">
-    <input class="form-control" type="text" formControlName="exercicePersoDesc" placeholder="Description">
-  </div>
+    <!-- الإحصائيات -->
+  
 
-  <div class="mb-3">
-    <label class="form-label">3. Instructions pour le patient :</label>
-    <textarea class="form-control" formControlName="instructions" rows="3" placeholder="Écrivez les instructions ici"></textarea>
   </div>
-
-  <div class="mb-3">
-    <label class="form-label">4. Durée de la prescription :</label><br>
-    <div *ngFor="let d of durees" class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" formControlName="duree" [value]="d">
-      <label class="form-check-label">{{ d }}</label>
-    </div>
-  </div>
-
-  <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
-</form>
+</div>
