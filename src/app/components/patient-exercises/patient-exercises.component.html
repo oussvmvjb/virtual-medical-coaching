@@ -12,7 +12,6 @@
     </div>
   </div>
 </div>
-    <!-- حالة التحميل -->
     <div *ngIf="loading" class="loading-container">
       <div class="loading-spinner">
         <div class="spinner-icon">
@@ -22,7 +21,6 @@
       </div>
     </div>
 
-    <!-- حالة عدم وجود تمارين -->
     <div *ngIf="!loading && exercices.length === 0" class="empty-state-medical">
       <div class="empty-icon">
         <i class="fas fa-dumbbell fa-4x"></i>
@@ -35,11 +33,9 @@
       </button>
     </div>
 
-    <!-- قائمة التمارين -->
     <div class="exercises-list" *ngIf="!loading && exercices.length > 0">
       <div *ngFor="let exercice of exercices" class="exercise-card-medical" [class]="getExerciseStatusClass(exercice.statut)">
         
-        <!-- رأس البطاقة -->
         <div class="exercise-header">
           <div class="exercise-title-section">
             <div class="exercise-icon">
@@ -62,11 +58,8 @@
           </div>
         </div>
 
-        <!-- جسم البطاقة -->
         <div class="exercise-body">
-          
-          <!-- الوصف -->
-          <div class="exercise-section">
+                    <div class="exercise-section">
             <div class="section-header">
               <i class="fas fa-file-alt me-2"></i>
               <h4>Description</h4>
@@ -76,7 +69,6 @@
             </div>
           </div>
 
-          <!-- معلومات التمرين -->
           <div class="exercise-info-grid">
             <div class="info-item">
               <div class="info-icon frequence">
@@ -119,7 +111,6 @@
             </div>
           </div>
 
-          <!-- التعليمات -->
           <div class="exercise-section" *ngIf="exercice.instructions">
             <div class="section-header">
               <i class="fas fa-list-check me-2"></i>
@@ -134,7 +125,6 @@
 
         </div>
 
-        <!-- تذييل البطاقة -->
         <div class="exercise-footer">
           <div *ngIf="exercice.statut === 'ACTIF'" class="action-section">
             <button class="btn-medical btn-success" (click)="markAsCompleted(exercice.id!)">

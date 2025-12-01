@@ -1,4 +1,3 @@
-// تنسيقات العنوان الموحدة
 .page-header-section {
   .header-content {
     display: flex;
@@ -29,7 +28,6 @@
     font-size: 2rem;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     
-    // ألوان مختلفة حسب الصفحة
     &.profile { 
       background: linear-gradient(135deg, #6f42c1, #e83e8c); 
     }

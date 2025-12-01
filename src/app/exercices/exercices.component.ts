@@ -155,17 +155,13 @@ export class ExercicesComponent implements OnInit {
         exercicePersoDesc: rawData.exercicePersoDesc
       };
 
-      console.log('📤 Creating exercise for patient:', this.patientId);
-      console.log('📤 Data to send:', JSON.stringify(formData, null, 2));
 
       this.exerciseService.createExercice(formData).subscribe({
         next: (response) => {
-          console.log('✅ Exercise created successfully:', response);
           alert('Prescription enregistrée avec succès !');
           this.resetForm();
         },
         error: (error) => {
-          console.error('❌ Error creating exercise:', error);
           alert('Erreur: ' + (error.error?.message || 'Erreur inconnue'));
         }
       });
@@ -219,20 +215,19 @@ export class ExercicesComponent implements OnInit {
   get troublesFormArray(): FormArray {
     return this.prescriptionForm.get('troubles') as FormArray;
   }
-  // إضافة هذه الدوال في component.ts
 getTotalPrescriptions(): number {
-  return 0; // استبدل بالبيانات الحقيقية
+  return 0; 
 }
 
 getActivePrescriptions(): number {
-  return 0; // استبدل بالبيانات الحقيقية
+  return 0; 
 }
 
 getPendingPrescriptions(): number {
-  return 0; // استبدل بالبيانات الحقيقية
+  return 0; 
 }
 
 getCompletedPrescriptions(): number {
-  return 0; // استبدل بالبيانات الحقيقية
+  return 0;
 }
 }

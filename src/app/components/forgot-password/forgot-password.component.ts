@@ -105,7 +105,6 @@ export class ForgotPasswordComponent {
     return new Promise((resolve) => {
       this.authService.checkEmailExists(email).subscribe({
         next: (response) => {
-          // If the API returns { exists: boolean }, extract the value
           const exists = typeof response === 'object' && response !== null && 'exists' in response ? response.exists : response;
           console.log(' Résultat de l\'existence de l\'utilisateur:', exists);
           resolve(exists);

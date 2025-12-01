@@ -57,7 +57,6 @@ export class PatientExercisesComponent implements OnInit {
 
 
 
-  // دوال مساعدة للواجهة
 getExerciseStatusClass(statut: string): string {
   const statusMap: { [key: string]: string } = {
     'ACTIF': 'active',
@@ -119,18 +118,14 @@ getProgressionText(exercice: any): string {
   return 'En progression';
 }
 
-// دالة لتحديث التمارين
 refreshExercices(): void {
   this.loading = true;
-  // أضف منطق جلب التمارين هنا
   setTimeout(() => {
     this.loading = false;
   }, 1000);
 }
 
-// دالة لعرض تفاصيل التمرين
 viewExerciseDetails(exercice: any): void {
-  // أضف منطق عرض التفاصيل هنا
   console.log('Détails de l\'exercice:', exercice);
 }
 }

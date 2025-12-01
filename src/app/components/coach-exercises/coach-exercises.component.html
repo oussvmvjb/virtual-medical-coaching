@@ -1,7 +1,7 @@
 <div class="prescription-container">
-  <div class="container mt-5"> <!-- تغيير mt-5 إلى mt-4 لتقريب المحتوى -->
+  <div class="container mt-5">
     
-<!-- العنوان الرئيسي -->
+
 <div class="page-header-section mb-5">
   <div class="header-content">
     <div class="medical-icon">
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<!-- إحصائيات -->
+
 <div class="medical-stats-section mb-5">
   <div class="stats-grid">
     <div class="stat-item total">
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<!-- فلترة -->
+
 <div class="medical-filter-section mb-4">
   <div class="filter-card">
     <div class="filter-header">
@@ -112,7 +112,7 @@
   </div>
 </div>
 
-    <!-- جدول التمارين -->
+
     <div class="exercises-container">
       <div class="exercises-grid">
         <div 
@@ -190,7 +190,7 @@
             <div class="exercise-progress" *ngIf="exercice.statut === 'ACTIF'">
               <div class="progress-label">
                 <span>Progression</span>
-                <span>65%</span> <!-- يمكنك إضافة بيانات تقدم حقيقية -->
+                <span>65%</span> 
               </div>
               <div class="progress">
                 <div class="progress-bar" style="width: 65%"></div>
@@ -215,7 +215,6 @@
         </div>
       </div>
 
-      <!-- حالة عدم وجود تمارين -->
       <div class="empty-state" *ngIf="filteredExercices.length === 0">
         <div class="empty-icon">
           <i class="fas fa-dumbbell fa-4x"></i>

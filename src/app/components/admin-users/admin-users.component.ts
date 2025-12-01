@@ -95,6 +95,16 @@ export class AdminUsersComponent implements OnInit {
     });
     this.errorMessage = '';
     this.successMessage = '';
+    this.scrollToForm();
+  }
+
+  scrollToForm(): void {
+    setTimeout(() => {
+      const formSection = document.querySelector('.card-medical.mb-4');
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   }
 
   saveUser(): void {
@@ -107,10 +117,8 @@ export class AdminUsersComponent implements OnInit {
 
     if (this.isAddMode) {
       this.adminService.createUser(formData).subscribe(
-        
         (response: any) => {
           this.successMessage = 'Utilisateur créé avec succès';
-          console.log(formData);
           this.loadUsers();
           this.resetForm();
           setTimeout(() => this.successMessage = '', 3000);
@@ -165,9 +173,9 @@ export class AdminUsersComponent implements OnInit {
 
   getRoleLabel(role: string): string {
     const roleLabels: { [key: string]: string } = {
-      'admin': 'Administrateur',
-      'coach': 'Coach',
-      'patient': 'Patient'
+      'ADMIN': 'Administrateur',
+      'COACH': 'Coach',
+      'USER': 'Patient'
     };
     return roleLabels[role] || role;
   }

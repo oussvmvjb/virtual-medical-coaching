@@ -45,14 +45,12 @@ export class LoginComponent {
             } else {
               this.errorMessage = 'Password incorrect';
             }
-            console.error('Erreur de connexion:', error);
           }
         });
       },
       error: (error) => {
         this.isLoading = false;
         this.errorMessage = 'Erreur lors de la vérification de l\'email';
-        console.error('Erreur de vérification email:', error);
       }
     });
   }

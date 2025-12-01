@@ -13,10 +13,8 @@
   </div>
 </div>
 
-    <!-- المحتوى الرئيسي -->
     <div class="profile-content">
       
-      <!-- Alert Messages -->
       <div class="alert-container">
         <div *ngIf="errorMessage" class="alert-medical alert-danger">
           <div class="alert-content">
@@ -39,7 +37,6 @@
         </div>
       </div>
 
-      <!-- Stats Cards -->
       <div class="medical-stats-section mb-4">
         <div class="stats-grid">
           <div class="stat-item user-id">
@@ -74,7 +71,6 @@
         </div>
       </div>
 
-      <!-- User Information Section -->
       <div class="card-medical mb-4">
         <div class="card-header-medical">
           <h5 class="card-title">
@@ -167,7 +163,6 @@
         </div>
       </div>
 
-      <!-- Action Buttons -->
       <div class="action-section-medical">
         <div *ngIf="!isEditing; else saveCancelButtons">
           <div class="action-buttons">
@@ -197,7 +192,6 @@
         </ng-template>
       </div>
 
-      <!-- Additional Info Card -->
       <div class="card-medical mt-4">
         <div class="card-header-medical">
           <h5 class="card-title">
@@ -249,7 +243,7 @@
         </div>
       </div>
 
-    </div> <!-- نهاية profile-content -->
+    </div>
 
   </div>
 </div>

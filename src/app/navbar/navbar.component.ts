@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit, OnDestroy {
   mobileMenuOpen = false;
   currentUser: any;
-  role: string = ''; // Changed from userRole to role to match your template
+  role: string = '';
   isLoading = true;
   loadingMessage: string = "Bienvenue";
   private userSubscription: Subscription = new Subscription();
@@ -21,12 +21,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadCurrentUser();
     
-    // Subscribe to user changes for real-time updates
     this.userSubscription = this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
       this.updateRoleFromUser();
-      console.log('User updated:', this.currentUser);
-      console.log('Role updated:', this.role);
     });
 
     setTimeout(() => {
@@ -39,7 +36,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   loadCurrentUser(): void {
-    // Get user from AuthService
     this.currentUser = this.authService.getCurrentUser();
     this.updateRoleFromUser();
     
@@ -49,18 +45,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private updateRoleFromUser(): void {
     if (this.currentUser) {
-      // Handle different possible role property names and casings
       this.role = this.currentUser.role || 
                   this.currentUser.roleType || 
                   this.currentUser.userRole || 
                   '';
-      
-      // Normalize role to uppercase to match your template
-      if (this.role) {
+            if (this.role) {
         this.role = this.role.toUpperCase();
       }
       
-      // Fallback to localStorage
       if (!this.role) {
         const storedRole = localStorage.getItem('role');
         this.role = storedRole ? storedRole.toUpperCase() : '';
@@ -70,7 +62,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Helper methods for role checking (updated for your roles)
   isUser(): boolean {
     return this.role === 'USER';
   }
@@ -115,8 +106,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.role = '';
     this.router.navigate(['/login']);
   }
-
-  // Method to get user display name
   getUserDisplayName(): string {
     return this.currentUser?.name || 
            this.currentUser?.username || 
@@ -124,13 +113,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
            'Utilisateur';
   }
 
-// دالة للحصول على حالة المستخدم
 getUserStatus(): string {
-  // يمكنك إضافة منطق لحالة المستخدم هنا
-  return 'online'; // أو 'offline' أو 'busy'
+  return 'online'; 
 }
 
-// دالة للحصول على نص الدور
 getRoleText(role: string): string {
   const roleMap: { [key: string]: string } = {
     'USER': 'Patient',

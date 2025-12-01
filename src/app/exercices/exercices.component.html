@@ -1,7 +1,6 @@
 <div class="prescription-container">
   <div class="container-fluid mt-5">
     
-<!-- العنوان الرئيسي -->
 <div class="page-header-section mb-5">
   <div class="header-content">
     <div class="medical-icon">
@@ -14,11 +13,9 @@
   </div>
 </div>
 
-    <!-- نموذج الوصفة الطبية -->
     <div class="prescription-form">
       <form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()">
 
-        <!-- القسم A: معلومات المريض -->
         <div class="form-section">
           <div class="section-header">
             <h3 class="section-title">
@@ -47,7 +44,6 @@
           </div>
         </div>
 
-        <!-- القسم B: نوع المرض -->
         <div class="form-section">
           <div class="section-header">
             <h3 class="section-title">
@@ -76,7 +72,6 @@
           </div>
         </div>
 
-        <!-- القسم C: وصفة النشاط البدني -->
         <div class="form-section">
           <div class="section-header">
             <h3 class="section-title">
@@ -86,7 +81,6 @@
           </div>
           <div class="section-content">
             
-            <!-- 1. التكرار -->
             <div class="frequency-section mb-5">
               <label class="form-label">1. Fréquence des exercices :</label>
               <div class="options-grid large">
@@ -97,7 +91,6 @@
               </div>
             </div>
 
-            <!-- 2. نوع التمرين -->
             <div class="exercises-section mb-5">
               <label class="form-label">2. Type d'exercice à prescrire :</label>
               <div class="exercises-container">
@@ -115,7 +108,6 @@
               </div>
             </div>
 
-            <!-- تمرين مخصص -->
             <div class="custom-exercise mb-5">
               <label class="form-label">Exercice personnalisé :</label>
               <div class="row">
@@ -130,14 +122,12 @@
               </div>
             </div>
 
-            <!-- 3. التعليمات -->
             <div class="instructions-section mb-5">
               <label class="form-label">3. Instructions pour le patient :</label>
               <textarea class="form-control large-input" formControlName="instructions" rows="4" 
                         placeholder="Instructions spécifiques et détaillées pour le patient..."></textarea>
             </div>
 
-            <!-- 4. المدة -->
             <div class="duration-section">
               <label class="form-label">4. Durée de la prescription :</label>
               <div class="options-grid">
@@ -150,7 +140,6 @@
           </div>
         </div>
 
-        <!-- زر الإرسال -->
         <div class="submit-section">
           <button type="submit" class="btn btn-primary btn-lg submit-btn">
             <i class="fas fa-save me-2"></i>
@@ -159,10 +148,7 @@
         </div>
 
       </form>
-    </div>
-
-    <!-- الإحصائيات -->
-  
+    </div>  
 
   </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="prescription-container">
   <div class="container mt-4">
     
-    <!-- العنوان الرئيسي -->
+
     <div class="page-header-section evaluation-header mb-4">
       <div class="header-content">
         <div class="medical-icon evaluation">
@@ -14,11 +14,11 @@
       </div>
     </div>
 
-    <!-- النموذج الرئيسي -->
+
     <div class="evaluation-form-container">
       <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
 
-        <!-- قسم المؤشرات -->
+
         <div class="card-medical mb-4">
           <div class="card-header-medical">
             <h5 class="card-title">
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <!-- قسم الحالة البدنية والاجتماعية -->
+
         <div class="card-medical mb-4">
           <div class="card-header-medical">
             <h5 class="card-title">
@@ -93,7 +93,7 @@
           </div>
         </div>
 
-        <!-- قسم التفكير في المخاطر -->
+
         <div class="card-medical mb-4">
           <div class="card-header-medical warning">
             <h5 class="card-title">
@@ -127,7 +127,7 @@
           </div>
         </div>
 
-        <!-- قسم المعلومات الإضافية -->
+
         <div class="card-medical mb-4">
           <div class="card-header-medical">
             <h5 class="card-title">
@@ -159,7 +159,7 @@
           </div>
         </div>
 
-        <!-- أزرار الإجراء -->
+
         <div class="action-section-medical">
           <div class="action-buttons">
             <button type="submit" class="btn-medical btn-primary" [disabled]="evaluationForm.invalid">
@@ -181,7 +181,6 @@
 
       </form>
 
-      <!-- قسم الرسم البياني -->
       <div *ngIf="showGraph" class="card-medical mt-4">
         <div class="card-header-medical">
           <h5 class="card-title">

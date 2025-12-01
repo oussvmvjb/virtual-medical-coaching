@@ -51,7 +51,6 @@ export class CoachExercisesComponent implements OnInit {
 
    
 
-// تعريف خيارات الفلترة
 filterOptions = [
   { value: 'TOUS', label: 'Tous les exercices', icon: '📋' },
   { value: 'ACTIF', label: 'Exercices Actifs', icon: '🟡' },
@@ -59,12 +58,12 @@ filterOptions = [
   { value: 'ANNULE', label: 'Exercices Annulés', icon: '🔴' }
 ];
 
-// دالة لإعادة تعيين الفلترة
+
 resetFilters(): void {
   this.filterStatut = 'TOUS';
 }
 
-// دالة لتحديد حالة الإلغاء
+
 getCancelledStatus(): string {
   const cancelledPercentage = (this.getStats().cancelled / this.getStats().total) * 100;
   if (cancelledPercentage < 5) return 'low';
@@ -72,7 +71,7 @@ getCancelledStatus(): string {
   return 'high';
 }
 
-  // دالة لتحديد كلاس الحالة
+
 getExerciseStatusClass(statut: string): string {
   const statusMap: { [key: string]: string } = {
     'ACTIF': 'active',
@@ -82,7 +81,7 @@ getExerciseStatusClass(statut: string): string {
   return statusMap[statut] || '';
 }
 
-// دالة للحصول على نص الحالة
+
 getStatusText(statut: string): string {
   const statusMap: { [key: string]: string } = {
     'ACTIF': 'Actif',
@@ -92,7 +91,7 @@ getStatusText(statut: string): string {
   return statusMap[statut] || statut;
 }
 
-// دالة للحصول على كلاس الـ badge
+
 getStatusBadgeClass(statut: string): string {
   const statusMap: { [key: string]: string } = {
     'ACTIF': 'status-badge active',
@@ -102,7 +101,7 @@ getStatusBadgeClass(statut: string): string {
   return statusMap[statut] || 'status-badge';
 }
 
-// دالة للحصول على نص التكرار
+
 getFrequenceText(frequence: string): string {
   const frequenceMap: { [key: string]: string } = {
     'QUOTIDIEN': 'Quotidien',

@@ -49,7 +49,6 @@ export enum StatutExercice {
   ANNULE = 'ANNULE'
 }
 
-// DTO pour la création d'exercice
 export interface ExerciceRequest {
   idPatient: number;
   idCoach: number;

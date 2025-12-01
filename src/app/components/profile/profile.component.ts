@@ -39,7 +39,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  // Helper methods for role display
   getRoleText(role: string): string {
     const roleMap: { [key: string]: string } = {
       'USER': 'Patient',
@@ -66,7 +65,7 @@ export class ProfileComponent implements OnInit {
 
   annulerModification(): void {
     this.isEditing = false;
-    this.loadCurrentUser(); // Reset form data
+    this.loadCurrentUser(); 
     this.errorMessage = '';
     this.successMessage = '';
   }
@@ -76,21 +75,16 @@ export class ProfileComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Here you would typically call your update service
-    // For now, we'll simulate a successful update
     setTimeout(() => {
       this.isLoading = false;
       this.isEditing = false;
       this.successMessage = 'Profil mis à jour avec succès!';
       
-      // Update local user data
       if (this.currentUser) {
         this.currentUser.prenom = this.editData.prenom;
         this.currentUser.nom = this.editData.nom;
         this.currentUser.email = this.editData.email;
         this.currentUser.telephone = this.editData.tel;
-        
-        // Update in auth service and localStorage
         this.authService.setCurrentUser(this.currentUser);
       }
     }, 1500);
@@ -100,7 +94,6 @@ export class ProfileComponent implements OnInit {
     if (confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')) {
       this.isLoading = true;
       
-      // Here you would typically call your delete service
       setTimeout(() => {
         this.isLoading = false;
         this.authService.logout();

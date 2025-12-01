@@ -1,6 +1,5 @@
-<nav class="medical-nav" *ngIf="!isLoginPage()">
+<nav class="medical-nav " *ngIf="!isLoginPage()">
   <div class="nav-wrapper">
-    <!-- Main Brand -->
     <div class="nav-main">
       <a class="brand" routerLink="/home">
         <div class="brand-logo">
@@ -16,7 +15,7 @@
       </a>
     </div>
 
-    <!-- Navigation Center -->
+
     <div class="nav-center">
       <div class="nav-menu">
 
@@ -36,7 +35,6 @@
           <div class="nav-indicator"></div>
         </a>
 
-        <!-- USER specific links -->
         <a class="nav-item" *ngIf="role === 'USER'" routerLink="/mood" routerLinkActive="active">
           <div class="nav-icon">
             <i class="fas fa-clipboard-check"></i>
@@ -61,7 +59,6 @@
           <div class="nav-indicator"></div>
         </a>
 
-        <!-- COACH specific links -->
         <a class="nav-item" *ngIf="role === 'COACH'" routerLink="/ex-coa" routerLinkActive="active">
           <div class="nav-icon">
             <i class="fas fa-list-check"></i>
@@ -78,7 +75,6 @@
           <div class="nav-indicator"></div>
         </a>
 
-        <!-- ADMIN specific links -->
         <a class="nav-item" *ngIf="role === 'ADMIN'" routerLink="/admin-users" routerLinkActive="active">
           <div class="nav-icon">
             <i class="fas fa-users-cog"></i>
@@ -86,11 +82,10 @@
           <span class="nav-label">Gestion Utilisateurs</span>
           <div class="nav-indicator"></div>
         </a>
-
+      
       </div>
     </div>
 
-    <!-- User Section -->
     <div class="nav-user">
       <div class="user-profile">
         <div class="user-avatar" *ngIf="role === 'USER'">
@@ -117,7 +112,6 @@
       </div>
     </div>
 
-    <!-- Mobile Toggle -->
     <button class="mobile-toggle" (click)="toggleMobileMenu()">
       <span class="toggle-line"></span>
       <span class="toggle-line"></span>
@@ -125,11 +119,9 @@
     </button>
   </div>
 
-  <!-- Mobile Navigation -->
   <div class="mobile-nav" [class.active]="mobileMenuOpen">
     <div class="mobile-backdrop" (click)="closeMobileMenu()"></div>
     <div class="mobile-panel">
-      <!-- Mobile Header -->
       <div class="mobile-header">
         <div class="mobile-user-card">
           <div class="user-avatar large">
@@ -145,7 +137,6 @@
         </button>
       </div>
 
-      <!-- Mobile Menu -->
       <div class="mobile-menu">
         <a class="mobile-item" routerLink="/home" (click)="closeMobileMenu()" routerLinkActive="active">
           <i class="fas fa-home"></i>
@@ -159,7 +150,6 @@
           <i class="item-arrow fas fa-chevron-right"></i>
         </a>
 
-        <!-- USER Mobile Menu -->
         <div class="mobile-section" *ngIf="role === 'USER'">
           <h4 class="section-title">Espace Patient</h4>
           <a class="mobile-item" routerLink="/mood" (click)="closeMobileMenu()" routerLinkActive="active">
@@ -179,7 +169,6 @@
           </a>
         </div>
 
-        <!-- COACH Mobile Menu -->
         <div class="mobile-section" *ngIf="role === 'COACH'">
           <h4 class="section-title">Espace Coach</h4>
           <a class="mobile-item" routerLink="/ex-coa" (click)="closeMobileMenu()" routerLinkActive="active">
@@ -194,7 +183,6 @@
           </a>
         </div>
 
-        <!-- ADMIN Mobile Menu -->
         <div class="mobile-section" *ngIf="role === 'ADMIN'">
           <h4 class="section-title">Espace Administrateur</h4>
           <a class="mobile-item" routerLink="/admin-users" (click)="closeMobileMenu()" routerLinkActive="active">
@@ -205,7 +193,6 @@
         </div>
       </div>
 
-      <!-- Mobile Footer -->
       <div class="mobile-footer">
         <button class="mobile-action-btn" (click)="logout(); closeMobileMenu()">
           <i class="fas fa-sign-out-alt"></i>

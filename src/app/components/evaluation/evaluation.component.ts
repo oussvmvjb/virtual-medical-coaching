@@ -79,11 +79,9 @@ export class EvaluationComponent implements OnInit {
       commentaire: rawData.commentaire
     };
 
-    console.log('📤 Data to send (sans date):', JSON.stringify(formData, null, 2));
 
     this.evaluationService.createEvaluation(formData).subscribe({
       next: (response) => {
-        console.log('✅ Success:', response);
         alert('Évaluation enregistrée avec succès !');
 
        
@@ -93,7 +91,6 @@ export class EvaluationComponent implements OnInit {
         this.resetForm();
       },
       error: (error) => {
-        console.error('❌ Error:', error);
         alert('Erreur: ' + (error.error?.message || 'Erreur inconnue'));
       }
     });
@@ -141,7 +138,7 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  // دوال مساعدة للواجهة
+
 getMetricIcon(metric: string): string {
   const icons: { [key: string]: string } = {
     'humeur': 'fas fa-smile',
@@ -164,7 +161,6 @@ getMetricLabel(metric: string): string {
   return labels[metric] || metric;
 }
 
-// دالة لإعادة تعيين النموذج
 resetForm(): void {
   this.evaluationForm.reset({
     humeur: 5,
@@ -182,7 +178,6 @@ resetForm(): void {
   });
 }
 
-// مثال للوسم التوضيحي للرسم البياني
 graphLegend = [
   { color: '#007bff', label: 'Humeur' },
   { color: '#dc3545', label: 'Stress' },
