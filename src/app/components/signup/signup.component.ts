@@ -74,33 +74,41 @@ export class SignupComponent {
     return true;
   }
 
-  onSubmit(): void {
-    this.checkPasswordMatch();
-    
-    if (!this.validateForm()) {
-      return;
-    }
+onSubmit(): void {
+  this.checkPasswordMatch();
 
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    this.authService.signup(this.signupData).subscribe({
-      next: (user) => {
-        this.isLoading = false;
-        this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        console.error('Erreur d\'inscription:', error);
-        
-        this.errorMessage = error.message;
-        
-        if (error.message.includes('email')) {
-          this.errorMessage += ' - Essayez d\'utiliser un email différent ou récupérez votre mot de passe';
-        }
-      }
-    });
+  if (!this.validateForm()) {
+    return;
   }
+
+  this.isLoading = true;
+  this.errorMessage = '';
+  this.authService.checkEmailExists(this.signupData.email).subscribe({
+    next: (result) => {
+      if (result.exists) {
+        this.isLoading = false;
+        this.errorMessage = "Cet email a déjà un compte. Veuillez utiliser un autre email ou récupérer votre mot de passe.";
+        return;
+      }
+      this.authService.signup(this.signupData).subscribe({
+        next: (user) => {
+          this.isLoading = false;
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Erreur d\'inscription:', error);
+          this.errorMessage = error.message;
+        }
+      });
+    },
+    error: (error) => {
+      this.isLoading = false;
+      this.errorMessage = "Erreur lors de la vérification de l'email";
+      console.error('Erreur de vérification email:', error);
+    }
+  });
+}
 
   goToLogin(): void {
     this.router.navigate(['/login']);

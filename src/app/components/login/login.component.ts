@@ -18,26 +18,44 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-onSubmit(): void {
-  this.isLoading = true;
-  this.errorMessage = '';
-
-  this.authService.login(this.loginData).subscribe({
-    next: (user) => {
-      this.isLoading = false;
-      if (user) {
-        this.router.navigate(['/home']);
-      } else {
-        this.errorMessage = 'Email ou mot de passe incorrect';
+  onSubmit(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.authService.checkEmailExists(this.loginData.email).subscribe({
+      next: (result) => {
+        if (!result.exists) {
+          this.isLoading = false;
+          this.errorMessage = "Don't have account";
+          return;
+        }
+        this.authService.login(this.loginData).subscribe({
+          next: (user) => {
+            this.isLoading = false;
+            if (user) {
+              this.router.navigate(['/home']);
+            } else {
+              this.errorMessage = 'Password incorrect';
+            }
+          },
+          error: (error) => {
+            this.isLoading = false;
+            const msg = error.error?.message || error.message || '';
+            if (msg.includes('password')) {
+              this.errorMessage = "Password incorrect";
+            } else {
+              this.errorMessage = 'Password incorrect';
+            }
+            console.error('Erreur de connexion:', error);
+          }
+        });
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.errorMessage = 'Erreur lors de la vérification de l\'email';
+        console.error('Erreur de vérification email:', error);
       }
-    },
-    error: (error) => {
-      this.isLoading = false;
-      this.errorMessage = error.message || 'Email ou mot de passe incorrect';
-      console.error('Erreur de connexion:', error);
-    }
-  });
-}
+    });
+  }
 
   goToSignup(): void {
     this.router.navigate(['/signup']);

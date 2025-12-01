@@ -21,11 +21,9 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<User> {
-    console.log('🔐 Attempting login for:', credentials.email);
     
     return this.http.post<User>(`${this.apiUrl}/login`, credentials).pipe(
       tap(user => {
-        console.log('✅ Login successful:', user);
         this.setCurrentUser(user);
       }),
       catchError(this.handleError.bind(this))
@@ -35,11 +33,9 @@ export class AuthService {
   signup(userData: SignupRequest): Observable<User> {
     const { confirmPassword, ...user } = userData;
     
-    console.log('📝 Sending signup data:', user);
     
     return this.http.post<User>(this.apiUrl, user).pipe(
       tap(newUser => {
-        console.log('✅ Signup successful:', newUser);
         this.setCurrentUser(newUser);
       }),
       catchError(this.handleError.bind(this))
@@ -47,11 +43,9 @@ export class AuthService {
   }
 
   updateProfile(userId: number, userData: any): Observable<User> {
-    console.log('🔄 Updating profile for user ID:', userId);
     
     return this.http.put<User>(`${this.apiUrl}/${userId}`, userData).pipe(
       tap(updatedUser => {
-        console.log('✅ Profile updated successfully:', updatedUser);
         this.setCurrentUser(updatedUser);
       }),
       catchError(this.handleError.bind(this))
@@ -59,25 +53,22 @@ export class AuthService {
   }
 
   deleteAccount(userId: number): Observable<any> {
-    console.log('🗑️ Deleting account for user ID:', userId);
     
     return this.http.delete(`${this.apiUrl}/${userId}`).pipe(
       tap(() => {
-        console.log('✅ Account deleted successfully');
         this.logout();
       }),
       catchError(this.handleError.bind(this))
     );
   }
 
-  checkEmailExists(email: string): Observable<boolean> {
-    return this.http.get<{exists: boolean}>(`${this.apiUrl}/check-email/${email}`).pipe(
-      map(response => {
-        console.log('📧 Email exists check:', email, response.exists);
-        return response.exists;
-      }),
-      catchError(() => [false])
-    );
+  /**
+   * Checks if an email exists in the backend
+   * @param email The email to check
+   * @returns Observable<{ exists: boolean }>
+   */
+  checkEmailExists(email: string): Observable<{ exists: boolean }> {
+    return this.http.get<{ exists: boolean }>(`${this.apiUrl}/check-email/${email}`);
   }
 
   updatePassword(email: string, newPassword: string): Observable<any> {
@@ -86,13 +77,11 @@ export class AuthService {
       newPassword: newPassword
     };
     
-    console.log('🔑 Updating password for:', email);
     
     return this.http.put(`${this.apiUrl}/update-password`, updateData, {
       responseType: 'text'
     }).pipe(
       tap(response => {
-        console.log('✅ Password update response:', response);
       }),
       catchError(this.handleError.bind(this))
     );
@@ -143,23 +132,19 @@ export class AuthService {
   }
 
  
-  // In your AuthService, update the setCurrentUser method:
 setCurrentUser(user: User): void {
   localStorage.setItem('currentUser', JSON.stringify(user));
-  // Also store role separately for easy access if needed
   if (user.role) {
     localStorage.setItem('role', user.role);
   }
   this.currentUserSubject.next(user);
 }
 
-// Add a method to get user role
 getUserRole(): string | null {
   const user = this.getCurrentUser();
   return user?.role || localStorage.getItem('role');
 }
 
-// Update logout method to also clear role
 logout(): void {
   localStorage.removeItem('currentUser');
   localStorage.removeItem('role');
