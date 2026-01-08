@@ -1,0 +1,170 @@
+<div class="post-list-container">
+  <!-- En-tête -->
+  <div class="header">
+    <h1>Forum des Posts</h1>
+    <button class="btn btn-primary" (click)="showCreateForm = !showCreateForm">
+      {{ showCreateForm ? 'Annuler' : 'Créer un Post' }}
+    </button>
+  </div>
+  
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+  
+  <!-- Formulaire de création -->
+  <div *ngIf="showCreateForm" class="create-post-form">
+    <h2>Nouveau Post</h2>
+    <form (ngSubmit)="createPost()" #postForm="ngForm">
+      <div class="form-group">
+        <label for="title">Titre</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          [(ngModel)]="newPost.title"
+          required
+          maxlength="200"
+          placeholder="Donnez un titre à votre post"
+          class="form-control"
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="content">Contenu</label>
+        <textarea
+          id="content"
+          name="content"
+          [(ngModel)]="newPost.content"
+          required
+          maxlength="2000"
+          rows="5"
+          placeholder="Partagez vos pensées..."
+          class="form-control"
+        ></textarea>
+      </div>
+      
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!newPost.title.trim() || !newPost.content.trim() || loading"
+        >
+          {{ loading ? 'Création...' : 'Publier' }}
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <!-- Loading -->
+  <div *ngIf="loading && posts.length === 0" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des posts...</p>
+  </div>
+  
+  <!-- Liste des posts -->
+  <div *ngIf="!loading || posts.length > 0" class="posts-container">
+    <div class="posts-header">
+      <h2>Tous les Posts ({{ totalPosts }})</h2>
+      <div class="filter-options">
+        <button class="btn btn-sm" [class.active]="showPosts" (click)="showPosts = true">
+          Posts
+        </button>
+      </div>
+    </div>
+    
+    <!-- Aucun post -->
+    <div *ngIf="posts.length === 0 && !loading" class="empty-state">
+      <p>Aucun post disponible. Soyez le premier à créer un post !</p>
+    </div>
+    
+    <!-- Liste -->
+    <div class="posts-list">
+      <div *ngFor="let post of posts" class="post-card">
+        <!-- En-tête du post -->
+        <div class="post-header">
+          <div class="post-author">
+            <span class="user-badge">User #{{ post.userId }}</span>
+            <span class="post-date">{{ getTimeAgo(post.createdAt) }}</span>
+          </div>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deletePost(post.id!)"
+            title="Supprimer le post"
+          >
+            ×
+          </button>
+        </div>
+        
+        <!-- Titre et contenu -->
+        <div class="post-body">
+          <h3 class="post-title">{{ post.title }}</h3>
+          <p class="post-content">{{ post.content }}</p>
+        </div>
+        
+        <!-- Actions -->
+        <div class="post-footer">
+          <div class="post-actions">
+            <button
+              class="upvote-btn"
+              (click)="upvotePost(post.id!)"
+              [class.upvoted]="post.upvotes > 0"
+              title="Upvote"
+            >
+              <span class="upvote-icon">▲</span>
+              <span class="upvote-count">{{ post.upvotes }}</span>
+            </button>
+            
+            <button
+              class="btn btn-sm btn-comment"
+              (click)="toggleComments(post.id!)"
+            >
+              {{ showCommentsForPostId === post.id ? 'Masquer' : 'Voir' }} les commentaires
+            </button>
+          </div>
+          
+          <!-- Zone de commentaire -->
+          <div class="comment-input">
+            <textarea
+              placeholder="Ajouter un commentaire..."
+              [(ngModel)]="newComment.content"
+              class="form-control"
+              rows="2"
+            ></textarea>
+            <button
+              class="btn btn-sm btn-primary"
+              (click)="addComment(post.id!)"
+              [disabled]="!newComment.content.trim()"
+            >
+              Commenter
+            </button>
+          </div>
+        </div>
+        
+        <!-- Commentaires (chargés à la demande) -->
+        <div *ngIf="showCommentsForPostId === post.id" class="comments-section">
+          <app-comment-list [postId]="post.id!"></app-comment-list>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pagination -->
+    <div *ngIf="totalPosts > pageSize" class="pagination">
+      <button
+        class="btn btn-sm"
+        [disabled]="currentPage === 0"
+        (click)="currentPage = currentPage - 1"
+      >
+        ← Précédent
+      </button>
+      <span>Page {{ currentPage + 1 }} sur {{ Math.ceil(totalPosts / pageSize) }}</span>
+      <button
+        class="btn btn-sm"
+        [disabled]="(currentPage + 1) * pageSize >= totalPosts"
+        (click)="currentPage = currentPage + 1"
+      >
+        Suivant →
+      </button>
+    </div>
+  </div>
+</div>

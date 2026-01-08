@@ -1,0 +1,124 @@
+<div class="profile-container" *ngIf="psychologue">
+    <!-- Back button -->
+    <button class="btn-back" (click)="retourListe()">
+        <i class="fa-solid fa-arrow-left"></i> Retour à la liste
+    </button>
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="profile-photo-section">
+            <img [src]="psychologue.photo" [alt]="psychologue.nom" class="profile-photo">
+            <span class="status-badge" [class.disponible]="psychologue.disponible"
+                [class.indisponible]="!psychologue.disponible">
+                {{ psychologue.disponible ? 'Disponible' : 'Indisponible' }}
+            </span>
+        </div>
+
+        <div class="profile-info">
+            <h1>{{ psychologue.nom }}</h1>
+            <p class="specialite">{{ psychologue.specialite }}</p>
+
+            <div class="rating">
+                <ng-container *ngFor="let i of getStarArray(psychologue.avis)">
+                    <i class="fa-solid"
+                        [ngClass]="i <= psychologue.avis ? 'fa-star' : (i - 0.5 <= psychologue.avis ? 'fa-star-half-stroke' : 'fa-star')">
+                    </i>
+                </ng-container>
+                <span class="note">{{ psychologue.avis }}/5</span>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-primary" (click)="reserverSession()" [disabled]="!psychologue.disponible">
+                    <i class="fa-solid fa-calendar-check"></i> Réserver une session
+                </button>
+                <button class="btn-secondary" (click)="envoyerMessage()">
+                    <i class="fa-solid fa-envelope"></i> Envoyer un message
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="profile-details">
+        <!-- About Section -->
+        <div class="detail-card">
+            <h2><i class="fa-solid fa-user"></i> À propos</h2>
+            <p>{{ psychologue.description }}</p>
+        </div>
+
+        <!-- Experience & Formation -->
+        <div class="detail-grid">
+            <div class="detail-card">
+                <h3><i class="fa-solid fa-briefcase"></i> Expérience</h3>
+                <p>{{ psychologue.experience }}</p>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fa-solid fa-graduation-cap"></i> Formation</h3>
+                <p>{{ psychologue.formation }}</p>
+            </div>
+        </div>
+
+        <!-- Languages & Tarif -->
+        <div class="detail-grid">
+            <div class="detail-card">
+                <h3><i class="fa-solid fa-language"></i> Langues parlées</h3>
+                <div class="langues-list">
+                    <span *ngFor="let langue of psychologue.langues" class="langue-badge">{{ langue }}</span>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fa-solid fa-euro-sign"></i> Tarif</h3>
+                <p class="tarif">{{ psychologue.tarif }}€ / session</p>
+            </div>
+        </div>
+
+        <!-- Contact & Schedule -->
+        <div class="detail-grid">
+            <div class="detail-card">
+                <h3><i class="fa-solid fa-clock"></i> Horaires</h3>
+                <p>{{ psychologue.horaires }}</p>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fa-solid fa-address-book"></i> Contact</h3>
+                <p><i class="fa-solid fa-envelope"></i> {{ psychologue.email }}</p>
+                <p><i class="fa-solid fa-phone"></i> {{ psychologue.telephone }}</p>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="detail-card reviews-section">
+            <h2><i class="fa-solid fa-comments"></i> Avis des patients</h2>
+
+            <div class="reviews-list">
+                <div *ngFor="let avis of avisClients" class="review-item">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">{{ avis.nom.charAt(0) }}</div>
+                            <div>
+                                <h4>{{ avis.nom }}</h4>
+                                <span class="review-date">{{ avis.date }}</span>
+                            </div>
+                        </div>
+                        <div class="review-rating">
+                            <ng-container *ngFor="let i of getStarArray(avis.note)">
+                                <i class="fa-solid"
+                                    [ngClass]="i <= avis.note ? 'fa-star' : (i - 0.5 <= avis.note ? 'fa-star-half-stroke' : 'fa-star')">
+                                </i>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <p class="review-comment">{{ avis.commentaire }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading state -->
+<div class="loading" *ngIf="!psychologue">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+    <p>Chargement du profil...</p>
+</div>

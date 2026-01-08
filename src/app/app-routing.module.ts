@@ -13,6 +13,8 @@ import { CoachExercisesComponent } from './components/coach-exercises/coach-exer
 import { ListEvaluationComponent } from './components/list-evaluation/list-evaluation.component';
 import { PatientMoodChartComponent } from './components/patient-mood-chart/patient-mood-chart.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { CoachProfileComponent } from './components/coach-profile/coach-profile.component';
+import { PostListComponent } from './components/post-list/post-list.component';
 
 
 const routes: Routes = [
@@ -22,19 +24,20 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'mood', component: EvaluationComponent},
+  { path: 'coach-profile/:id', component: CoachProfileComponent },
+  { path: 'mood', component: EvaluationComponent },
   { path: 'ex/:idPatient', component: ExercicesComponent },
-  { path: 'ex-pas', component:PatientExercisesComponent },
-  { path: 'ex-coa', component: CoachExercisesComponent},
-  { path: 'list-eva', component: ListEvaluationComponent},
-  { path: 'admin-users', component: AdminUsersComponent, canActivate: [AuthGuard] },
+  { path: 'ex-pas', component: PatientExercisesComponent },
+  { path: 'ex-coa', component: CoachExercisesComponent },
+  { path: 'list-eva', component: ListEvaluationComponent },
+  { path: 'posts', component: PostListComponent },{ path: 'admin-users', component: AdminUsersComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' },
-  
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

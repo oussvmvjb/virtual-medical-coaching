@@ -1,0 +1,68 @@
+<div class="comment-list-container">
+  <!-- En-tête -->
+  <div class="comments-header">
+    <h3>Commentaires ({{ comments.length }})</h3>
+  </div>
+  
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+  
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des commentaires...</p>
+  </div>
+  
+  <!-- Formulaire d'ajout -->
+  <div class="add-comment-form">
+    <div class="form-group">
+      <textarea
+        [(ngModel)]="newComment.content"
+        placeholder="Ajouter un commentaire..."
+        rows="3"
+        class="form-control"
+        maxlength="1000"
+      ></textarea>
+    </div>
+    <div class="form-actions">
+      <button
+        class="btn btn-primary btn-sm"
+        (click)="addComment()"
+        [disabled]="!newComment.content.trim() || loading"
+      >
+        {{ loading ? 'Publication...' : 'Publier' }}
+      </button>
+    </div>
+  </div>
+  
+  <!-- Liste des commentaires -->
+  <div *ngIf="!loading" class="comments-list">
+    <!-- Aucun commentaire -->
+    <div *ngIf="comments.length === 0" class="empty-comments">
+      <p>Aucun commentaire pour le moment. Soyez le premier à commenter !</p>
+    </div>
+    
+    <!-- Commentaires -->
+    <div *ngFor="let comment of comments" class="comment-item">
+      <div class="comment-header">
+        <div class="comment-author">
+          <span class="user-badge">User #{{ comment.userId }}</span>
+          <span class="comment-date">{{ getTimeAgo(comment.createdAt) }}</span>
+        </div>
+        <button
+          class="btn btn-sm btn-danger btn-delete"
+          (click)="deleteComment(comment.id!)"
+          title="Supprimer le commentaire"
+        >
+          ×
+        </button>
+      </div>
+      
+      <div class="comment-content">
+        <p>{{ comment.content }}</p>
+      </div>
+    </div>
+  </div>
+</div>

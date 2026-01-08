@@ -1,0 +1,816 @@
+// Variables
+$primary-color: #3498db;
+$primary-dark: #2980b9;
+$success-color: #2ecc71;
+$success-dark: #27ae60;
+$danger-color: #e74c3c;
+$danger-dark: #c0392b;
+$warning-color: #f39c12;
+$warning-dark: #e67e22;
+$dark-color: #2c3e50;
+$dark-light: #34495e;
+$light-color: #ecf0f1;
+$gray-color: #7f8c8d;
+$gray-light: #bdc3c7;
+$border-color: #dfe6e9;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$white: #ffffff;
+$off-white: #f8f9fa;
+:host {
+  display: block;
+  margin-top: 80px; // 👈 نزلها شوية
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin gradient-bg($color1, $color2) {
+  background: linear-gradient(135deg, $color1, $color2);
+}
+
+@mixin card-shadow($intensity: 0.08) {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, $intensity);
+}
+
+@mixin hover-lift {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@mixin transition-all($duration: 0.3s) {
+  transition: all $duration ease;
+}
+
+// Animations
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.05); 
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Main Container */
+.post-list-container {
+    border-radius: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  animation: fadeIn 0.5s ease;
+
+  /* Header */
+  .header {
+    @include flex-between;
+    margin-bottom: 2.5rem;
+    padding: 2rem;
+    background: rgba($white, 0.97);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    @include card-shadow(0.12);
+    border-left: 5px solid $primary-color;
+    @include transition-all;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba($primary-color, 0.15);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: $dark-color;
+      margin: 0;
+      background: linear-gradient(135deg, $primary-color, $primary-dark);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+  }
+
+  /* Alerts */
+  .alert {
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: slideIn 0.3s ease;
+
+    &.alert-error {
+      @include gradient-bg(#ffebee, #ffcdd2);
+      color: #c62828;
+      border-left: 4px solid #c62828;
+
+      &::before {
+        content: "⚠️";
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  /* Create Post Form */
+  .create-post-form {
+    background: rgba($white, 0.98);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    @include card-shadow;
+    border: 1px solid rgba($border-color, 0.5);
+    animation: fadeIn 0.4s ease;
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: $dark-color;
+      margin: 0 0 2rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      &::before {
+        content: "📝";
+        font-size: 1.5rem;
+      }
+    }
+
+    form {
+      .form-group {
+        margin-bottom: 1.75rem;
+
+        label {
+          display: block;
+          margin-bottom: 0.75rem;
+          font-weight: 600;
+          color: $dark-light;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          &::before {
+            font-size: 1.1rem;
+          }
+
+          &[for="title"]::before {
+            content: "🏷️";
+          }
+
+          &[for="content"]::before {
+            content: "📄";
+          }
+        }
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        border: 2px solid $border-color;
+        border-radius: 12px;
+        font-size: 1rem;
+        background: $off-white;
+        @include transition-all;
+        resize: vertical;
+
+        &:focus {
+          border-color: $primary-color;
+          box-shadow: 0 0 0 0.3rem rgba($primary-color, 0.15);
+          outline: none;
+          background: $white;
+          transform: translateY(-1px);
+        }
+
+        &::placeholder {
+          color: $gray-color;
+          opacity: 0.7;
+        }
+      }
+
+      textarea.form-control {
+        min-height: 150px;
+        line-height: 1.6;
+        font-family: inherit;
+      }
+    }
+
+    .form-actions {
+      text-align: right;
+      margin-top: 2rem;
+    }
+  }
+
+  /* Loading */
+  .loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba($white, 0.9);
+    border-radius: 20px;
+    margin: 2rem 0;
+
+    .spinner {
+      display: inline-block;
+      width: 70px;
+      height: 70px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid $primary-color;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      color: $gray-color;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  /* Posts Container */
+  .posts-container {
+    margin-top: 2rem;
+
+    .posts-header {
+      @include flex-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid $light-color;
+
+      h2 {
+        margin: 0;
+        color: $dark-color;
+        font-size: 1.8rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        &::before {
+          content: "📌";
+          font-size: 1.5rem;
+        }
+      }
+
+      .filter-options {
+        display: flex;
+        gap: 0.75rem;
+
+        .btn-sm {
+          padding: 0.5rem 1.25rem;
+          border: 2px solid $border-color;
+          background: $off-white;
+          color: $gray-color;
+          border-radius: 25px;
+          font-weight: 600;
+          font-size: 0.9rem;
+          cursor: pointer;
+          @include transition-all;
+
+          &:hover, &.active {
+            background: $primary-color;
+            color: $white;
+            border-color: $primary-color;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba($primary-color, 0.2);
+          }
+
+          &.active {
+            @include gradient-bg($primary-color, $primary-dark);
+          }
+        }
+      }
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: rgba($white, 0.9);
+      border-radius: 20px;
+      border: 2px dashed $gray-light;
+      animation: fadeIn 0.5s ease;
+
+      p {
+        font-size: 1.3rem;
+        color: $gray-color;
+        margin: 0;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        &::before {
+          content: "😔";
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          animation: pulse 2s infinite;
+        }
+      }
+    }
+
+    /* Posts List */
+    .posts-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  /* Post Card */
+  .post-card {
+    background: rgba($white, 0.98);
+    backdrop-filter: blur(15px);
+    border-radius: 18px;
+    padding: 2rem;
+    @include card-shadow;
+    border: 1px solid rgba($border-color, 0.5);
+    @include transition-all(0.4s);
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+
+      &::before {
+        transform: translateX(0);
+      }
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      @include gradient-bg($primary-color, $primary-dark);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    /* Post Header */
+    .post-header {
+      @include flex-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid $light-color;
+
+      .post-author {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        .user-badge {
+          @include gradient-bg(#e3f2fd, #bbdefb);
+          color: #1565c0;
+          padding: 0.5rem 1.25rem;
+          border-radius: 25px;
+          font-size: 0.9rem;
+          font-weight: 700;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          box-shadow: 0 4px 12px rgba(21, 101, 192, 0.1);
+          max-width: fit-content;
+
+          &::before {
+            content: "👤";
+            font-size: 0.9rem;
+          }
+        }
+
+        .post-date {
+          color: $gray-color;
+          font-size: 0.85rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-weight: 500;
+
+          &::before {
+            content: "🕒";
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+
+    /* Post Body */
+    .post-body {
+      margin-bottom: 1.75rem;
+
+      .post-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $dark-color;
+        margin: 0 0 1rem 0;
+        line-height: 1.4;
+        @include gradient-bg($dark-color, $dark-light);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.3px;
+      }
+
+      .post-content {
+        color: #546e7a;
+        line-height: 1.7;
+        margin: 0;
+        font-size: 1.05rem;
+        white-space: pre-wrap;
+      }
+    }
+
+    /* Post Footer */
+    .post-footer {
+      .post-actions {
+        @include flex-between;
+        margin-bottom: 1.5rem;
+
+        .upvote-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: $off-white;
+          border: 2px solid $border-color;
+          padding: 0.75rem 1.25rem;
+          border-radius: 25px;
+          cursor: pointer;
+          @include transition-all;
+          font-weight: 600;
+          color: $gray-color;
+
+          &:hover {
+            background: lighten($off-white, 2%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          }
+
+          &.upvoted {
+            @include gradient-bg($success-color, $success-dark);
+            color: $white;
+            border-color: $success-color;
+
+            .upvote-icon {
+              animation: pulse 0.5s ease;
+            }
+          }
+
+          .upvote-icon {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+          }
+
+          .upvote-count {
+            font-weight: 700;
+            font-size: 1.1rem;
+          }
+        }
+
+        .btn-comment {
+          @include gradient-bg($primary-color, $primary-dark);
+          color: $white;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 25px;
+          font-weight: 600;
+          cursor: pointer;
+          @include transition-all;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba($primary-color, 0.3);
+          }
+
+          &::before {
+            content: "💬";
+            font-size: 1rem;
+          }
+        }
+      }
+
+      /* Comment Input */
+      .comment-input {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid $light-color;
+
+        textarea {
+          flex: 1;
+          padding: 0.75rem 1rem;
+          border: 2px solid $border-color;
+          border-radius: 12px;
+          font-size: 0.95rem;
+          resize: vertical;
+          min-height: 70px;
+          background: $off-white;
+          @include transition-all;
+
+          &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.1);
+            outline: none;
+            background: $white;
+          }
+
+          &::placeholder {
+            color: $gray-color;
+          }
+        }
+
+        .btn-primary {
+          @include gradient-bg($primary-color, $primary-dark);
+          color: $white;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          @include transition-all;
+          align-self: flex-end;
+
+          &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba($primary-color, 0.3);
+          }
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+          }
+        }
+      }
+    }
+
+    /* Comments Section */
+    .comments-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid $light-color;
+      animation: fadeIn 0.3s ease;
+    }
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid $light-color;
+
+    span {
+      color: $gray-color;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+      background: $off-white;
+      border-radius: 8px;
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1.25rem;
+      border: 2px solid $border-color;
+      background: $off-white;
+      color: $dark-color;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      @include transition-all;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover:not(:disabled) {
+        @include gradient-bg($primary-color, $primary-dark);
+        color: $white;
+        border-color: $primary-color;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba($primary-color, 0.2);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      &:first-child::before {
+        content: "←";
+      }
+
+      &:last-child::after {
+        content: "→";
+      }
+    }
+  }
+
+  /* Buttons General */
+  .btn {
+    padding: 0.75rem 1.75rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    @include transition-all;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba($white, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+      &::before {
+        left: 100%;
+      }
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+
+    &.btn-primary {
+      @include gradient-bg($primary-color, $primary-dark);
+      color: $white;
+    }
+
+    &.btn-success {
+      @include gradient-bg($success-color, $success-dark);
+      color: $white;
+    }
+
+    &.btn-danger {
+      @include gradient-bg($danger-color, $danger-dark);
+      color: $white;
+    }
+
+    &.btn-sm {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .posts-list {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .header {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      padding: 1.75rem;
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .create-post-form {
+      padding: 1.75rem;
+    }
+
+    .posts-container .posts-header {
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: stretch;
+      text-align: center;
+    }
+
+    .posts-list {
+      grid-template-columns: 1fr;
+    }
+
+    .post-card {
+      padding: 1.5rem;
+    }
+
+    .post-footer .comment-input {
+      flex-direction: column;
+      align-items: stretch;
+
+      .btn-primary {
+        align-self: stretch;
+      }
+    }
+
+    .pagination {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .post-header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+
+      .btn-danger {
+        align-self: flex-end;
+      }
+    }
+
+    .post-actions {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+
+      .upvote-btn, .btn-comment {
+        justify-content: center;
+      }
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

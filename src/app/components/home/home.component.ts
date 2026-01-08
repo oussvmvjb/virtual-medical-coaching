@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Psychologue {
+  id?: number;
   nom: string;
   specialite: string;
   photo: string;
   disponible: boolean;
-  avis: number; 
+  avis: number;
 }
 
 @Component({
@@ -24,6 +26,7 @@ export class HomeComponent {
 
   psychologues: Psychologue[] = [
     {
+      id: 1,
       nom: 'Dr. Marie Dupont',
       specialite: 'Psychologie clinique',
       photo: 'assets/psycho1.jpg',
@@ -31,6 +34,7 @@ export class HomeComponent {
       avis: 4.5
     },
     {
+      id: 2,
       nom: 'Dr. Lina Ben Salah',
       specialite: 'Thérapie cognitive',
       photo: 'assets/psycho2.jpg',
@@ -38,6 +42,7 @@ export class HomeComponent {
       avis: 4
     },
     {
+      id: 3,
       nom: 'Dr. Sophie Martin',
       specialite: 'Psychothérapie',
       photo: 'assets/psycho3.jpg',
@@ -45,6 +50,7 @@ export class HomeComponent {
       avis: 5
     },
     {
+      id: 4,
       nom: 'Dr. Karim Lamine',
       specialite: 'Psychologie du travail',
       photo: 'assets/psycho4.jpg',
@@ -53,8 +59,10 @@ export class HomeComponent {
     }
   ];
 
+  constructor(private router: Router) { }
+
   commencer() {
-    alert('Redirection vers la réservation d’une session.');
+    alert('Redirection vers la réservation dune session.');
   }
 
   trouverCoach() {
@@ -62,10 +70,13 @@ export class HomeComponent {
   }
 
   voirProfil(psycho: Psychologue) {
-    alert(`Voir le profil de ${psycho.nom}`);
+    if (psycho.id) {
+      this.router.navigate(['/coach-profile', psycho.id]);
+    }
   }
 
   toggleDisponibilite(index: number) {
     this.psychologues[index].disponible = !this.psychologues[index].disponible;
   }
 }
+

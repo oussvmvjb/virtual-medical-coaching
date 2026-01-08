@@ -1,19 +1,21 @@
 <nav class="medical-nav " *ngIf="!isLoginPage()">
   <div class="nav-wrapper">
-    <div class="nav-main">
-      <a class="brand" routerLink="/home">
-        <div class="brand-logo">
-          <div class="logo-icon">
-            <i class="fas fa-heartbeat"></i>
-          </div>
-          <div class="logo-pulse"></div>
-        </div>
-        <div class="brand-name">
-          <span class="primary">Virtual Medical</span>
-          <span class="secondary">Coaching</span>
-        </div>
-      </a>
+   <div class="nav-main">
+  <a class="brand" routerLink="/home">
+    <div class="brand-logo">
+      <img
+        src="assets/logore.png"
+        alt="RE Logo"
+        class="logo-img"
+      />
     </div>
+
+    <div class="brand-name">
+      <span class="primary">RE</span>
+    </div>
+  </a>
+</div>
+
 
 
     <div class="nav-center">
@@ -32,6 +34,13 @@
             <i class="fas fa-user"></i>
           </div>
           <span class="nav-label">Profil</span>
+          <div class="nav-indicator"></div>
+        </a>
+        <a class="nav-item" routerLink="/posts" routerLinkActive="active">
+          <div class="nav-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <span class="nav-label">Posts</span>
           <div class="nav-indicator"></div>
         </a>
 

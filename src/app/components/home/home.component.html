@@ -1,162 +1,346 @@
- 
-<section class="hero">
-  <div class="hero-content">
-    <h1>Trouvez votre<br><span>équilibre mental</span></h1>
-    <p>Parlez à un psychologue certifié, en toute confiance et depuis chez vous.</p>
-
-    <div class="hero-buttons">
-      <button (click)="commencer()" class="btn-primary">Commencer maintenant</button>
-      <button (click)="trouverCoach()" class="btn-outline">Trouver un coach</button>
-    </div>
-  </div>
-
-  <div class="hero-img">
-    <img src="assets/psychology.webp" alt="Coaching illustration">
-  </div>
-</section>
-
-
- 
-<section class="cta">
-  <div class="cta-container">
-    <h2>Commencez votre première consultation</h2>
-    <p class="disc">
-        Virtual Medical Coaching est une application simple et sécurisée qui vous permet 
-        de consulter des psychologues certifiés en ligne, depuis chez vous. 
-        Suivi personnalisé, visioconférences, chat sécurisé et ressources pour améliorer 
-        votre santé mentale — tout est réuni pour votre sérénité.
-      </p>
-      <p>Réservez une session avec un psychologue certifié en quelques clics.</p>
-    <button (click)="commencer()" class="btn-cta">Réserver une session</button>
-  </div>
-</section>
-
- 
-<section class="needs">
-  <h2>De quoi avez-vous besoin aujourd’hui ?</h2>
-  <div class="needs-list">
-    <span *ngFor="let besoin of besoins">{{ besoin }}</span>
-  </div>
-</section>
- 
-<section class="how-it-works">
-  <h2>Comment ça marche ?</h2>
-  <div class="steps-grid">
-    <div class="step-card">
-      <i class="fa-solid fa-user-check"></i>
-      <h3>Choisissez un psychologue</h3>
-    </div>
-    <div class="step-card">
-      <i class="fa-solid fa-calendar-check"></i>
-      <h3>Planifiez votre session</h3>
-    </div>
-    <div class="step-card">
-      <i class="fa-solid fa-video"></i>
-      <h3>Parlez en ligne</h3>
-    </div>
-    <div class="step-card">
-      <i class="fa-solid fa-heart"></i>
-      <h3>Recevez un suivi</h3>
-    </div>
-  </div>
-</section>
 
 
 
- 
-<section class="psychos">
-  <h2>Nos psychologues</h2>
-  <ul class="psychos-list">
-    <li *ngFor="let psycho of psychologues" class="psychos-item">
-      <img [src]="psycho.photo" [alt]="psycho.nom" class="psycho-photo">
-      <div class="psycho-info">
-        <h3>{{ psycho.nom }}</h3>
-        <p>{{ psycho.specialite }}</p>
-        <div class="psycho-avis">
-          <ng-container *ngFor="let i of [1,2,3,4,5]">
-            <i class="fa-solid" 
-               [ngClass]="i <= psycho.avis ? 'fa-star' : (i - 0.5 <= psycho.avis ? 'fa-star-half-stroke' : 'fa-star')">
-            </i>
-          </ng-container>
-          <span class="note">{{ psycho.avis }}/5</span>
-        </div>
-        <span class="status" [class.disponible]="psycho.disponible" [class.indisponible]="!psycho.disponible">
-          {{ psycho.disponible ? 'Disponible' : 'Indisponible' }}
-        </span>
-        <button class="voir-profil" (click)="voirProfil(psycho)">Voir profil</button>
+  <!-- Hero Section -->
+  <section class="hero" id="accueil">
+    <div class="hero-content">
+      <h1>Reprenez le contrôle<br><span>pas à pas</span></h1>
+      <p class="hero-subtitle">Vous n’êtes pas seul face à l’addiction. Parlez à un professionnel en toute confidentialité.</p>
+      <div class="hero-buttons">
+        <button class="btn-medical btn-primary">
+          <i class="fas fa-video"></i> Consultation vidéo
+        </button>
+        <button class="btn-medical btn-outline">
+          <i class="fas fa-calendar-check"></i> Prendre rendez-vous
+        </button>
       </div>
-    </li>
-  </ul>
-</section>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">Patients accompagnés</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Satisfaction</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Support disponible</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="assets/logore.png" alt="Support Addiction Illustration">
+    </div>
+  </section>
 
- 
-<section class="video-intro">
-  <h2>Découvrez Virtual Medical Coaching</h2>
-  <div class="video-container">
-    <iframe width="560" height="315"
-            src="https://www.youtube.com/embed/-2GBZ-PEEtY?autoplay=1&mute=1"
-            title="Coaching Psychologue"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-    </iframe>
+  <!-- Needs Section -->
+  <section class="needs-section">
+    <div class="section-header">
+      <h2>Nous comprenons vos besoins</h2>
+      <p>Notre plateforme est conçue pour répondre à tous les aspects de votre bien-être</p>
+    </div>
+    <div class="state-grid">
+      <div class="state-item">
+        <div class="state-icon appetite">
+          <i class="fas fa-utensils"></i>
+        </div>
+        <div class="state-content">
+          <h3>Appétit & Nutrition</h3>
+          <p>Suivi alimentaire personnalisé</p>
+        </div>
+      </div>
+      <div class="state-item">
+        <div class="state-icon activity">
+          <i class="fas fa-running"></i>
+        </div>
+        <div class="state-content">
+          <h3>Activité physique</h3>
+          <p>Programmes adaptés à votre rythme</p>
+        </div>
+      </div>
+      <div class="state-item">
+        <div class="state-icon social">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="state-content">
+          <h3>Vie sociale</h3>
+          <p>Groupes de soutien et activités</p>
+        </div>
+      </div>
+      <div class="state-item">
+        <div class="state-icon mental">
+          <i class="fas fa-brain"></i>
+        </div>
+        <div class="state-content">
+          <h3>Santé mentale</h3>
+          <p>Thérapie et suivi psychologique</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="works-section">
+    <div class="section-header">
+      <h2>Comment ça marche ?</h2>
+      <p>Trois étapes simples vers votre bien-être</p>
+    </div>
+    <div class="metrics-grid">
+      <div class="card-medical">
+        <div class="card-icon">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <h3>Évaluation</h3>
+        <p>Questionnaire confidentiel pour comprendre vos besoins</p>
+      </div>
+      <div class="card-medical">
+        <div class="card-icon">
+          <i class="fas fa-user-md"></i>
+        </div>
+        <h3>Consultation</h3>
+        <p>Rencontre avec un spécialiste certifié</p>
+      </div>
+      <div class="card-medical">
+        <div class="card-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Suivi</h3>
+        <p>Accompagnement régulier et ajustements</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specialists Section -->
+  <section class="specialists-section" id="specialistes">
+    <div class="section-header">
+      <h2>Nos Spécialistes</h2>
+      <p>Des professionnels expérimentés à votre écoute</p>
+    </div>
+    <ul class="psychos-list">
+      <li class="psychos-item">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+             alt="Dr. Sarah Chen" class="psycho-photo">
+        <div class="psycho-info">
+          <h3>Dr. Sarah Chen</h3>
+          <p>Psychiatre addictologue</p>
+          <p class="experience">15 ans d'expérience</p>
+          <p class="status disponible">Disponible maintenant</p>
+        </div>
+      </li>
+      <li class="psychos-item">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+             alt="Dr. Marcus Johnson" class="psycho-photo">
+        <div class="psycho-info">
+          <h3>Dr. Marcus Johnson</h3>
+          <p>Psychologue clinicien</p>
+          <p class="experience">12 ans d'expérience</p>
+          <p class="status disponible">Disponible maintenant</p>
+        </div>
+      </li>
+      <li class="psychos-item">
+        <img src="https://images.unsplash.com/photo-1594824434340-7e7dfc37cabb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+             alt="Dr. Elena Rodriguez" class="psycho-photo">
+        <div class="psycho-info">
+          <h3>Dr. Elena Rodriguez</h3>
+          <p>Thérapeute familiale</p>
+          <p class="experience">10 ans d'expérience</p>
+          <p class="status indisponible">Disponible demain</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Video Introduction -->
+  <section class="video-section">
+    <div class="section-header">
+      <h2>Découvrez notre approche</h2>
+      <p>Une méthode qui a fait ses preuves</p>
+    </div>
+    <div class="video-container">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                title="Présentation de notre méthode" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+        </iframe>
+        <div class="video-overlay">
+          <i class="fas fa-play-circle"></i>
+          <p>Regarder la présentation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section" id="services">
+    <div class="section-header">
+      <h2>Nos Services</h2>
+      <p>Une gamme complète de solutions adaptées</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <i class="fas fa-video"></i>
+        <h3>Consultation en ligne</h3>
+        <p>Discutez avec un professionnel depuis chez vous</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-comments"></i>
+        <h3>Groupes de parole</h3>
+        <p>Échangez avec des personnes ayant vécu la même chose</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Application mobile</h3>
+        <p>Suivez vos progrès quotidiennement</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-book-medical"></i>
+        <h3>Ressources éducatives</h3>
+        <p>Accédez à des documents et guides utiles</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section" id="temoignages">
+    <div class="section-header">
+      <h2>Ils nous font confiance</h2>
+      <p>Découvrez les témoignages de nos patients</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="quote-icon">
+          <i class="fas fa-quote-left"></i>
+        </div>
+        <p>"Grâce à cette plateforme, j'ai retrouvé confiance en moi. L'accompagnement est exceptionnel."</p>
+        <div class="testimonial-author">
+          <strong>Marie L.</strong>
+          <span>6 mois de sobriété</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="quote-icon">
+          <i class="fas fa-quote-left"></i>
+        </div>
+        <p>"Les spécialistes sont à l'écoute et compréhensifs. Je recommande à 100% !"</p>
+        <div class="testimonial-author">
+          <strong>Thomas R.</strong>
+          <span>1 an de suivi</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="quote-icon">
+          <i class="fas fa-quote-left"></i>
+        </div>
+        <p>"La flexibilité des consultations en ligne a changé ma vie. Merci pour tout."</p>
+        <div class="testimonial-author">
+          <strong>Sophie M.</strong>
+          <span>8 mois de progression</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta">
+      <h2>Prêt à commencer votre chemin vers le mieux-être ?</h2>
+      <p class="disc">La première consultation est offerte. Pas d'engagement.</p>
+      <div class="cta-buttons">
+        <button class="btn-medical btn-primary">
+          <i class="fas fa-comment-medical"></i> Parler à un spécialiste
+        </button>
+        <button class="btn-medical btn-outline">
+          <i class="fas fa-phone-alt"></i> Appeler le 0800 123 456
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forum Link Section -->
+  <section class="forum-section" id="forum">
+    <div class="section-header">
+      <h2>Forum d'entraide</h2>
+      <p>Rejoignez notre communauté de soutien</p>
+    </div>
+    <div class="forum-card">
+      <i class="fas fa-users fa-3x"></i>
+      <h3>Échangez avec la communauté</h3>
+      <p>Partagez vos expériences, obtenez du soutien et découvrez des conseils pratiques</p>
+      <a href="/forum" class="btn-medical btn-primary">
+        <i class="fas fa-comments"></i> Accéder au forum
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <i class="fas fa-heartbeat"></i>
+          <span>Support<span class="logo-highlight">Addict</span></span>
+        </div>
+        <p>Votre partenaire de confiance dans le chemin vers le mieux-être.</p>
+        <div class="footer-contact">
+          <p><i class="fas fa-phone"></i> 0800 123 456 (Gratuit)</p>
+          <p><i class="fas fa-envelope"></i> contact@supportaddict.fr</p>
+          <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Bien-être, 75000 Paris</p>
+        </div>
+      </div>
+      <div class="footer-middle">
+        <h3>Liens rapides</h3>
+        <ul>
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#services">Nos services</a></li>
+          <li><a href="#specialistes">Spécialistes</a></li>
+          <li><a href="#forum">Forum</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-right">
+        <h3>Suivez-nous</h3>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="newsletter">
+          <p>Abonnez-vous à notre newsletter</p>
+          <div class="newsletter-input">
+            <input type="email" placeholder="Votre email">
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 SupportAddict. Tous droits réservés. | <a href="#">Politique de confidentialité</a> | <a href="#">Mentions légales</a></p>
+    </div>
+  </footer>
+
+  <!-- Chatbot Widget -->
+  <div class="chatbot-widget">
+    <button class="chatbot-toggle">
+      <i class="fas fa-comment-medical"></i>
+      <span>Besoin d'aide ?</span>
+    </button>
+    <div class="chatbot-container">
+      <div class="chatbot-header">
+        <h4><i class="fas fa-robot"></i> Assistant virtuel</h4>
+        <button class="chatbot-close"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chatbot-body">
+        <p>Bonjour ! Comment puis-je vous aider aujourd'hui ?</p>
+      </div>
+      <div class="chatbot-input">
+        <input type="text" placeholder="Tapez votre message...">
+        <button><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
   </div>
-</section>
 
-
-<section class="services">
-  <h2>Nos services</h2>
-  <div class="services-grid">
-    <div class="service-card">
-      <i class="fa-solid fa-video"></i>
-      <h3>Visioconférence</h3>
-      <p>Sessions en direct depuis votre domicile.</p>
-    </div>
-    <div class="service-card">
-      <i class="fa-solid fa-comments"></i>
-      <h3>Chat sécurisé</h3>
-      <p>Posez vos questions en toute confidentialité.</p>
-    </div>
-    <div class="service-card">
-      <i class="fa-solid fa-book"></i>
-      <h3>Ressources</h3>
-      <p>Guides, exercices et conseils pour votre bien-être.</p>
-    </div>
-  </div>
-</section>
-
-
-<section class="testimonials">
-  <h2>Témoignages de nos patients</h2>
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <p>"Grâce à Virtual Medical Coaching, j'ai retrouvé confiance et sérénité."</p>
-      <h4>- Marie L.</h4>
-    </div>
-    <div class="testimonial-card">
-      <p>"Les séances en ligne sont faciles et très efficaces."</p>
-      <h4>- Ahmed B.</h4>
-    </div>
-    <div class="testimonial-card">
-      <p>"Psychologues professionnels et très à l'écoute."</p>
-      <h4>- Sophie D.</h4>
-    </div>
-  </div>
-</section>
-
-
-<footer class="footer">
-  <div class="footer-left">
-    <h3>Virtual Medical Coaching</h3>
-    <p>Votre santé mentale, notre priorité.</p>
-  </div>
-  <div class="footer-right">
-    <p>Suivez-nous :</p>
-    <div class="socials">
-      <a href="#"><i class="fa-brands fa-facebook"></i></a>
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-      <a href="#"><i class="fa-brands fa-youtube"></i></a>
-    </div>
-  </div>
-</footer>

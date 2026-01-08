@@ -1,100 +1,175 @@
 <div class="prescription-container">
   <div class="container mt-4">
     
-
-    <div class="page-header-section evaluation-header mb-4">
+    <!-- Header Section -->
+    <div class="page-header-section evaluation-header mb-5">
       <div class="header-content">
         <div class="medical-icon evaluation">
           <i class="fas fa-clipboard-check"></i>
         </div>
         <div class="header-text">
-          <h1 class="main-title">Évaluation de l'Humeur</h1>
-          <p class="subtitle">Suivi quotidien de votre état de santé</p>
+          <h1 class="main-title">Évaluation Quotidienne</h1>
+          <p class="subtitle">Suivi de votre parcours de rétablissement</p>
         </div>
       </div>
     </div>
 
+    <!-- Alert Warning -->
+    <div *ngIf="evaluationForm.get('pensees_risque')?.value" class="alert-medical alert-warning mb-4">
+      <div class="alert-content">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>
+          <h5>Alerte de Sécurité Activée</h5>
+          <p>Vos réponses indiquent des pensées à risque. Un suivi rapide sera effectué par votre coach.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="evaluation-form-container">
       <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
 
-
-        <div class="card-medical mb-4">
+        <!-- Main Indicators Section -->
+        <div class="card-medical mb-5">
           <div class="card-header-medical">
             <h5 class="card-title">
-              <i class="fas fa-chart-line me-2"></i>Indicateurs de Bien-être (1-10)
+              <i class="fas fa-chart-line me-2"></i>Indicateurs Principaux
             </h5>
           </div>
           <div class="card-body-medical">
             <div class="metrics-grid">
-              <div class="metric-slider" *ngFor="let metric of ['humeur', 'stress', 'energie', 'motivation', 'sommeil']">
+              <div class="metric-slider" *ngFor="let metric of mainMetrics">
                 <div class="metric-header">
                   <label class="metric-label">
-                    <i [class]="getMetricIcon(metric)" class="me-2"></i>
                     {{ getMetricLabel(metric) }}
                   </label>
                   <span class="metric-value">{{ evaluationForm.get(metric)?.value }}/10</span>
                 </div>
                 <input type="range" class="form-range-medical" min="1" max="10" [formControlName]="metric">
                 <div class="metric-scale">
-                  <span class="scale-min">1 (Faible)</span>
-                  <span class="scale-max">10 (Fort)</span>
+                  <span class="scale-min">{{ getScaleMin(metric) }}</span>
+                  <span class="scale-max">{{ getScaleMax(metric) }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-
-        <div class="card-medical mb-4">
+        <!-- Physical & Social State Section -->
+        <div class="card-medical mb-5">
           <div class="card-header-medical">
             <h5 class="card-title">
-              <i class="fas fa-heartbeat me-2"></i>État Physique & Social
+              <i class="fas fa-heartbeat me-2"></i>État Physique et Social
             </h5>
           </div>
           <div class="card-body-medical">
             <div class="state-grid">
+              <!-- Appetit -->
               <div class="state-item">
                 <div class="state-icon appetite">
                   <i class="fas fa-utensils"></i>
                 </div>
                 <div class="state-content">
                   <label class="state-label">Appétit</label>
-                  <select class="form-select-medical" formControlName="appetit">
-                    <option *ngFor="let opt of appetitOptions" [value]="opt">{{ opt }}</option>
-                  </select>
+                  <div class="radio-group">
+                    <label *ngFor="let opt of appetitOptions" class="radio-label">
+                      <input type="radio" [formControlName]="'appetit'" [value]="opt">
+                      <span class="radio-custom"></span>
+                      <span class="radio-text">{{ opt }}</span>
+                    </label>
+                  </div>
                 </div>
               </div>
 
+              <!-- Physical Activity -->
               <div class="state-item">
                 <div class="state-icon activity">
                   <i class="fas fa-running"></i>
                 </div>
                 <div class="state-content">
-                  <label class="state-label">Activité Physique</label>
-                  <select class="form-select-medical" formControlName="activite_physique">
-                    <option *ngFor="let opt of activiteOptions" [value]="opt">{{ opt }}</option>
-                  </select>
+                  <label class="state-label">Activité physique</label>
+                  <div class="radio-group">
+                    <label *ngFor="let opt of activiteOptions" class="radio-label">
+                      <input type="radio" [formControlName]="'activite_physique'" [value]="opt">
+                      <span class="radio-custom"></span>
+                      <span class="radio-text">{{ opt }}</span>
+                    </label>
+                  </div>
                 </div>
               </div>
 
+              <!-- Social Interactions -->
               <div class="state-item">
                 <div class="state-icon social">
                   <i class="fas fa-users"></i>
                 </div>
                 <div class="state-content">
-                  <label class="state-label">Interactions Sociales</label>
-                  <select class="form-select-medical" formControlName="interactions_sociales">
-                    <option *ngFor="let opt of socialOptions" [value]="opt">{{ opt }}</option>
-                  </select>
+                  <label class="state-label">Interactions sociales</label>
+                  <div class="radio-group">
+                    <label *ngFor="let opt of socialOptions" class="radio-label">
+                      <input type="radio" [formControlName]="'interactions_sociales'" [value]="opt">
+                      <span class="radio-custom"></span>
+                      <span class="radio-text">{{ opt }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hydration -->
+              <div class="state-item">
+                <div class="state-icon hydration">
+                  <i class="fas fa-tint"></i>
+                </div>
+                <div class="state-content">
+                  <label class="state-label">Hydratation</label>
+                  <div class="radio-group">
+                    <label *ngFor="let opt of hydratationOptions" class="radio-label">
+                      <input type="radio" [formControlName]="'hydratation'" [value]="opt">
+                      <span class="radio-custom"></span>
+                      <span class="radio-text">{{ opt }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Regular Meals -->
+              <div class="state-item">
+                <div class="state-icon meals">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="state-content">
+                  <label class="state-label">Repas réguliers</label>
+                  <div class="radio-group">
+                    <label *ngFor="let opt of repasOptions" class="radio-label">
+                      <input type="radio" [formControlName]="'repas_reguliers'" [value]="opt">
+                      <span class="radio-custom"></span>
+                      <span class="radio-text">{{ opt }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Exercise Routine -->
+              <div class="state-item">
+                <div class="state-icon routine">
+                  <i class="fas fa-dumbbell"></i>
+                </div>
+                <div class="state-content">
+                  <label class="state-label">Routine d'exercice</label>
+                  <div class="radio-group">
+                    <label *ngFor="let opt of routineOptions" class="radio-label">
+                      <input type="radio" [formControlName]="'routine_exercice'" [value]="opt">
+                      <span class="radio-custom"></span>
+                      <span class="radio-text">{{ opt }}</span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-
-        <div class="card-medical mb-4">
+        <!-- Risk Assessment Section -->
+        <div class="card-medical mb-5">
           <div class="card-header-medical warning">
             <h5 class="card-title">
               <i class="fas fa-exclamation-triangle me-2"></i>Évaluation des Risques
@@ -102,12 +177,12 @@
           </div>
           <div class="card-body-medical">
             <div class="risk-assessment">
-              <div class="risk-toggle">
+              <div class="risk-question">
                 <div class="form-check-medical">
                   <input class="form-check-input-medical" type="checkbox" id="riskSwitch" formControlName="pensees_risque">
                   <label class="form-check-label-medical" for="riskSwitch">
                     <i class="fas fa-shield-alt me-2"></i>
-                    Présence de pensées à risque ?
+                    Présence de pensées de rechute ou comportements à risque ?
                   </label>
                 </div>
               </div>
@@ -116,19 +191,19 @@
                 <div class="risk-details-content">
                   <label class="risk-label">
                     <i class="fas fa-notes-medical me-2"></i>
-                    Détails (Obligatoire)
+                    Détails sur les pensées ou comportements à risque
                   </label>
                   <textarea class="form-input-medical risk-textarea" rows="3" 
                             formControlName="details_risque" 
-                            placeholder="Veuillez décrire les pensées ou préoccupations..."></textarea>
+                            placeholder="Décrivez vos pensées ou préoccupations en détail..."></textarea>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-
-        <div class="card-medical mb-4">
+        <!-- Additional Information Section -->
+        <div class="card-medical mb-5">
           <div class="card-header-medical">
             <h5 class="card-title">
               <i class="fas fa-sticky-note me-2"></i>Informations Complémentaires
@@ -139,37 +214,37 @@
               <div class="info-item">
                 <label class="info-label">
                   <i class="fas fa-thermometer-half me-2"></i>
-                  Symptômes
+                  Symptômes ressentis
                 </label>
-                <textarea class="form-input-medical" rows="2" 
+                <textarea class="form-input-medical" rows="3" 
                           formControlName="symptomes" 
-                          placeholder="Décrivez vos symptômes (douleurs, anxiété, fatigue...)"></textarea>
+                          placeholder="Décrivez vos symptômes (douleurs, anxiété, fatigue, etc.)"></textarea>
               </div>
 
               <div class="info-item">
                 <label class="info-label">
                   <i class="fas fa-comment-dots me-2"></i>
-                  Commentaire Général
+                  Commentaires additionnels
                 </label>
-                <textarea class="form-input-medical" rows="2" 
+                <textarea class="form-input-medical" rows="3" 
                           formControlName="commentaire"
-                          placeholder="Partagez vos observations ou préoccupations..."></textarea>
+                          placeholder="Partagez vos observations, préoccupations ou succès..."></textarea>
               </div>
             </div>
           </div>
         </div>
 
-
+        <!-- Action Buttons -->
         <div class="action-section-medical">
           <div class="action-buttons">
             <button type="submit" class="btn-medical btn-primary" [disabled]="evaluationForm.invalid">
               <i class="fas fa-save me-2"></i>
-              Enregistrer l'Évaluation
+              Enregistrer l'évaluation
             </button>
 
             <button type="button" class="btn-medical btn-success" (click)="afficherGraphe()">
               <i class="fas fa-chart-bar me-2"></i>
-              Voir le Graphique
+              Voir le graphique d'évolution
             </button>
 
             <button type="button" class="btn-medical btn-outline" (click)="resetForm()">
@@ -181,20 +256,46 @@
 
       </form>
 
-      <div *ngIf="showGraph" class="card-medical mt-4">
+      <!-- Graph Section -->
+      <div *ngIf="showGraph" class="card-medical mt-5">
         <div class="card-header-medical">
           <h5 class="card-title">
-            <i class="fas fa-chart-line me-2"></i>Évolution des Évaluations
+            <i class="fas fa-chart-line me-2"></i>Graphique d'Évolution
           </h5>
+          <div class="graph-controls">
+            <button class="btn-graph-control" [class.active]="viewType === 'weekly'" (click)="setViewType('weekly')">
+              Vue Hebdomadaire
+            </button>
+            <button class="btn-graph-control" [class.active]="viewType === 'monthly'" (click)="setViewType('monthly')">
+              Vue Mensuelle
+            </button>
+            <button class="btn-graph-control" [class.active]="viewType === 'all'" (click)="setViewType('all')">
+              Tout Afficher
+            </button>
+          </div>
         </div>
         <div class="card-body-medical">
-          <div class="graph-container">
-            <canvas id="evaluationGraph"></canvas>
+          <!-- Empty State -->
+          <div *ngIf="!hasEvaluationData" class="empty-graph-state">
+            <i class="fas fa-chart-bar"></i>
+            <h4>Aucune donnée enregistrée pour le moment</h4>
+            <p>Enregistrez votre première évaluation pour voir l'évolution!</p>
           </div>
-          <div class="graph-legend">
-            <div class="legend-item" *ngFor="let item of graphLegend">
-              <span class="legend-color" [style.background]="item.color"></span>
-              <span class="legend-text">{{ item.label }}</span>
+
+          <!-- Graph with Data -->
+          <div *ngIf="hasEvaluationData" class="graph-content">
+            <div class="graph-container">
+              <canvas id="evaluationGraph"></canvas>
+            </div>
+            <div class="graph-legend">
+              <div class="legend-item" *ngFor="let item of graphLegend">
+                <span class="legend-color" [style.background]="item.color"></span>
+                <span class="legend-text">{{ item.label }}</span>
+              </div>
+            </div>
+            <div class="graph-note">
+              <i class="fas fa-info-circle"></i>
+              <p><strong>Note:</strong> Le craving est inversé dans le graphique (10 - valeur) pour que ↑ représente une amélioration</p>
             </div>
           </div>
         </div>

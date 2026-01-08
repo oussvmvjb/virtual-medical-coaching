@@ -1,0 +1,516 @@
+.prescription-container {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.container.mt-4 {
+  padding: 0 2rem;
+}
+
+.evaluation-form-container {
+  margin-top: 1rem;
+}
+
+// تنسيقات العنوان
+.page-header-section {
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #28a745;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  .medical-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #28a745, #20c997);
+  }
+  
+  .header-text {
+    .main-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #2c3e50;
+      margin: 0 0 0.5rem 0;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: #6c757d;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+}
+
+// تنسيقات البطاقات
+.card-medical {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-bottom: 1.5rem;
+  
+  .card-header-medical {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1.5rem;
+    border-radius: 15px 15px 0 0;
+    border-bottom: 2px solid #e9ecef;
+    
+    .card-title {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      
+      i {
+        color: #007bff;
+      }
+    }
+    
+    &.warning {
+      background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+      border-bottom: 2px solid #ffc107;
+      
+      .card-title {
+        color: #856404;
+        
+        i {
+          color: #ffc107;
+        }
+      }
+    }
+  }
+  
+  .card-body-medical {
+    padding: 2rem;
+  }
+}
+
+// تنسيقات المؤشرات
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.metric-slider {
+  .metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    
+    .metric-label {
+      font-weight: 600;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      
+      i {
+        color: #007bff;
+        width: 20px;
+      }
+    }
+    
+    .metric-value {
+      background: linear-gradient(135deg, #007bff, #00c6ff);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.form-range-medical {
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
+  background: #e9ecef;
+  outline: none;
+  
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+  }
+  
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+  }
+}
+
+.metric-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+// تنسيقات الحالة البدنية والاجتماعية
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.state-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .state-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    
+    &.appetite { background: linear-gradient(135deg, #28a745, #20c997); }
+    &.activity { background: linear-gradient(135deg, #fd7e14, #dc3545); }
+    &.social { background: linear-gradient(135deg, #6f42c1, #e83e8c); }
+  }
+  
+  .state-content {
+    flex: 1;
+    
+    .state-label {
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+  }
+}
+
+.form-select-medical {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: white;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+  }
+}
+
+// تنسيقات تقييم المخاطر
+.risk-assessment {
+  .risk-toggle {
+    margin-bottom: 1rem;
+  }
+  
+  .form-check-medical {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    
+    .form-check-input-medical {
+      width: 50px;
+      height: 25px;
+      border-radius: 25px;
+      background: #e9ecef;
+      border: 2px solid #dee2e6;
+      appearance: none;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:checked {
+        background: #dc3545;
+        border-color: #dc3545;
+        
+        &::after {
+          transform: translateX(25px);
+        }
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 17px;
+        height: 17px;
+        background: white;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+    }
+    
+    .form-check-label-medical {
+      font-weight: 600;
+      color: #dc3545;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+  }
+  
+  .risk-details {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: rgba(220, 53, 69, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid #dc3545;
+    
+    .risk-label {
+      font-weight: 600;
+      color: #721c24;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+// تنسيقات المعلومات الإضافية
+.additional-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-item {
+  .info-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    
+    i {
+      color: #007bff;
+      width: 20px;
+    }
+  }
+}
+
+.form-input-medical {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  resize: vertical;
+  
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+  }
+  
+  &.risk-textarea {
+    border-color: #dc3545;
+    
+    &:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+  }
+}
+
+// تنسيقات الأزرار
+.action-section-medical {
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.btn-medical {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  &.btn-primary {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+  }
+  
+  &.btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+  }
+  
+  &.btn-secondary {
+    background: #6c757d;
+    color: white;
+  }
+  
+  &.btn-outline {
+    background: transparent;
+    border: 2px solid #007bff;
+    color: #007bff;
+    
+    &:hover {
+      background: #007bff;
+      color: white;
+    }
+  }
+}
+
+// تنسيقات الرسم البياني
+.graph-container {
+  position: relative;
+  height: 300px;
+  margin-bottom: 1.5rem;
+}
+
+.graph-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+    }
+    
+    .legend-text {
+      font-size: 0.9rem;
+      color: #6c757d;
+      font-weight: 500;
+    }
+  }
+}
+
+// تحسينات للشاشات الصغيرة
+@media (max-width: 768px) {
+  .container.mt-4 {
+    padding: 0 1rem;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .state-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .additional-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .state-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .page-header-section .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .medical-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+  
+  .header-text .main-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .graph-legend {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}
